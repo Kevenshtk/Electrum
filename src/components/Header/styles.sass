@@ -1,0 +1,134 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+@mixin center-content
+    max-width: $container-width
+    margin: 0 auto
+    display: flex
+    justify-content: space-between
+
+@mixin header-icon
+    position: relative
+    display: flex
+    flex-direction: column
+    text-align: center
+    margin-left: 2.5rem
+
+    .qty
+        width: 18px
+        height: 18px
+        display: flex
+        justify-content: center
+        align-items: center
+        position: absolute
+        top: -10px
+        right: 2px
+        background-color: $primary-color
+        border-radius: 50%
+
+    i
+        margin-bottom: .2rem
+
+    a:hover
+        color: $primary-color
+
+@mixin rounded-input
+    height: 40px
+    border-top-left-radius: 20px
+    border-bottom-left-radius: 20px
+    padding-left: 25px
+
+.header
+    background-color: $bg-color
+
+    &-top
+        background-color: $secondary-bg-color
+        color: $light-color
+
+        @include mobile
+            display: none
+
+        &-container
+            @include center-content
+            padding: .8rem 0
+
+            span
+                margin-right: 1rem
+
+            i
+                margin-right: .3rem
+
+            a
+                color: $light-color
+
+.main-header
+
+    &-container
+        @include center-content
+        padding: 1.3rem 0
+
+        @include mobile
+            flex-direction: column
+            align-items: center
+
+        a, span, i
+            color: #fff
+
+        #brand
+            font-weight: 900
+            font-size: 3rem
+
+            i
+                color: $primary-color
+                font-size: 2rem
+
+        #search-form
+            width: 45%
+            display: flex
+            justify-content: center
+            align-items: center
+
+            @include mobile
+                width: 100%
+                margin: 2rem 0
+
+            input
+                height: 40px
+
+            #search
+                width: 60%
+                @include rounded-input
+
+        .header-actions-menu
+            display: flex
+            align-items: center
+
+            .wishlist-container, .header-cart-container
+                @include header-icon
+
+                @include mobile
+                    margin: 1rem
+
+.header-bottom
+    background-color: $light-color
+    border-bottom: 2px solid $section-bg-color
+    border-top: 3px solid $primary-color
+
+    ul
+        @include center-content
+        justify-content: left
+        padding: 1rem 0
+
+        @include mobile
+            display: none
+
+        li
+            margin-right: 1.3rem
+
+            a
+                color: $link-color
+                border-bottom: 2px solid transparent
+
+                &:hover
+                    color: $primary-color
+                    border-color: $primary-color
