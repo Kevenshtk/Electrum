@@ -13,7 +13,7 @@ import {
 
 const Header = () => {
   return (
-    <header className="header">
+    <header>
       <div className="header-top">
         <div className="header-top-container">
           <div className="store-info-container">
@@ -48,26 +48,24 @@ const Header = () => {
       </div>
 
       <div className="main-header">
-        <div className="main-header-container">
-          <a href="#" id="brand">
-            Electrum
-            <FaBolt className="icon" />
-          </a>
-          <form action="" id="search-form">
-            <input type="text" id="search" placeholder="Busque aqui" />
-            <Button type="submit" style="btn btn-half" text="Pesquisar" />
-          </form>
-          <div className="header-actions-menu">
-            <div className="wishlist-container">
-              <span className="qty">0</span>
-              <FaHeart className="icon" />
-              <a href="#">Favoritos</a>
-            </div>
-            <div className="header-cart-container">
-              <span className="qty">0</span>
-              <FaCartShopping className="icon" />
-              <a href="#">Carrinho</a>
-            </div>
+        <a href="#" id="brand">
+          Electrum
+          <FaBolt className="icon" />
+        </a>
+        <form action="" id="search-form">
+          <input type="text" id="search" placeholder="Busque aqui" />
+          <Button type="submit" style="btn btn-half" text="Pesquisar" />
+        </form>
+        <div className="header-actions-menu">
+          <div className="wishlist-container">
+            <span className="qty">0</span>
+            <FaHeart className="icon" />
+            <a href="#">Favoritos</a>
+          </div>
+          <div className="header-cart-container">
+            <span className="qty">0</span>
+            <FaCartShopping className="icon" />
+            <a href="#">Carrinho</a>
           </div>
         </div>
       </div>

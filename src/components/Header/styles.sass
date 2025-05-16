@@ -38,10 +38,10 @@
     border-bottom-left-radius: 20px
     padding-left: 25px
 
-.header
+header
     background-color: $bg-color
 
-    &-top
+    .header-top
         background-color: $secondary-bg-color
         color: $light-color
 
@@ -55,15 +55,13 @@
             span
                 margin-right: 1rem
 
-            i
+            .icon
                 margin-right: .3rem
 
             a
                 color: $light-color
 
-.main-header
-
-    &-container
+    .main-header
         @include center-content
         padding: 1.3rem 0
 
@@ -71,14 +69,14 @@
             flex-direction: column
             align-items: center
 
-        a, span, i
+        a, span, .icon
             color: #fff
 
         #brand
             font-weight: 900
             font-size: 3rem
 
-            i
+            .icon
                 color: $primary-color
                 font-size: 2rem
 
@@ -104,31 +102,37 @@
             align-items: center
 
             .wishlist-container, .header-cart-container
+                display: flex
+                align-items: center
+
+                .icon
+                    font-size: 2rem
+
                 @include header-icon
 
                 @include mobile
-                    margin: 1rem
+                    margin: 1rem 1.5rem
 
-.header-bottom
-    background-color: $light-color
-    border-bottom: 2px solid $section-bg-color
-    border-top: 3px solid $primary-color
+    .header-bottom
+        background-color: $light-color
+        border-bottom: 2px solid $section-bg-color
+        border-top: 3px solid $primary-color
 
-    ul
-        @include center-content
-        justify-content: left
-        padding: 1rem 0
+        ul
+            @include center-content
+            justify-content: left
+            padding: 1rem 0
 
-        @include mobile
-            display: none
+            @include mobile
+                display: none
 
-        li
-            margin-right: 1.3rem
+            li
+                margin-right: 1.3rem
 
-            a
-                color: $link-color
-                border-bottom: 2px solid transparent
+                a
+                    color: $link-color
+                    border-bottom: 2px solid transparent
 
-                &:hover
-                    color: $primary-color
-                    border-color: $primary-color
+                    &:hover
+                        color: $primary-color
+                        border-color: $primary-color
