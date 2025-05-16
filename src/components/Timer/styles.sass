@@ -1,0 +1,30 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.deal-container-content-timer
+    display: flex
+    margin-bottom: 2rem
+
+    @include mobile
+        flex-wrap: wrap
+        justify-content: center
+        align-self: center
+
+    .deal-container-timer
+        width: 100px
+        height: 100px
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        background-color: $primary-color
+        border-radius: 50%
+        color: $light-color
+        margin: 0 1rem
+
+        @include mobile
+            margin-bottom: 1.5rem
+
+        &-time
+            font-weight: bold
+            font-size: 1.5rem
