@@ -1,0 +1,53 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.products-grid-card
+    width: 20%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    border: 1px solid $gray-text-color
+    transition: .4s
+    padding: 1rem
+    position: relative
+
+    @include mobile
+        width: 90%
+        margin: 1rem
+
+    &:hover
+        border-color: $primary-color
+
+    .label
+        text-transform: uppercase
+        border: 1px solid $primary-color
+        color: $primary-color
+        padding: 2px 6px
+        position: absolute
+        top: 1rem
+        right: 1rem
+
+    .new
+        background-color: $primary-color
+        color: $light-color
+
+    img
+        width: 100%
+
+    .category, .product-name, .product-price, .rating-box, .btn
+        margin-bottom: 1rem
+
+    .category
+        margin-top: 1rem
+        text-transform: uppercase
+        color: $gray-text-color
+
+    .product-name
+        text-transform: uppercase
+        font-size: 1.2rem
+
+    .product-price
+        font-size: 1.5rem
+        font-weight: bold
+        color: $primary-color
