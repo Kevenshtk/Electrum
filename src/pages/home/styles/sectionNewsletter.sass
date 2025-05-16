@@ -1,0 +1,52 @@
+@use '../../../styles/variables' as *
+@use '../../../styles/mixins' as *
+
+.newsletter-container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    padding: 3rem
+    border-top: 2px solid $section-bg-color
+
+    @include mobile
+        text-align: center
+
+    h2
+        font-size: 2rem
+        color: $dark-color
+        margin-bottom: 2rem
+
+        span
+            font-size: 2rem
+            font-weight: bold
+            text-transform: uppercase
+
+    form
+        display: flex
+        margin-bottom: 3rem
+
+        @include mobile
+            width: 100%
+
+        input[type="email"]
+            border: 1px solid $section-bg-color
+            @include rounded-input
+
+            @include mobile
+                width: 100%
+
+    .social-media
+        .icon
+            width: 40px
+            height: 40px
+            padding: 12px
+            margin: 5px
+            border: 1px solid $section-bg-color
+            cursor: pointer
+            color: $dark-color
+            transition: .4s
+
+            &:hover
+                color: $primary-color
+                background-color: $section-bg-color

@@ -1,0 +1,22 @@
+@use '../../../styles/mixins' as *
+
+.products-grid
+    @include center-content
+    flex-direction: column
+    padding: 2rem 0
+
+    h2
+        font-size: 2rem
+        text-transform: uppercase
+
+        @include mobile
+            text-align: center
+
+    &-container
+        display: flex
+        justify-content: space-between
+        padding: 2rem 0
+
+        @include mobile
+            flex-direction: column
+            align-items: center
