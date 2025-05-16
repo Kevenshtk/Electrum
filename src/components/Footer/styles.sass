@@ -1,0 +1,61 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+footer
+    background-color: $bg-color
+    padding: 3rem 0
+
+    @include mobile
+        padding: 3rem
+
+    a, p
+        color: $gray-text-color
+
+    li, p
+        margin-bottom: 1rem
+
+        a
+            &:hover
+                color: $primary-color
+
+    i
+        margin-right: .3rem
+
+    h3
+        color: $light-color
+        text-transform: uppercase
+        font-size: 1.75rem
+        margin-bottom: 1.5rem
+
+    .footer-top
+        @include center-content
+        padding-bottom: 3rem
+
+        @include mobile
+            flex-direction: column
+
+        &-about, &-categories, &-information, &-menu
+            max-width: 25%
+
+            @include mobile
+                max-width: 100%
+                margin-bottom: 1rem
+
+    .footer-bottom
+        @include center-content
+        flex-direction: column
+        justify-content: center
+        align-items: center
+
+        &-payments
+            margin-bottom: 2rem
+
+            i
+                color: $dark-color
+                cursor: pointer
+                font-size: 3rem
+                margin: 5px
+                transition: .4s
+
+                &:hover
+                    color: $primary-color
