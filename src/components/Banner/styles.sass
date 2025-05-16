@@ -1,0 +1,56 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.banner
+    width: 30%
+    height: 200px
+    position: relative
+    color: $light-color
+    transition: .4s
+    @include center-bg
+    background-size: 100%
+
+    @include mobile
+        width: 90%
+        margin: 1rem
+
+    &:hover
+        background-size: 120%
+
+    &-cover
+        width: 70%
+        height: 100%
+        background-color: $primary-color
+        opacity: .8
+        border-bottom-right-radius: 6rem
+
+    &-content
+        position: absolute
+        top: 0
+        left: 0
+        padding: 2rem
+
+        h2
+            max-width: 70%
+            font-size: 2.1rem
+            margin-bottom: 1rem
+
+        a
+            display: flex
+            align-items: center
+            font-size: 1.5rem
+            color: $light-color
+            font-weight: bold
+
+        .icon
+            color: $light-color
+            margin-left: .8rem
+
+#banner-1
+    background-image: url('../../../public/banner-1.jpg')
+
+#banner-2
+    background-image: url('../../../public/banner-2.jpg')
+
+#banner-3
+    background-image: url('../../../public/banner-3.jpg')
