@@ -1,0 +1,103 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Mouse Redragon Storm Pro Rgb Sem Fio",
+      "category": "Mouse",
+      "descripiton": "Mouse Gamer Redragon Storm Pro Rgb Sem Fio Preto",
+      "price": 215.91,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_632949-MLM50350324305_062022-O.webp",
+      "tag": "hot"
+    },
+    {
+      "id": "2",
+      "name": "Teclado Redragon Netherbane Rgb",
+      "category": "Teclado",
+      "descripiton": "Teclado Redragon Membrana Gamer Netherbane Rgb K521-rgb",
+      "price": 128.16,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_799236-MLA81544239035_122024-O.webp",
+      "tag": "hot"
+    },
+    {
+      "id": "3",
+      "name": "Monitor Gamer 29'' Ultrawide Ips LG",
+      "category": "Monitor",
+      "descripiton": "Monitor Gamer 29'' Ultrawide 29wk600-w Ips Fhd Ips LG Bivolt Cor Preto 100V/240V",
+      "price": 1171.15,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_686964-MLU72604274524_112023-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "4",
+      "name": "Placa Mae Gigabyte B550m Aorus Elite",
+      "category": "Hardware",
+      "descripiton": "Placa Mae Gigabyte B550m Aorus Elite Am4 Ddr4 Hdmi M-ATX Cor Preto",
+      "price": 968,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_871957-MLU77742772510_072024-O.webp",
+      "tag": "hot"
+    },
+    {
+      "id": "5",
+      "name": "Samsung Galaxy S23 Ultra 256 GB",
+      "category": "Smartphone",
+      "descripiton": "Samsung Galaxy S23 Ultra 5G Dual SIM 256 GB Preto 12 GB RAM",
+      "price": 5299.9,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_604807-MLA79305392360_092024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "6",
+      "name": "Notebook Dell Inspiron I5 16gb 1tb",
+      "category": "Notebook",
+      "descripiton": "Notebook Dell Inspiron I15-i120k-a35p I5 16gb 1tb 15.6 W11",
+      "price": 3984,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_810397-MLU76924998117_062024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "7",
+      "name": "Samsung Galaxy Tab S9 Fe+ 128gb",
+      "category": "Tablet",
+      "descripiton": "Samsung Galaxy Tab S9 Fe+ Wifi, 128gb, 8gb Ram, Tela 12.4",
+      "price": 4499.1,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_645271-MLB72513917103_102023-O-samsung-galaxy-tab-s9-fe-wifi-128gb-8gb-ram-tela-124.webp",
+      "tag": "new"
+    },
+    {
+      "id": "8",
+      "name": "Suporte North Bayou Nb F80 de Mesa",
+      "category": "Acessórios",
+      "descripiton": "Suporte North Bayou Nb F80 de Mesa Para Tv Monitor de 17' Até 30' Preto",
+      "price": 140.63,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_694475-MLA82164329738_022025-O.webp",
+      "tag": "hot"
+    },
+    {
+      "id": "9",
+      "name": "Suporte Pcyes Articulado Parede",
+      "category": "Acessórios",
+      "descripiton": "Suporte Pcyes Articulado Parede Monitor 17 A 32 Compacto Cor Preto",
+      "price": 176.64,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_982643-MLU78311846623_082024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "10",
+      "name": "Notebook Acer Aspire I5 8GB 256GB",
+      "category": "Notebook",
+      "descripiton": "Notebook Acer Aspire 5 Intel Core I5 - 12450H 8GB RAM 256GB SSD Windows 11 Home Tela 15,6'' Full HD A515-57-55B8",
+      "price": 2951,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_629974-MLU72755866665_112023-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "11",
+      "name": "Samsung Galaxy S24 FE 5G 256GB",
+      "category": "Smartphone",
+      "descripiton": "Smartphone Samsung Galaxy S24 FE 5G 256GB 8GB RAM Tela 6.7'' Galaxy AI - Azu",
+      "price": 3148.96,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_909837-MLA84614346443_052025-O.webp",
+      "tag": "new"
+    }
+  ]
+}
