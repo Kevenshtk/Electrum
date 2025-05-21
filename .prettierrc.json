@@ -6,5 +6,5 @@
   "tabWidth": 2,
   "jsxSingleQuote": false,
   "bracketSpacing": true,
-  "arrowParens": "Always/avoid"
+  "arrowParens": "always"
 }
