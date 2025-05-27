@@ -14,10 +14,28 @@
     transition: .4s
 
     &:hover
-        background-color: $light-color
+        background-color: transparent
         color: $primary-color
 
     &-half
         border-top-left-radius: 0
         border-bottom-left-radius: 0
         text-decoration: none
+
+    &-directional
+        width: 40px
+        display: flex
+        justify-content: center
+        align-items: center
+        border: 1px solid $primary-color
+        border-radius: 50%
+        color: $primary-color
+        background-color: transparent
+
+        &:hover
+            background-color: $primary-color
+            color: $light-color
+
+.none
+    opacity: 0
+    cursor: default

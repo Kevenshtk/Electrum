@@ -3,6 +3,7 @@
 
 .products-grid-card
     width: 20%
+    height: 450px
     display: flex
     flex-direction: column
     justify-content: center
@@ -33,7 +34,10 @@
         color: $light-color
 
     img
-        width: 100%
+        width: 90%
+
+        @include mobile
+            width: 50%
 
     .category, .product-name, .product-price, .rating-box, .btn
         margin-bottom: 1rem
