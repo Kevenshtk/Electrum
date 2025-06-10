@@ -31,6 +31,25 @@
     a:hover
         color: $primary-color
 
+@mixin style-input
+    height: 30px
+    border: 1px solid $section-bg-color
+    padding: 0.2rem
+    border-radius: 5px
+
+@mixin text-error
+    .containerInputError
+        width: 100%
+        min-height: 50px
+        display: flex
+        flex-direction: column
+
+        .error
+            font-size: 0.8rem
+            font-weight: 500
+            color: $error-color
+            margin-top: 0.2rem
+
 @mixin rounded-input
     height: 40px
     border-top-left-radius: 20px

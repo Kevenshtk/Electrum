@@ -98,6 +98,87 @@
       "price": 3148.96,
       "image": "https://http2.mlstatic.com/D_NQ_NP_909837-MLA84614346443_052025-O.webp",
       "tag": "new"
+    },
+    {
+      "id": "12",
+      "name": "Gopro Hero 13 Black",
+      "category": "Câmeras",
+      "descripiton": "Câmera Gopro Hero 13 Black Chdhx-131-rw 5.3k Ntsc/pal Cor Preto",
+      "price": 2977,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_918807-MLA81645524448_012025-O.webp",
+      "tag": "hot"
+    },
+    {
+      "id": "13",
+      "name": "Gopro Hero 12 Wi-fi",
+      "category": "Câmeras",
+      "descripiton": "Câmera Gopro Hero 12 Wi-fi 4k 27mp Hypersmooth 6.0 Preto 10m",
+      "price": 2999.9,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_711422-MLU73790548958_012024-O.webp",
+      "tag": "hot"
+    },
+    {
+      "id": "14",
+      "name": "Câmera Sony Alpha ZV-E10",
+      "category": "Câmeras",
+      "description": "Câmera Sony Alpha ZV-E10 16/50mm / 3.5-5.6 OSS LCZVE10L/ B",
+      "price": 6285,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_985259-MLA80061689212_102024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "15",
+      "name": "Insta360 X4",
+      "category": "Câmeras",
+      "description": "Câmera De Ação Insta360 X4 + Kit Lacrado Pronta No Brasil Preto",
+      "price": 4598,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_909687-MLB85033260881_052025-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "16",
+      "name": "Sony A7 Iii",
+      "category": "Câmeras",
+      "description": "Sony A7 Iii Com Lente 28-70mm F/3.5-5.6 Oss + Nf-e",
+      "price": 14716.26,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_806710-MLB42332192685_062020-O-sony-a7-iii-com-lente-28-70mm-f35-56-oss-nf-e-.webp",
+      "tag": "hot"
+    },
+    {
+      "id": "17",
+      "name": "PC Gamer Ryzen 5 5600G 16GB SSD 480GB",
+      "category": "PC Gamer",
+      "description": "PC Gamer Completo Fácil Pulse AMD Ryzen 5 5600G Placa mãe B450 Gráficos Radeon VEGA 7 16GB DDR4 3200Mhz SSD 480GB Monitor 20\" 75Hz Fonte 500W PGF-0100PU",
+      "price": 2700,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_680731-MLA80758329612_112024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "18",
+      "name": "Computador Gamer Core i7 16Gb SSD 512GB",
+      "category": "PC Gamer",
+      "description": "Computador Gamer Completo 2Eletro Rgb Intel Core i7 16Gb Ram Ssd 512Gb Fonte 500W Monitor 20\" 75Hz Kit Gamer completo - Pg2e-1014rg",
+      "price": 1699,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_803892-MLA80687308383_112024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "19",
+      "name": "Pc Gamer I7 16gb  SSD 480gb",
+      "category": "PC Gamer",
+      "description": "Pc Gamer Completo I7 3.4ghz 16gb Ssd 480gb 500w Monitor 19",
+      "price": 1694,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_802816-MLB76290515487_052024-O-pc-gamer-completo-i7-34ghz-16gb-ssd-480gb-500w-monitor-19.webp",
+      "tag": "new"
+    },
+    {
+      "id": "20",
+      "name": "Monitor Led 21.5''",
+      "category": "Acessórios",
+      "description": "Monitor Pc Gamer 21.5'' Led 1920p Hdmi/vga Alta Luminosidade Cor Preto 127/220V",
+      "price": 324.9,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_868634-MLA84474496405_052025-O.webp",
+      "tag": "new"
     }
   ]
 }
