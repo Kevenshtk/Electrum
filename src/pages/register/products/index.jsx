@@ -113,9 +113,9 @@ const ProductsRegister = () => {
                 <select id="category" {...field}>
                   <option value=""></option>
                   <option value="Notebooks">Notebooks</option>
-                  <option value="Celulares">Celulares</option>
+                  <option value="Smartphones">Celulares</option>
                   <option value="Câmeras">Câmeras</option>
-                  <option value="PC Gamer">PC Gamer</option>
+                  <option value="PC-Gamer">PC Gamer</option>
                   <option value="Acessórios">Acessórios</option>
                 </select>
                 <span className="error">
