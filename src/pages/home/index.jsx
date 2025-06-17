@@ -56,7 +56,7 @@ const Home = () => {
       </section>
 
       <SectionProducts
-        title={"Produtos em Promoção"}
+        title="Produtos em Promoção"
         page={viewProductsPromo}
         btnNext={btnNextPromo}
         btnBack={btnBackPromo}
@@ -78,7 +78,7 @@ const Home = () => {
       </section>
 
       <SectionProducts
-        title={"Mais Vendidos"}
+        title="Mais Vendidos"
         page={viewProductsHot}
         btnNext={btnNextHot}
         btnBack={btnBackHot}
