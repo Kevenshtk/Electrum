@@ -75,7 +75,7 @@ const ProductsRegister = () => {
   );
 
   return (
-    <main>
+    <main className='mainRegisterProducts'>
       <h1>Cadastro de produtos</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
