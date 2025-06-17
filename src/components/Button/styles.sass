@@ -36,6 +36,31 @@
             background-color: $primary-color
             color: $light-color
 
+.btn-category, .btn-filter
+    background: none
+    border: none
+    color: $link-color
+    border-bottom: 2px solid transparent
+    cursor: pointer
+    transition: .4s
+
+    &:hover
+        color: $primary-color
+        border-color: $primary-color
+
+.btn-filter
+    width: 85px
+
+.btn-show-hide-aside
+    width: 45px
+    height: 40px
+    border: none
+    background: transparent
+
+    .icon
+        font-size: 1.5rem
+        color: $primary-color
+
 .none
     opacity: 0
     cursor: default
