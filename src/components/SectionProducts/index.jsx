@@ -21,6 +21,7 @@ const SectionProducts = ({ title, page, btnNext, btnBack, onNext, onBack }) => {
         {page.map((product) => (
           <CardProduct
             key={product?.id}
+            className="home"
             tag={product?.tag}
             image={product?.image}
             category={product?.category}
