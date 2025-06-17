@@ -1,9 +1,9 @@
 import Button from "../Button";
 import "./styles.sass";
 
-const CardProduct = ({ tag, image, category, name, price }) => {
+const CardProduct = ({ className, tag, image, category, name, price }) => {
   return (
-    <div className="products-grid-card">
+    <div className={`products-grid-card-${className}`}>
       <span className={`label ${tag}`}>{tag}</span>
       <img src={image} alt={name} />
       <p className="category">{category}</p>

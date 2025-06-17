@@ -1,8 +1,7 @@
 @use '../../styles/variables' as *
 @use '../../styles/mixins' as *
 
-.products-grid-card
-    width: 20%
+.products-grid-card-home, .products-grid-card-list
     height: 450px
     display: flex
     flex-direction: column
@@ -12,10 +11,6 @@
     transition: .4s
     padding: 1rem
     position: relative
-
-    @include mobile
-        width: 90%
-        margin: 1rem
 
     &:hover
         border-color: $primary-color
@@ -55,3 +50,17 @@
         font-size: 1.5rem
         font-weight: bold
         color: $primary-color
+
+.products-grid-card-home
+    width: 20%
+
+    @include mobile
+        width: 90%
+        margin: 1rem
+
+.products-grid-card-list
+    width: 30%
+
+    @include mobile
+        width: 90%
+        height: 380px
