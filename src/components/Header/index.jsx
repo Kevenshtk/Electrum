@@ -1,5 +1,5 @@
-import Button from "../Button";
-import "./styles.sass";
+import Button from '../Button';
+import './styles.sass';
 import {
   FaPhone,
   FaRegEnvelope,
@@ -9,9 +9,18 @@ import {
   FaBolt,
   FaHeart,
   FaCartShopping,
-} from "react-icons/fa6";
+} from 'react-icons/fa6';
+
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category) => {
+    category === 'Pc Gamer' && (category = 'PC-Gamer');
+    navigate(`/list/${category}`);
+  };
+
   return (
     <header>
       <div className="header-top">
@@ -32,13 +41,13 @@ const Header = () => {
           </div>
           <div className="header-user-top-menu">
             <span>
-              <a href="#">
+              <a href="/">
                 <FaDollarSign className="icon" />
                 BRL
               </a>
             </span>
             <span>
-              <a href="#">
+              <a href="/">
                 <FaUser className="icon" />
                 Login
               </a>
@@ -48,24 +57,24 @@ const Header = () => {
       </div>
 
       <div className="main-header">
-        <a href="#" id="brand">
+        <a href="/" id="brand">
           Electrum
           <FaBolt className="icon" />
         </a>
         <form action="" id="search-form">
           <input type="text" id="search" placeholder="Busque aqui" />
-          <Button type="submit" style="btn btn-half" text="Pesquisar" />
+          <Button type="submit" className="btn btn-half" text="Pesquisar" />
         </form>
         <div className="header-actions-menu">
           <div className="wishlist-container">
             <span className="qty">0</span>
             <FaHeart className="icon" />
-            <a href="#">Favoritos</a>
+            <a href="/">Favoritos</a>
           </div>
           <div className="header-cart-container">
             <span className="qty">0</span>
             <FaCartShopping className="icon" />
-            <a href="#">Carrinho</a>
+            <a href="/">Carrinho</a>
           </div>
         </div>
       </div>
@@ -73,24 +82,25 @@ const Header = () => {
       <div className="header-bottom">
         <nav>
           <ul>
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#">Promoções</a>
-            </li>
-            <li>
-              <a href="#">Notebooks</a>
-            </li>
-            <li>
-              <a href="#">Celulares</a>
-            </li>
-            <li>
-              <a href="#">Câmeras</a>
-            </li>
-            <li>
-              <a href="#">Acessórios</a>
-            </li>
+            {[
+              'Periféricos',
+              'Pc Gamer',
+              'Hardware',
+              'Notebooks',
+              'Smartphones',
+              'Câmeras',
+              'Acessórios',
+            ].map((category, index) => {
+              return (
+                <li key={index}>
+                  <Button
+                    className="btn-category"
+                    text={category}
+                    onClick={() => handleCategoryClick(category)}
+                  />
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>

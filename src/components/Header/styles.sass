@@ -1,12 +1,6 @@
 @use '../../styles/variables' as *
 @use '../../styles/mixins' as *
 
-@mixin center-content
-    max-width: $container-width
-    margin: 0 auto
-    display: flex
-    justify-content: space-between
-
 @mixin header-icon
     position: relative
     display: flex
@@ -128,11 +122,3 @@ header
 
             li
                 margin-right: 1.3rem
-
-                a
-                    color: $link-color
-                    border-bottom: 2px solid transparent
-
-                    &:hover
-                        color: $primary-color
-                        border-color: $primary-color
