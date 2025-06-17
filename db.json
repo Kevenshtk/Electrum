@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "Mouse Redragon Storm Pro Rgb Sem Fio",
-      "category": "Mouse",
+      "category": "Mouses",
       "descripiton": "Mouse Gamer Redragon Storm Pro Rgb Sem Fio Preto",
       "price": 215.91,
       "image": "https://http2.mlstatic.com/D_NQ_NP_632949-MLM50350324305_062022-O.webp",
@@ -12,7 +12,7 @@
     {
       "id": "2",
       "name": "Teclado Redragon Netherbane Rgb",
-      "category": "Teclado",
+      "category": "Teclados",
       "descripiton": "Teclado Redragon Membrana Gamer Netherbane Rgb K521-rgb",
       "price": 128.16,
       "image": "https://http2.mlstatic.com/D_NQ_NP_799236-MLA81544239035_122024-O.webp",
@@ -21,11 +21,11 @@
     {
       "id": "3",
       "name": "Monitor Gamer 29'' Ultrawide Ips LG",
-      "category": "Monitor",
+      "category": "Monitores",
       "descripiton": "Monitor Gamer 29'' Ultrawide 29wk600-w Ips Fhd Ips LG Bivolt Cor Preto 100V/240V",
       "price": 1171.15,
       "image": "https://http2.mlstatic.com/D_NQ_NP_686964-MLU72604274524_112023-O.webp",
-      "tag": "new"
+      "tag": "promo"
     },
     {
       "id": "4",
@@ -39,29 +39,29 @@
     {
       "id": "5",
       "name": "Samsung Galaxy S23 Ultra 256 GB",
-      "category": "Smartphone",
+      "category": "Smartphones",
       "descripiton": "Samsung Galaxy S23 Ultra 5G Dual SIM 256 GB Preto 12 GB RAM",
       "price": 5299.9,
       "image": "https://http2.mlstatic.com/D_NQ_NP_604807-MLA79305392360_092024-O.webp",
-      "tag": "new"
+      "tag": "promo"
     },
     {
       "id": "6",
       "name": "Notebook Dell Inspiron I5 16gb 1tb",
-      "category": "Notebook",
+      "category": "Notebooks",
       "descripiton": "Notebook Dell Inspiron I15-i120k-a35p I5 16gb 1tb 15.6 W11",
       "price": 3984,
       "image": "https://http2.mlstatic.com/D_NQ_NP_810397-MLU76924998117_062024-O.webp",
-      "tag": "new"
+      "tag": "promo"
     },
     {
       "id": "7",
       "name": "Samsung Galaxy Tab S9 Fe+ 128gb",
-      "category": "Tablet",
+      "category": "Tablets",
       "descripiton": "Samsung Galaxy Tab S9 Fe+ Wifi, 128gb, 8gb Ram, Tela 12.4",
       "price": 4499.1,
       "image": "https://http2.mlstatic.com/D_NQ_NP_645271-MLB72513917103_102023-O-samsung-galaxy-tab-s9-fe-wifi-128gb-8gb-ram-tela-124.webp",
-      "tag": "new"
+      "tag": "promo"
     },
     {
       "id": "8",
@@ -79,25 +79,25 @@
       "descripiton": "Suporte Pcyes Articulado Parede Monitor 17 A 32 Compacto Cor Preto",
       "price": 176.64,
       "image": "https://http2.mlstatic.com/D_NQ_NP_982643-MLU78311846623_082024-O.webp",
-      "tag": "new"
+      "tag": "promo"
     },
     {
       "id": "10",
       "name": "Notebook Acer Aspire I5 8GB 256GB",
-      "category": "Notebook",
+      "category": "Notebooks",
       "descripiton": "Notebook Acer Aspire 5 Intel Core I5 - 12450H 8GB RAM 256GB SSD Windows 11 Home Tela 15,6'' Full HD A515-57-55B8",
       "price": 2951,
       "image": "https://http2.mlstatic.com/D_NQ_NP_629974-MLU72755866665_112023-O.webp",
-      "tag": "new"
+      "tag": "promo"
     },
     {
       "id": "11",
       "name": "Samsung Galaxy S24 FE 5G 256GB",
-      "category": "Smartphone",
+      "category": "Smartphones",
       "descripiton": "Smartphone Samsung Galaxy S24 FE 5G 256GB 8GB RAM Tela 6.7'' Galaxy AI - Azu",
       "price": 3148.96,
       "image": "https://http2.mlstatic.com/D_NQ_NP_909837-MLA84614346443_052025-O.webp",
-      "tag": "new"
+      "tag": "promo"
     },
     {
       "id": "12",
@@ -124,7 +124,7 @@
       "description": "Câmera Sony Alpha ZV-E10 16/50mm / 3.5-5.6 OSS LCZVE10L/ B",
       "price": 6285,
       "image": "https://http2.mlstatic.com/D_NQ_NP_985259-MLA80061689212_102024-O.webp",
-      "tag": "new"
+      "tag": "promo"
     },
     {
       "id": "15",
@@ -147,7 +147,7 @@
     {
       "id": "17",
       "name": "PC Gamer Ryzen 5 5600G 16GB SSD 480GB",
-      "category": "PC Gamer",
+      "category": "PC-Gamer",
       "description": "PC Gamer Completo Fácil Pulse AMD Ryzen 5 5600G Placa mãe B450 Gráficos Radeon VEGA 7 16GB DDR4 3200Mhz SSD 480GB Monitor 20\" 75Hz Fonte 500W PGF-0100PU",
       "price": 2700,
       "image": "https://http2.mlstatic.com/D_NQ_NP_680731-MLA80758329612_112024-O.webp",
@@ -156,7 +156,7 @@
     {
       "id": "18",
       "name": "Computador Gamer Core i7 16Gb SSD 512GB",
-      "category": "PC Gamer",
+      "category": "PC-Gamer",
       "description": "Computador Gamer Completo 2Eletro Rgb Intel Core i7 16Gb Ram Ssd 512Gb Fonte 500W Monitor 20\" 75Hz Kit Gamer completo - Pg2e-1014rg",
       "price": 1699,
       "image": "https://http2.mlstatic.com/D_NQ_NP_803892-MLA80687308383_112024-O.webp",
@@ -165,16 +165,16 @@
     {
       "id": "19",
       "name": "Pc Gamer I7 16gb  SSD 480gb",
-      "category": "PC Gamer",
+      "category": "PC-Gamer",
       "description": "Pc Gamer Completo I7 3.4ghz 16gb Ssd 480gb 500w Monitor 19",
       "price": 1694,
       "image": "https://http2.mlstatic.com/D_NQ_NP_802816-MLB76290515487_052024-O-pc-gamer-completo-i7-34ghz-16gb-ssd-480gb-500w-monitor-19.webp",
-      "tag": "new"
+      "tag": "promo"
     },
     {
       "id": "20",
       "name": "Monitor Led 21.5''",
-      "category": "Acessórios",
+      "category": "Monitores",
       "description": "Monitor Pc Gamer 21.5'' Led 1920p Hdmi/vga Alta Luminosidade Cor Preto 127/220V",
       "price": 324.9,
       "image": "https://http2.mlstatic.com/D_NQ_NP_868634-MLA84474496405_052025-O.webp",
