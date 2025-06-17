@@ -179,6 +179,96 @@
       "price": 324.9,
       "image": "https://http2.mlstatic.com/D_NQ_NP_868634-MLA84474496405_052025-O.webp",
       "tag": "new"
+    },
+    {
+      "id": "21",
+      "name": "Apple iPhone 16 128 GB",
+      "category": "Smartphones",
+      "description": "Apple iPhone 16 (128 GB) - Preto",
+      "price": 5129.1,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_928475-MLA78901058072_092024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "22",
+      "name": "Luminária Barra Led",
+      "category": "Acessórios",
+      "description": "Luminária Barra Led Mesa Monitor 3 Tons Luz Brilho Regulável",
+      "price": 129.47,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_704386-MLB77751659749_072024-O-luminaria-barra-led-mesa-monitor-3-tons-luz-brilho-regulavel.webp",
+      "tag": "new"
+    },
+    {
+      "id": "23",
+      "name": "Luminária Monitor Sensetup Lugis",
+      "category": "Acessórios",
+      "description": "Luminária Monitor Sensetup Lugis Light Bar Ajuste Wireless Cúpula Cinza-escuro Estrutura Preto 127/220v\n",
+      "price": 197.3,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_648703-MLA81989765660_022025-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "24",
+      "name": "Suporte Fone De Ouvido",
+      "category": "Acessórios",
+      "description": "Suporte Fone De Ouvido Headset Headphone Efeitos Rgb Gamer Inboxmobile",
+      "price": 64.39,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_690874-MLU78494491199_082024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "25",
+      "name": "Notebook Gamer ASUS TUF Gaming A15 AMD",
+      "category": "Notebooks",
+      "description": "Notebook Gamer ASUS TUF Gaming A15 AMD Ryzen 7 7435HS 3,1 GHz GeForce RTX™2050 8GB RAM 512GB SSD Linux KeepOs Tela 15,6 144Hz IPS FHD Graphite Black - FA506NFR-HN069",
+      "price": 4273.06,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_831450-MLA82195505947_012025-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "26",
+      "name": " Lenovo LOQ-e Core i5 16gb 512gb Ssd Rtx 3050 ",
+      "category": "Notebooks",
+      "description": "Notebook Lenovo LOQ-e 15iax9e Intel Core i5-12450hx 16gb 512gb Ssd Rtx 3050 Windows 11 15.6 - 83me0007br Luna Grey",
+      "price": 4654.05,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_703184-MLA82429441831_022025-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "27",
+      "name": "Acer Predator I7-13650hx 16gb 512gb Ssd Rtx 4060",
+      "category": "Notebooks",
+      "description": "Acer Predator Gamer Phn16-71-72w6 I7-13650hx 16gb 512gb Ssd Rtx 4060 Windows 11 Home Tela 16 Wuxga",
+      "price": 8499,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_924120-MLU76379349918_052024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "28",
+      "name": "Dell G15 Core i5 6GB 512GB SSD RTX 3050",
+      "category": "Notebooks",
+      "description": "Notebook Gamer Dell G15-i1300-D35P 15.6\" FHD 13ª Geração Intel Core i5 16GB 512GB SSD NVIDIA RTX 3050 Linux",
+      "price": 5698,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_739344-MLU78987693104_092024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "29",
+      "name": "Rog Strix G16  Core I9 13980hx 32gb 1tb Ssd Rtx4070",
+      "category": "Notebooks",
+      "description": "Notebook Gamer Rog Strix G16 G614ji Nvidia Rtx4070 Intel Core I9 13980hx 32gb Ram 1tb Ssd Windows 11 Tela 16 240hz Fhd Gray - N4440w",
+      "price": 13389,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_804290-MLA81006878210_122024-O.webp",
+      "tag": "new"
+    },
+    {
+      "id": "30",
+      "name": " Galaxy Book4 Ultra Core Ultra 9 32GB 1TB SSD",
+      "category": "Notebooks",
+      "description": "Notebook Samsung Galaxy Book4 Ultra Intel® Core™ Ultra 9 185H , Windows 11 Home, 32GB, 1TB SSD, 16'' WQXGA+ AMOLED 2x, antirreflexo, touchscreen, 1.86 kg",
+      "price": 12539.05,
+      "image": "https://http2.mlstatic.com/D_NQ_NP_631093-MLU75825393655_042024-O.webp",
+      "tag": "new"
     }
   ]
 }
