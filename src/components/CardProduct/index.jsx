@@ -6,7 +6,7 @@ const CardProduct = ({ className, tag, image, category, name, price }) => {
     <div className={`products-grid-card-${className}`}>
       <span className={`label ${tag}`}>{tag}</span>
       <img src={image} alt={name} />
-      <p className="category">{category}</p>
+      <p className="category">{category.replace("-", " ")}</p>
       <h3 className="product-name">{name}</h3>
       <p className="product-price">R$ {price}</p>
       <div className="rating-box">
