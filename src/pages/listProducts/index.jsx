@@ -26,7 +26,7 @@ const ListProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const dataProducts = async () => {
+    const fetchProducts  = async () => {
       try {
         const response = await api.get('/products');
         const filteredProducts = filterProductsByCategory(response.data, category)
@@ -36,7 +36,7 @@ const ListProducts = () => {
       }
     };
 
-    dataProducts();
+    fetchProducts ();
   }, [category]);
 
   return (
