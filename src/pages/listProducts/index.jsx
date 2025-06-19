@@ -7,6 +7,7 @@ import { useEffect, useState, useMemo } from 'react';
 
 import { api } from '../../services/api.js';
 import { filterProductsByCategory } from '../../utils/filterProducts.js';
+import { removeHyphen } from '../../utils/textFormatter.js';
 
 import './styles.sass';
 
@@ -35,7 +36,10 @@ const ListProducts = () => {
     <>
       <Header />
       <div className="container">
-        <Aside title={category} totalResult={products.length} />
+        <Aside
+          title={category.includes('-') ? removeHyphen(category) : category}
+          totalResult={filteredProducts.length}
+        />
         <main className="containerList">
           {filteredProducts.length !== 0 ? (
             filteredProducts.map(
