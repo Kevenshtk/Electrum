@@ -3,61 +3,59 @@ import Aside from '../../components/Aside';
 import CardProduct from '../../components/CardProduct';
 
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import { api } from '../../services/api.js';
+import { filterProductsByCategory } from '../../utils/filterProducts.js';
 
 import './styles.sass';
-
-const filterProductsByCategory = (products, category) => {
-  const groups = {
-    Periféricos: ['Monitores', 'Teclados', 'Mouses'],
-  };
-
-  if (groups[category]) {
-    return products.filter((product) => groups[category].includes(product.category));
-  }
-
-  return products.filter((product) => product.category === category);
-};
 
 const ListProducts = () => {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchProducts  = async () => {
+    const fetchProducts = async () => {
       try {
         const response = await api.get('/products');
-        const filteredProducts = filterProductsByCategory(response.data, category)
-        setProducts(filteredProducts);
+        setProducts(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       }
     };
 
-    fetchProducts ();
+    fetchProducts();
   }, [category]);
+
+  const filteredProducts = useMemo(() => {
+    return filterProductsByCategory(products, category);
+  }, [products, category]);
 
   return (
     <>
       <Header />
       <div className="container">
-        <Aside title={category} totalResult={products.length}/>
+        <Aside title={category} totalResult={products.length} />
         <main className="containerList">
-          {products.map((product) => {
-            return (
-              <CardProduct
-                key={product?.id}
-                className="list"
-                tag={product?.tag}
-                image={product?.image}
-                category={product?.category}
-                name={product?.name}
-                price={product?.price}
-              />
-            );
-          })}
+          {filteredProducts.length !== 0 ? (
+            filteredProducts.map(
+              ({ id, tag, image, category, name, price }) => {
+                return (
+                  <CardProduct
+                    key={id}
+                    className="list"
+                    tag={tag}
+                    image={image}
+                    category={category}
+                    name={name}
+                    price={price}
+                  />
+                );
+              }
+            )
+          ) : (
+            <p>Nenhum produto encontrado para {category}.</p>
+          )}
         </main>
       </div>
     </>
