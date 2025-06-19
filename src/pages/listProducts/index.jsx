@@ -9,6 +9,18 @@ import { api } from '../../services/api.js';
 
 import './styles.sass';
 
+const filterProductsByCategory = (products, category) => {
+  const groups = {
+    Periféricos: ['Monitores', 'Teclados', 'Mouses'],
+  };
+
+  if (groups[category]) {
+    return products.filter((product) => groups[category].includes(product.category));
+  }
+
+  return products.filter((product) => product.category === category);
+};
+
 const ListProducts = () => {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
@@ -17,9 +29,7 @@ const ListProducts = () => {
     const dataProducts = async () => {
       try {
         const responce = await api.get('/products');
-        const filteredProducts = responce.data.filter(
-          (product) => product.category === category
-        );
+        const filteredProducts = filterProductsByCategory(responce.data, category)
         setProducts(filteredProducts);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
