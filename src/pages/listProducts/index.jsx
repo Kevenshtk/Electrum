@@ -28,8 +28,8 @@ const ListProducts = () => {
   useEffect(() => {
     const dataProducts = async () => {
       try {
-        const responce = await api.get('/products');
-        const filteredProducts = filterProductsByCategory(responce.data, category)
+        const response = await api.get('/products');
+        const filteredProducts = filterProductsByCategory(response.data, category)
         setProducts(filteredProducts);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
