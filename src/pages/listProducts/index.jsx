@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 
 import { api } from '../../services/api.js';
-import { filterProductsByCategory } from '../../utils/filterProducts.js';
+import { filterProductsByCategory, filterProductsByTag } from '../../utils/filterProducts.js';
 import { removeHyphen } from '../../utils/textFormatter.js';
 
 import './styles.sass';
@@ -14,6 +14,7 @@ import './styles.sass';
 const ListProducts = () => {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
+  const [selectedTag, setSelectedTag] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -29,8 +30,12 @@ const ListProducts = () => {
   }, [category]);
 
   const filteredProducts = useMemo(() => {
-    return filterProductsByCategory(products, category);
-  }, [products, category]);
+    let productsFiltered = filterProductsByCategory(products, category);
+
+    selectedTag && (productsFiltered = filterProductsByTag(productsFiltered, selectedTag))
+
+    return productsFiltered;
+  }, [products, category, selectedTag]);
 
   return (
     <>
@@ -39,6 +44,7 @@ const ListProducts = () => {
         <Aside
           title={category.includes('-') ? removeHyphen(category) : category}
           totalResult={filteredProducts.length}
+          onSelectedTag={setSelectedTag}
         />
         <main className="containerList">
           {filteredProducts.length !== 0 ? (

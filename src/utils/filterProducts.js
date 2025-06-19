@@ -9,3 +9,7 @@ export const filterProductsByCategory = (products, category) => {
 
   return products.filter((product) => product.category === category);
 };
+
+export const filterProductsByTag = (products, tag) => {
+  return products.filter((product) => product.tag === tag);
+}

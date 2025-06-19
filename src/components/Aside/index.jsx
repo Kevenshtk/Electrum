@@ -6,7 +6,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 import './styles.sass';
 
-const Aside = ({ title, totalResult }) => {
+const Aside = ({ title, totalResult, onSelectedTag }) => {
   const [isOpen, setIsOpen] = useState(false);
   const width = useWindowWidth();
 
@@ -31,10 +31,11 @@ const Aside = ({ title, totalResult }) => {
           <span>Filtar por tag:</span>
           <div className="containerFilterTags">
             {['promo', 'hot', 'new'].map((tag, index) => {
-              return <Button key={index} className="btn-filter" text={tag} />;
+              return <Button key={index} className="btn-filter" text={tag} onClick={() => onSelectedTag(tag)}/>;
             })}
           </div>
         </div>
+        <Button className="btn btn-clear" text="Limpar filtros" onClick={() => onSelectedTag('')}/>
       </div>
 
       {width <= 435 && (
