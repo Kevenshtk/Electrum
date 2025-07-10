@@ -3,10 +3,13 @@ import Aside from '../../components/Aside';
 import CardProduct from '../../components/CardProduct';
 
 import { useParams } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import { api } from '../../services/api.js';
-import { filterProductsByCategory, filterProductsByTag } from '../../utils/filterProducts.js';
+import {
+  filterProductsByCategory,
+  filterProductsByTag,
+} from '../../utils/filterProducts.js';
 import { removeHyphen } from '../../utils/textFormatter.js';
 
 import './styles.sass';
@@ -15,6 +18,7 @@ const ListProducts = () => {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
   const [selectedTag, setSelectedTag] = useState('');
+  const [viewProducts, setVeiwProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -29,13 +33,22 @@ const ListProducts = () => {
     fetchProducts();
   }, [category]);
 
-  const filteredProducts = useMemo(() => {
+  useEffect(() => {
     let productsFiltered = filterProductsByCategory(products, category);
 
-    selectedTag && (productsFiltered = filterProductsByTag(productsFiltered, selectedTag))
+    selectedTag &&
+      (productsFiltered = filterProductsByTag(productsFiltered, selectedTag));
 
-    return productsFiltered;
+    setVeiwProducts(productsFiltered);
   }, [products, category, selectedTag]);
+
+  const orderProductsByPrice = useCallback((order) => {
+    let productsOrdered = order.includes('Menor')
+      ? [...viewProducts].sort((a, b) => a.price - b.price)
+      : [...viewProducts].sort((a, b) => b.price - a.price);
+
+    setVeiwProducts(productsOrdered);
+  }, [viewProducts]);
 
   return (
     <>
@@ -43,26 +56,25 @@ const ListProducts = () => {
       <div className="container">
         <Aside
           title={category.includes('-') ? removeHyphen(category) : category}
-          totalResult={filteredProducts.length}
+          totalResult={viewProducts.length}
           onSelectedTag={setSelectedTag}
+          onOrderProducts={orderProductsByPrice}
         />
         <main className="containerList">
-          {filteredProducts.length !== 0 ? (
-            filteredProducts.map(
-              ({ id, tag, image, category, name, price }) => {
-                return (
-                  <CardProduct
-                    key={id}
-                    className="list"
-                    tag={tag}
-                    image={image}
-                    category={category}
-                    name={name}
-                    price={price}
-                  />
-                );
-              }
-            )
+          {viewProducts.length !== 0 ? (
+            viewProducts.map(({ id, tag, image, category, name, price }) => {
+              return (
+                <CardProduct
+                  key={id}
+                  className="list"
+                  tag={tag}
+                  image={image}
+                  category={category}
+                  name={name}
+                  price={price}
+                />
+              );
+            })
           ) : (
             <p>Nenhum produto encontrado para {category}.</p>
           )}
