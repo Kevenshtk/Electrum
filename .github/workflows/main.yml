@@ -22,4 +22,4 @@ jobs:
         run:  npm install
 
       - name: Executar o ESlint
-        run:  ls -la
+        run:  npm run lint
