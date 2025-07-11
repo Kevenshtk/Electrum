@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [feature-teste]
+
+jobs:
+  install:
+    name: Installing Packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar o código
+        uses: actions/checkout@v3
+
+      - name: Instalar o Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Instalar dependências
+        run:  npm install && ls -la
