@@ -37,7 +37,7 @@ const Home = () => {
     back: backPromo,
     hasPrev: btnBackPromo,
     hasNext: btnNextPromo,
-  } = usePagination(products, 'promo', width <= 435 && 1);
+  } = usePagination(products, 'promo', width <= 435 ? 1 : 4);
 
   const {
     page: viewProductsHot,
@@ -45,7 +45,7 @@ const Home = () => {
     back: backHot,
     hasPrev: btnBackHot,
     hasNext: btnNextHot,
-  } = usePagination(products, 'hot', width <= 435 && 1);
+  } = usePagination(products, 'hot', width <= 435 ? 1 : 4);
 
   return (
     <>
