@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/home";
 import ProductsRegister from "./pages/register/products";
-import ListProducts from "./pages/listProducts";
+import ListProduct from "./pages/listProducts";
 import "./styles/reset.sass";
 
 function App() {
