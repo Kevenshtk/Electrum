@@ -8,6 +8,7 @@ import Footer from '../../components/Footer';
 import { api } from '../../services/api.js';
 import { useEffect, useState } from 'react';
 import usePagination from '../../hooks/usePagination.js';
+import useWindowWidth from '../../hooks/useWindowWidth.js';
 
 import './styles/main.sass';
 
@@ -15,6 +16,7 @@ import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const width = useWindowWidth();
 
   useEffect(() => {
     const dataProducts = async () => {
@@ -35,7 +37,7 @@ const Home = () => {
     back: backPromo,
     hasPrev: btnBackPromo,
     hasNext: btnNextPromo,
-  } = usePagination(products, 'promo');
+  } = usePagination(products, 'promo', width <= 435 && 1);
 
   const {
     page: viewProductsHot,
@@ -43,7 +45,7 @@ const Home = () => {
     back: backHot,
     hasPrev: btnBackHot,
     hasNext: btnNextHot,
-  } = usePagination(products, 'hot');
+  } = usePagination(products, 'hot', width <= 435 && 1);
 
   return (
     <>
