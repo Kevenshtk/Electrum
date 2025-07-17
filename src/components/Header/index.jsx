@@ -12,9 +12,11 @@ import {
 } from 'react-icons/fa6';
 
 import { useNavigate } from 'react-router-dom';
+import useWindowWidth from '../../hooks/useWindowWidth';
 
 const Header = () => {
   const navigate = useNavigate();
+  const width = useWindowWidth();
 
   const handleCategoryClick = (category) => {
     category === 'Pc Gamer' && (category = 'PC-Gamer');
@@ -91,6 +93,13 @@ const Header = () => {
               'Câmeras',
               'Acessórios',
             ].map((category, index) => {
+              if (
+                width <= 435 &&
+                (category === 'Periféricos' ||
+                  category === 'Notebooks' ||
+                  category === 'Câmeras')
+              )
+                return;
               return (
                 <li key={index}>
                   <Button
