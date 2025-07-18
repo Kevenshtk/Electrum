@@ -68,7 +68,7 @@ const Home = () => {
 
       <section className="deal-container">
         <div className="deal-container-content">
-          <Timer />
+          <Timer endDate={new Date(Date.now() + ((2 * 24 + 12) * 60 * 60 + 25 * 60 + 33) * 1000).toISOString()} />
           <h2 className="deal-container-content-title">
             Promoção de Fone Gamer
           </h2>
