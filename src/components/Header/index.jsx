@@ -14,13 +14,17 @@ import {
 import { useNavigate } from 'react-router-dom';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
-const Header = () => {
+const Header = ({ thisLoggedIn }) => {
   const navigate = useNavigate();
   const width = useWindowWidth();
 
   const handleCategoryClick = (category) => {
     category === 'Pc Gamer' && (category = 'PC-Gamer');
     navigate(`/list/${category}`);
+  };
+
+  const handleSignInClick = () => {
+    navigate('/login');
   };
 
   return (
@@ -48,12 +52,13 @@ const Header = () => {
                 BRL
               </a>
             </span>
-            <span>
-              <a href="/">
-                <FaUser className="icon" />
-                Login
-              </a>
-            </span>
+
+            <FaUser className="icon" />
+            <Button
+              className="btn-sign-in"
+              text={thisLoggedIn.status ? thisLoggedIn.name : 'Login'}
+              onClick={() => handleSignInClick()}
+            />
           </div>
         </div>
       </div>
@@ -99,7 +104,7 @@ const Header = () => {
                   category === 'Notebooks' ||
                   category === 'Câmeras')
               )
-                return;
+                return null;
               return (
                 <li key={index}>
                   <Button

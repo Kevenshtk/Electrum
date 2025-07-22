@@ -14,7 +14,7 @@ import { removeHyphen } from '../../utils/textFormatter.js';
 
 import './styles.sass';
 
-const ListProducts = () => {
+const ListProducts = ({ thisLoggedIn }) => {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
   const [selectedTag, setSelectedTag] = useState('');
@@ -52,7 +52,7 @@ const ListProducts = () => {
 
   return (
     <>
-      <Header />
+      <Header thisLoggedIn={thisLoggedIn}/>
       <div className="container">
         <Aside
           title={category.includes('-') ? removeHyphen(category) : category}

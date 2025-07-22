@@ -270,5 +270,18 @@
       "image": "https://http2.mlstatic.com/D_NQ_NP_631093-MLU75825393655_042024-O.webp",
       "tag": "new"
     }
+  ],
+
+  "login": [
+    {
+      "username": "Keven",
+      "email": "keven@gmail.com",
+      "password": "123456789"
+    },
+    {
+      "username": "Teste",
+      "email": "teste@gmail.com",
+      "password": "123456789"
+    }
   ]
 }

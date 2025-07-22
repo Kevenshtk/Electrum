@@ -1,0 +1,28 @@
+@use '../../styles/mixins' as *
+@use '../../styles/variables' as *
+
+.mainLogin
+    @include floating-container
+
+    h1
+        text-align: center
+        font-size: 2rem
+        color: $primary-color
+
+    #loginForm
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        gap: 1rem
+        margin-top: 2rem 
+
+    input
+        margin-top: 0.5rem 
+        @include style-input
+
+    .containerBtnRow
+        width: 100%
+        display: flex
+        justify-content: center
+        gap: 1rem
