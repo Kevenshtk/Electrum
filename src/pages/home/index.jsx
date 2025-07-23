@@ -14,7 +14,7 @@ import './styles/main.sass';
 
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
-const Home = ({ thisLoggedIn }) => {
+const Home = ({ currentUser }) => {
   const [products, setProducts] = useState([]);
   const width = useWindowWidth();
 
@@ -49,7 +49,7 @@ const Home = ({ thisLoggedIn }) => {
 
   return (
     <>
-      <Header thisLoggedIn={thisLoggedIn}/>
+      <Header currentUser={currentUser}/>
 
       <section className="banners">
         <Banner id="banner-1" text="Promoção de Notebooks" />

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { loginValidation, getUserName } from '../../services/loginService.js';
+import { fetchLogin } from '../../services/loginService.js';
 
 import './styles.sass';
 
@@ -25,7 +25,7 @@ const schema = yup.object({
     .required('A senha é obrigatório'),
 });
 
-const Login = ({ setThisLoggedIn }) => {
+const Login = ({ setCurrentUser }) => {
   const {
     control,
     handleSubmit,
@@ -41,36 +41,43 @@ const Login = ({ setThisLoggedIn }) => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    const statusLogin = await loginValidation(data.email, data.password);
+    const users = await fetchLogin();
 
-    switch (statusLogin) {
-      case 'success':
-        setThisLoggedIn({
-          status: true,
-          email: data.email,
-          name: await getUserName(data.email),
-        });
-        navigate('/');
-        break;
-      case 'failed':
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Verifique seu e-mail ou senha.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
-        break;
-      default:
-        Swal.fire({
-          position: 'top',
-          icon: 'info',
-          title: 'Erro ao realizar login',
-          text: 'Tente novamente mais tarde.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
+    if (!users) {
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'Erro ao realizar login',
+        text: 'Tente novamente mais tarde.',
+        showConfirmButton: false,
+        timer: 3000,
+      });
+
+      return null;
+    }
+
+    const user = users.find(
+      (user) => user.email === data.email && user.password === data.password
+    );
+    console.log(user)
+
+    if (user) {
+      setCurrentUser({
+        status: true,
+        email: data.email,
+        name: user.username,
+      });
+
+      navigate('/');
+    } else {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Verifique seu e-mail ou senha.',
+        showConfirmButton: false,
+        timer: 3000,
+      });
     }
   };
 
@@ -85,13 +92,19 @@ const Login = ({ setThisLoggedIn }) => {
           control={control}
           render={({ field }) => (
             <div className="containerInputError">
-              <input type="email" placeholder="usuario@email.com" {...field} />
+              <input
+                id="email"
+                type="email"
+                placeholder="usuario@email.com"
+                {...field}
+              />
               <span className="error">
                 {errors.email && errors.email.message}
               </span>
             </div>
           )}
         />
+
         <Input
           name="password"
           label="Senha"
@@ -99,13 +112,19 @@ const Login = ({ setThisLoggedIn }) => {
           control={control}
           render={({ field }) => (
             <div className="containerInputError">
-              <input type="password" placeholder="senha" {...field} />
+              <input
+                id="password"
+                type="password"
+                placeholder="senha"
+                {...field}
+              />
               <span className="error">
                 {errors.password && errors.password.message}
               </span>
             </div>
           )}
         />
+
         <div className="containerBtnRow">
           <Button
             type="submit"
@@ -113,6 +132,7 @@ const Login = ({ setThisLoggedIn }) => {
             disabled={isSubmitting}
             text={isSubmitting ? 'Entrando...' : 'Entrar'}
           />
+
           <Button
             type="button"
             className="btn"

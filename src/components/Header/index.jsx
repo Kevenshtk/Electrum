@@ -14,7 +14,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
-const Header = ({ thisLoggedIn }) => {
+const Header = ({ currentUser }) => {
   const navigate = useNavigate();
   const width = useWindowWidth();
 
@@ -56,7 +56,7 @@ const Header = ({ thisLoggedIn }) => {
             <FaUser className="icon" />
             <Button
               className="btn-sign-in"
-              text={thisLoggedIn.status ? thisLoggedIn.name : 'Login'}
+              text={currentUser.status ? currentUser.name : 'Login'}
               onClick={() => handleSignInClick()}
             />
           </div>

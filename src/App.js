@@ -7,7 +7,7 @@ import Login from "./pages/login";
 import "./styles/reset.sass";
 
 function App() {
-  const [thisLoggedIn, setThisLoggedIn] = useState({
+  const [currentUser , setCurrentUser ] = useState({
     status: false,
     email: '',
     name: ''
@@ -16,10 +16,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home thisLoggedIn={thisLoggedIn}/>} />
+        <Route path="/" element={<Home currentUser={currentUser}/>} />
         <Route path="/register/products" element={<ProductsRegister />} />
-        <Route path="/list/:category" element={<ListProducts thisLoggedIn={thisLoggedIn}/>} />
-        <Route path="/login" element={<Login setThisLoggedIn={setThisLoggedIn}/>} />
+        <Route path="/list/:category" element={<ListProducts currentUser={currentUser}/>} />
+        <Route path="/login" element={<Login setCurrentUser={setCurrentUser}/>} />
       </Routes>
     </Router>
   );
