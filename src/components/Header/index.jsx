@@ -14,7 +14,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, setShowModal }) => {
   const navigate = useNavigate();
   const width = useWindowWidth();
 
@@ -24,7 +24,7 @@ const Header = ({ currentUser }) => {
   };
 
   const handleSignInClick = () => {
-    navigate('/login');
+    setShowModal(true);
   };
 
   return (

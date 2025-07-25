@@ -2,6 +2,8 @@ import Header from '../../components/Header';
 import Banner from '../../components/Banner';
 import SectionProducts from '../../components/SectionProducts';
 import Button from '../../components/Button';
+import Modal from '../../components/Modal';
+import UserForm from '../../components/Forms/UserForm';
 import Timer from '../../components/Timer';
 import Footer from '../../components/Footer';
 
@@ -14,8 +16,10 @@ import './styles/main.sass';
 
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
-const Home = ({ currentUser }) => {
+const Home = ({ currentUser, setCurrentUser }) => {
   const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
   const width = useWindowWidth();
 
   useEffect(() => {
@@ -49,7 +53,15 @@ const Home = ({ currentUser }) => {
 
   return (
     <>
-      <Header currentUser={currentUser}/>
+      <Header currentUser={currentUser} setShowModal={setShowModal} />
+      {showModal && (
+        <Modal setShowModal={setShowModal}>
+          <UserForm
+            setCurrentUser={setCurrentUser}
+            setShowModal={setShowModal}
+          />
+        </Modal>
+      )}
 
       <section className="banners">
         <Banner id="banner-1" text="Promoção de Notebooks" />
@@ -68,7 +80,11 @@ const Home = ({ currentUser }) => {
 
       <section className="deal-container">
         <div className="deal-container-content">
-          <Timer endDate={new Date(Date.now() + ((2 * 24 + 12) * 60 * 60 + 25 * 60 + 33) * 1000).toISOString()} />
+          <Timer
+            endDate={new Date(
+              Date.now() + ((2 * 24 + 12) * 60 * 60 + 25 * 60 + 33) * 1000
+            ).toISOString()}
+          />
           <h2 className="deal-container-content-title">
             Promoção de Fone Gamer
           </h2>
