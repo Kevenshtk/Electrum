@@ -19,7 +19,7 @@ import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 const Home = ({ currentUser, setCurrentUser }) => {
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [isFormRegister, setIsFormRegister] = useState(true);
+  const [isFormRegister, setIsFormRegister] = useState(false);
 
   const width = useWindowWidth();
 

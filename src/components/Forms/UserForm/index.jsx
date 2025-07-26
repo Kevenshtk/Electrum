@@ -13,24 +13,26 @@ import { registerUser } from '../../../services/userService.js';
 
 import './styles.sass';
 
-const schema = yup.object({
-  firstUserName: yup
-    .string()
-    .min(3, 'O campo deve ter pelo menos 3 caracteres')
-    .required('O primeiro nome é obrigatório'),
-
-  email: yup
-    .string()
-    .email('E-mail inválido')
-    .required('O e-mail é obrigatório'),
-
-  password: yup
-    .string()
-    .min(6, 'A senha deve ter pelo menos 6 caracteres')
-    .required('A senha é obrigatório'),
-});
-
 const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
+  const schema = yup.object({
+    firstUserName: isFormRegister
+      ? yup
+          .string()
+          .min(3, 'O campo deve ter pelo menos 3 caracteres')
+          .required('O primeiro nome é obrigatório')
+      : yup.string(),
+
+    email: yup
+      .string()
+      .email('E-mail inválido')
+      .required('O e-mail é obrigatório'),
+
+    password: yup
+      .string()
+      .min(6, 'A senha deve ter pelo menos 6 caracteres')
+      .required('A senha é obrigatório'),
+  });
+
   const {
     control,
     handleSubmit,
@@ -83,7 +85,6 @@ const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
 
       return;
     }
-
     const users = await fetchLogin();
 
     if (!users) {
