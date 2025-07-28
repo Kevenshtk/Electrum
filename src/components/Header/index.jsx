@@ -58,7 +58,7 @@ const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
             <Button
               className="btn-sign-in"
               text={currentUser.status ? currentUser.name : 'Login'}
-              onClick={() => handleShowModal('login')}
+              onClick={() => !currentUser.status && handleShowModal('login')}
             />
             {!currentUser.status && (
               <Button
