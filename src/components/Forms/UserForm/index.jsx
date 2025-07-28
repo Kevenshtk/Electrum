@@ -49,6 +49,7 @@ const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
   const onSubmit = async (data) => {
     if (isFormRegister) {
       const statusRegister = await registerUser(data);
+
       switch (statusRegister) {
         case 'ok':
           Swal.fire({
@@ -58,6 +59,8 @@ const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
             showConfirmButton: false,
             timer: 1500,
           });
+          setShowModal(false);
+          
           break;
 
         case 'errorEmail':
