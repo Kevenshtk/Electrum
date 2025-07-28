@@ -271,17 +271,24 @@
       "tag": "new"
     }
   ],
-
   "users": [
     {
-      "username": "Keven",
+      "id": "530f",
+      "username": "keven",
       "email": "keven@gmail.com",
       "password": "123456789"
     },
     {
+      "id": "ba63",
       "username": "Teste",
-      "email": "teste@gmail.com",
-      "password": "123456789"
+      "email": "Teste@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "4105",
+      "username": "joao",
+      "email": "joao@gmail.com",
+      "password": "123456"
     }
   ]
 }

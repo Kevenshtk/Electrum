@@ -19,6 +19,7 @@ import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 const Home = ({ currentUser, setCurrentUser }) => {
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [isFormRegister, setIsFormRegister] = useState(false);
 
   const width = useWindowWidth();
 
@@ -53,12 +54,17 @@ const Home = ({ currentUser, setCurrentUser }) => {
 
   return (
     <>
-      <Header currentUser={currentUser} setShowModal={setShowModal} />
+      <Header
+        currentUser={currentUser}
+        setShowModal={setShowModal}
+        setIsFormRegister={setIsFormRegister}
+      />
       {showModal && (
         <Modal setShowModal={setShowModal}>
           <UserForm
             setCurrentUser={setCurrentUser}
             setShowModal={setShowModal}
+            isFormRegister={isFormRegister}
           />
         </Modal>
       )}
@@ -111,8 +117,6 @@ const Home = ({ currentUser, setCurrentUser }) => {
         <form action="">
           <input
             type="email"
-            name="email"
-            id="email"
             placeholder="Digite o seu e-mail"
             required
           />

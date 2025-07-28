@@ -14,7 +14,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
-const Header = ({ currentUser, setShowModal }) => {
+const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
   const navigate = useNavigate();
   const width = useWindowWidth();
 
@@ -23,7 +23,8 @@ const Header = ({ currentUser, setShowModal }) => {
     navigate(`/list/${category}`);
   };
 
-  const handleSignInClick = () => {
+  const handleShowModal = (button) => {
+    button === 'register' ? setIsFormRegister(true) : setIsFormRegister(false);
     setShowModal(true);
   };
 
@@ -57,8 +58,15 @@ const Header = ({ currentUser, setShowModal }) => {
             <Button
               className="btn-sign-in"
               text={currentUser.status ? currentUser.name : 'Login'}
-              onClick={() => handleSignInClick()}
+              onClick={() => handleShowModal('login')}
             />
+            {!currentUser.status && (
+              <Button
+                className="btn-register"
+                text=' Registrar'
+                onClick={() => handleShowModal('register')}
+              />
+            )}
           </div>
         </div>
       </div>
