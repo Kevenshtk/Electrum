@@ -19,6 +19,10 @@ Electrum é um e-commerce de produtos eletrônicos desenvolvido em React. Ele pe
 - [ESLint](https://eslint.org)
 - [Prettier](https://prettier.io)
 
+## Tela Inicial
+
+![Tela Inicial](https://github.com/Kevenshtk/Electrum/tree/main/public/telaInicial.png)
+
 ## Funcionalidades
 
 - Filtrar produtos por categoria

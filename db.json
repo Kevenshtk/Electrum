@@ -270,5 +270,25 @@
       "image": "https://http2.mlstatic.com/D_NQ_NP_631093-MLU75825393655_042024-O.webp",
       "tag": "new"
     }
+  ],
+  "users": [
+    {
+      "id": "530f",
+      "username": "keven",
+      "email": "keven@gmail.com",
+      "password": "123456789"
+    },
+    {
+      "id": "ba63",
+      "username": "Teste",
+      "email": "Teste@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "4105",
+      "username": "joao",
+      "email": "joao@gmail.com",
+      "password": "123456"
+    }
   ]
 }
