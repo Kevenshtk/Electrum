@@ -21,7 +21,7 @@ Electrum é um e-commerce de produtos eletrônicos desenvolvido em React. Ele pe
 
 ## Tela Inicial
 
-![Tela Inicial](https://github.com/Kevenshtk/Electrum/tree/main/public/telaInicial.png)
+![Tela Inicial](https://github.com/Kevenshtk/Electrum/blob/main/public/telaInicial.png)
 
 ## Funcionalidades
 
