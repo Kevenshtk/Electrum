@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "http://localhost:8001",
+    baseURL: "https://apielectrum.onrender.com/rest-electrum",
     headers: {
         'Content-Type': "application/json",
     }
