@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/home';
 import ProductsRegister from './pages/register/products';
 import ListProducts from './pages/listProducts';
+import { api } from './services/api.js';
 
 import Swal from 'sweetalert2';
 
@@ -26,6 +27,19 @@ function App() {
       });
 
       sessionStorage.setItem('hasSeenAlert', true);
+
+      const dataProducts = async () => {
+        try {
+          const response = await api.get('/products');
+          if (response.status === 200) {
+            console.log('Ok');
+          }
+        } catch (error) {
+          console.error('Erro ao buscar dados:', error);
+        }
+      };
+
+      dataProducts();
     }
   }, []);
 
