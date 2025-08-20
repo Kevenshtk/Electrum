@@ -6,6 +6,8 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Funcionalidades](#funcionalidades)
 - [Instalação](#instalação)
+- [Contribuidores](#contribuidores)
+- [API](#api)
 
 ## Sobre o Projeto
 
@@ -15,7 +17,8 @@ Electrum é um e-commerce de produtos eletrônicos desenvolvido em React. Ele pe
 
 - [React](https://reactjs.org/)
 - [SASS](https://sass-lang.com/)
-- [json-server](https://www.npmjs.com/package/json-server)
+- [Axios](https://axios-http.com/ptbr)
+- [json-server](https://www.npmjs.com/package/json-server) (usado inicialmente como API fake)
 - [ESLint](https://eslint.org)
 - [Prettier](https://prettier.io)
 
@@ -50,10 +53,29 @@ Electrum é um e-commerce de produtos eletrônicos desenvolvido em React. Ele pe
    ```terminal
    npm install
 
-4. Inicie o json-server:
+4. Inicie o json-server (Opcional):
    ```terminal
    npm run api
    
 5. Inicie a aplicação:
    ```terminal
    npm start
+
+## Contribuidores
+
+Keven Di Camargo – Desenvolvimento principal
+
+Mateus Zancho Neto – Colaboração no projeto (Implementação de timer dinâmico) - 
+[GitHub](https://github.com/MateusZanchoNeto)
+
+## API
+
+O projeto também conta com uma API própria desenvolvida em Java Spring Boot, criada para substituir gradualmente o uso do json-server.
+Essa API é responsável por:
+
+- Armazenar e gerenciar produtos e usuários
+- Possibilitar operações de CRUD reais
+- Facilitar escalabilidade para o back-end
+
+Que está disponível em outro repositório:
+[APIelectrum](https://github.com/Kevenshtk/APIelectrum)
