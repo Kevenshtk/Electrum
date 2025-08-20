@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import useWakeUpAPI from './hooks/useWakeUpAPI.js'
+
 import { Home } from './pages/home';
 import ProductsRegister from './pages/register/products';
 import ListProducts from './pages/listProducts';
-import { api } from './services/api.js';
 
 import Swal from 'sweetalert2';
 
@@ -15,6 +16,7 @@ function App() {
     email: '',
     name: '',
   });
+  const statusAPI = useWakeUpAPI();
 
   useEffect(() => {
     const hasSeenAlert = sessionStorage.getItem('hasSeenAlert');
@@ -26,20 +28,13 @@ function App() {
         icon: 'warning',
       });
 
+      Swal.fire({
+        title: 'Observação!',
+        text: 'Aguarde um momento até os produtos serem carregados.',
+        icon: 'warning',
+      });
+
       sessionStorage.setItem('hasSeenAlert', true);
-
-      const dataProducts = async () => {
-        try {
-          const response = await api.get('/products');
-          if (response.status === 200) {
-            console.log('Ok');
-          }
-        } catch (error) {
-          console.error('Erro ao buscar dados:', error);
-        }
-      };
-
-      dataProducts();
     }
   }, []);
 
@@ -49,7 +44,11 @@ function App() {
         <Route
           path="/"
           element={
-            <Home currentUser={currentUser} setCurrentUser={setCurrentUser} />
+            <Home
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+              statusAPI={statusAPI}
+            />
           }
         />
         <Route path="/register/products" element={<ProductsRegister />} />
