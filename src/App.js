@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import useWakeUpAPI from './hooks/useWakeUpAPI.js'
+import useWakeUpAPI from './hooks/useWakeUpAPI.js';
 
 import { Home } from './pages/home';
 import ProductsRegister from './pages/register/products';
@@ -16,22 +16,36 @@ function App() {
     email: '',
     name: '',
   });
+
   const statusAPI = useWakeUpAPI();
 
   useEffect(() => {
     const hasSeenAlert = sessionStorage.getItem('hasSeenAlert');
 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 10000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      },
+    });
+
     if (!hasSeenAlert) {
       Swal.fire({
         title: 'Projeto em Construção',
-        text: 'funcionalidades como produtos favoritos, carrinho de compras e pesquisar produtos pelo campo de busca não estão disponíveis e bugs podem ser encontrados.',
+        text: 'Funcionalidades como favoritos, carrinho de compras e busca de produtos ainda não estão disponíveis, e erros podem ocorrer durante o uso.',
         icon: 'warning',
-      });
-
-      Swal.fire({
-        title: 'Observação!',
-        text: 'Aguarde um momento até os produtos serem carregados.',
-        icon: 'warning',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Toast.fire({
+            icon: 'warning',
+            title: 'Só um instante, estamos preparando os produtos para você!',
+          });
+        }
       });
 
       sessionStorage.setItem('hasSeenAlert', true);
