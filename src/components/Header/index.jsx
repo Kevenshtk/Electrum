@@ -15,23 +15,39 @@ import {
   FaCartShopping,
 } from 'react-icons/fa6';
 
-import { useNavigate } from 'react-router-dom';
-import useWindowWidth from '../../hooks/useWindowWidth';
+import './styles.sass';
+
+const categories = [
+  'Periféricos',
+  'Pc Gamer',
+  'Hardware',
+  'Notebooks',
+  'Smartphones',
+  'Câmeras',
+  'Acessórios',
+];
 
 const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const width = useWindowWidth();
 
-  const handleCategoryClick = (category) => {
-    category === 'Pc Gamer' && (category = 'PC-Gamer');
-    navigate(`/list/${category}`);
-  };
+  const handleCategoryClick = useCallback(
+    (category) => {
+      category === 'Pc Gamer' && (category = 'PC-Gamer');
+      navigate(`/list/${category}`);
+    },
+    [navigate]
+  );
 
-  const handleShowModal = (button) => {
-    button === 'register' ? setIsFormRegister(true) : setIsFormRegister(false);
-    setShowModal(true);
-  };
+  const handleShowModal = useCallback(
+    (button) => {
+      setIsFormRegister(button === 'register');
+      setShowModal(true);
+      if (width <= 435) setIsOpen((prev) => !prev);
+    },
+    [width, setIsFormRegister, setShowModal]
+  );
 
   return (
     <header>
@@ -64,12 +80,14 @@ const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
               className="btn-sign-in"
               text={currentUser.status ? currentUser.name : 'Login'}
               onClick={() => !currentUser.status && handleShowModal('login')}
+              aria-label="Abrir login"
             />
             {!currentUser.status && (
               <Button
                 className="btn-register"
-                text=' Registrar'
+                text=" Registrar"
                 onClick={() => handleShowModal('register')}
+                aria-label="Abrir formulário de cadastro"
               />
             )}
           </div>
@@ -150,15 +168,7 @@ const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
       <div className="header-bottom">
         <nav>
           <ul>
-            {[
-              'Periféricos',
-              'Pc Gamer',
-              'Hardware',
-              'Notebooks',
-              'Smartphones',
-              'Câmeras',
-              'Acessórios',
-            ].map((category, index) => {
+            {categories.map((category, index) => {
               if (
                 width <= 435 &&
                 (category === 'Periféricos' ||
@@ -172,6 +182,7 @@ const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
                     className="btn-category"
                     text={category}
                     onClick={() => handleCategoryClick(category)}
+                    aria-label={`Abrir lista de ${category}`}
                   />
                 </li>
               );
