@@ -1,5 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+import { useCallback, useState } from 'react';
+import useWindowWidth from '../../hooks/useWindowWidth';
+
 import Button from '../Button';
-import './styles.sass';
+
 import {
   FaPhone,
   FaRegEnvelope,
@@ -15,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import useWindowWidth from '../../hooks/useWindowWidth';
 
 const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const width = useWindowWidth();
 
@@ -81,16 +86,64 @@ const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
           <Button type="submit" className="btn btn-half" text="Pesquisar" />
         </form>
         <div className="header-actions-menu">
-          <div className="wishlist-container">
-            <span className="qty">0</span>
-            <FaHeart className="icon" />
-            <a href="/">Favoritos</a>
-          </div>
-          <div className="header-cart-container">
-            <span className="qty">0</span>
-            <FaCartShopping className="icon" />
-            <a href="/">Carrinho</a>
-          </div>
+          {width >= 435 ? (
+            <>
+              <div className="wishlist-container">
+                <span className="qty">0</span>
+                <FaHeart className="icon" />
+                <a href="/">Favoritos</a>
+              </div>
+              <div className="header-cart-container">
+                <span className="qty">0</span>
+                <FaCartShopping className="icon" />
+                <a href="/">Carrinho</a>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="header-user-container">
+                <FaUser
+                  className="icon"
+                  onClick={() => setIsOpen(!isOpen)}
+                  role="button"
+                  aria-label="Menu do usuário"
+                />
+                {isOpen && (
+                  <div className="dropdown-menu">
+                    {currentUser.status ? (
+                      <button className="dropdown-item">
+                        {currentUser.name}
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleShowModal('login')}
+                          aria-label="Abrir login"
+                        >
+                          Login
+                        </button>
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleShowModal('register')}
+                          aria-label="Abrir formulário de cadastro"
+                        >
+                          Registrar-se
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+              <div
+                className="header-cart-container"
+                role="button"
+                aria-label="Carrinho de compras"
+              >
+                <FaCartShopping className="icon" />
+              </div>
+            </>
+          )}
         </div>
       </div>
 
