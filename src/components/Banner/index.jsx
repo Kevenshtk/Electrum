@@ -1,13 +1,22 @@
-import "./styles.sass";
-import { FaCircleArrowRight } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
-const Banner = ({ id, text }) => {
+import Button from '../Button';
+
+import "./styles.sass";
+
+const Banner = ({ id, text, category }) => {
+  const navegate = useNavigate();
+
+  const handleCategoryClick = (category) => {
+    navegate(`/list/${category}`);
+  }
+
   return (
     <div className="banner" id={id}>
       <div className="banner-cover"></div>
       <div className="banner-content">
         <h2>{text}</h2>
-        <a href="#">Ver Mais<FaCircleArrowRight className="icon"/></a>
+        <Button className="btn-banner" text="Ver Mais" onClick={() => handleCategoryClick(category)}/>
       </div>
     </div>
   );

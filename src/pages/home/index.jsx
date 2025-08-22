@@ -70,9 +70,9 @@ const Home = ({ currentUser, setCurrentUser, statusAPI }) => {
       )}
 
       <section className="banners">
-        <Banner id="banner-1" text="Promoção de Notebooks" />
-        <Banner id="banner-2" text="Lançamento de Acessórios" />
-        <Banner id="banner-3" text="Câmeras Potentes" />
+        <Banner id="banner-1" text="Promoção de Notebooks" category="Notebooks"/>
+        <Banner id="banner-2" text="Lançamento de Acessórios" category="Acessórios" />
+        <Banner id="banner-3" text="Câmeras Potentes" category="Câmeras" />
       </section>
 
       <SectionProducts
