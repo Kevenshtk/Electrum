@@ -107,6 +107,49 @@ header
                 @include mobile
                     margin: 1rem 1.5rem
 
+                    .icon:hover
+                        color: $primary-color
+
+            .header-user-container
+                position: relative
+                display: inline-block
+
+                .dropdown-menu
+                    width: 150px
+                    position: absolute
+                    top: 40px
+                    right: 0
+                    background: #fff
+                    border: 1px solid #ddd
+                    border-radius: 8px
+                    padding: 0.5rem 0
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1)
+                    z-index: 100
+
+                    .dropdown-item 
+                        display: block
+                        width: 100%
+                        padding: 0.5rem 1rem
+                        background: none
+                        border: none
+                        text-align: left
+                        cursor: pointer
+                        font-size: 14px
+
+                        &:hover 
+                            background: #f5f5f5
+
+                .icon
+                    font-size: 2rem
+
+                @include header-icon
+
+                @include mobile
+                    margin: 1rem 1.5rem
+
+                    .icon:hover
+                        color: $primary-color
+
     .header-bottom
         background-color: $light-color
         border-bottom: 2px solid $section-bg-color
