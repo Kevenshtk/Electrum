@@ -13,10 +13,14 @@ import {
 
 import { useNavigate } from 'react-router-dom';
 import useWindowWidth from '../../hooks/useWindowWidth';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/auth';
 
-const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
+const Header = ({ setShowModal, setIsFormRegister }) => {
   const navigate = useNavigate();
   const width = useWindowWidth();
+  const { currentUser } = useContext(AuthContext);
+
 
   const handleCategoryClick = (category) => {
     category === 'Pc Gamer' && (category = 'PC-Gamer');

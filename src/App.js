@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import useWakeUpAPI from './hooks/useWakeUpAPI.js';
 
@@ -6,17 +6,13 @@ import { Home } from './pages/home';
 import ProductsRegister from './pages/register/products';
 import ListProducts from './pages/listProducts';
 
+import { AuthContextProvider } from './context/auth.jsx';
+
 import Swal from 'sweetalert2';
 
 import './styles/reset.sass';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({
-    status: false,
-    email: '',
-    name: '',
-  });
-
   const statusAPI = useWakeUpAPI();
 
   useEffect(() => {
@@ -54,23 +50,23 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              statusAPI={statusAPI}
-            />
-          }
-        />
-        <Route path="/register/products" element={<ProductsRegister />} />
-        <Route
-          path="/list/:category"
-          element={<ListProducts currentUser={currentUser} />}
-        />
-      </Routes>
+      <AuthContextProvider>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                statusAPI={statusAPI}
+              />
+            }
+          />
+          <Route path="/register/products" element={<ProductsRegister />} />
+          <Route
+            path="/list/:category"
+            element={<ListProducts />}
+          />
+        </Routes>
+      </AuthContextProvider>
     </Router>
   );
 }

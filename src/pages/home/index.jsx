@@ -16,7 +16,7 @@ import './styles/main.sass';
 
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
-const Home = ({ currentUser, setCurrentUser, statusAPI }) => {
+const Home = ({ setCurrentUser, statusAPI }) => {
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isFormRegister, setIsFormRegister] = useState(false);
@@ -55,7 +55,6 @@ const Home = ({ currentUser, setCurrentUser, statusAPI }) => {
   return (
     <>
       <Header
-        currentUser={currentUser}
         setShowModal={setShowModal}
         setIsFormRegister={setIsFormRegister}
       />
