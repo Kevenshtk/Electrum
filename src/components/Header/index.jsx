@@ -1,5 +1,4 @@
-import Button from '../Button';
-import './styles.sass';
+import { useContext } from 'react';
 import {
   FaPhone,
   FaRegEnvelope,
@@ -10,17 +9,18 @@ import {
   FaHeart,
   FaCartShopping,
 } from 'react-icons/fa6';
-
 import { useNavigate } from 'react-router-dom';
-import useWindowWidth from '../../hooks/useWindowWidth';
-import { useContext } from 'react';
+
 import { AuthContext } from '../../context/auth';
+import useWindowWidth from '../../hooks/useWindowWidth';
+import Button from '../Button';
+
+import './styles.sass';
 
 const Header = ({ setShowModal, setIsFormRegister }) => {
   const navigate = useNavigate();
   const width = useWindowWidth();
   const { currentUser } = useContext(AuthContext);
-
 
   const handleCategoryClick = (category) => {
     category === 'Pc Gamer' && (category = 'PC-Gamer');
@@ -67,7 +67,7 @@ const Header = ({ setShowModal, setIsFormRegister }) => {
             {!currentUser.status && (
               <Button
                 className="btn-register"
-                text=' Registrar'
+                text=" Registrar"
                 onClick={() => handleShowModal('register')}
               />
             )}

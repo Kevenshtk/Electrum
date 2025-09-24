@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import useWakeUpAPI from './hooks/useWakeUpAPI.js';
-
-import { Home } from './pages/home';
-import ProductsRegister from './pages/register/products';
-import ListProducts from './pages/listProducts';
+import Swal from 'sweetalert2';
 
 import { AuthContextProvider } from './context/auth.jsx';
+import useWakeUpAPI from './hooks/useWakeUpAPI.js';
+import { Home } from './pages/home';
+import ListProducts from './pages/listProducts';
+import ProductsRegister from './pages/register/products';
 
-import Swal from 'sweetalert2';
+
 
 import './styles/reset.sass';
 
@@ -52,19 +52,9 @@ function App() {
     <Router>
       <AuthContextProvider>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                statusAPI={statusAPI}
-              />
-            }
-          />
+          <Route path="/" element={<Home statusAPI={statusAPI} />} />
           <Route path="/register/products" element={<ProductsRegister />} />
-          <Route
-            path="/list/:category"
-            element={<ListProducts />}
-          />
+          <Route path="/list/:category" element={<ListProducts />} />
         </Routes>
       </AuthContextProvider>
     </Router>

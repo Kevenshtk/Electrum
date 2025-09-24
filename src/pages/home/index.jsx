@@ -1,20 +1,21 @@
-import Header from '../../components/Header';
-import Banner from '../../components/Banner';
-import SectionProducts from '../../components/SectionProducts';
-import Button from '../../components/Button';
-import Modal from '../../components/Modal';
-import UserForm from '../../components/Forms/UserForm';
-import Timer from '../../components/Timer';
-import Footer from '../../components/Footer';
-
-import { api } from '../../services/api.js';
 import { useEffect, useState } from 'react';
+import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+
+import Banner from '../../components/Banner';
+import Button from '../../components/Button';
+import Footer from '../../components/Footer';
+import UserForm from '../../components/Forms/UserForm';
+import Header from '../../components/Header';
+import Modal from '../../components/Modal';
+import SectionProducts from '../../components/SectionProducts';
+import Timer from '../../components/Timer';
 import usePagination from '../../hooks/usePagination.js';
 import useWindowWidth from '../../hooks/useWindowWidth.js';
+import { api } from '../../services/api.js';
 
 import './styles/main.sass';
 
-import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+
 
 const Home = ({ setCurrentUser, statusAPI }) => {
   const [products, setProducts] = useState([]);

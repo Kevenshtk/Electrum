@@ -1,16 +1,13 @@
-import Input from '../../Input';
-import Button from '../../Button';
-
-import Swal from 'sweetalert2';
-
-import { useForm } from 'react-hook-form';
-import { useContext } from 'react';
-import { AuthContext } from '../../../context/auth';
-
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
+import { AuthContext } from '../../../context/auth';
 import { registerUser } from '../../../services/userService.js';
+import Button from '../../Button';
+import Input from '../../Input';
 
 import './styles.sass';
 

@@ -1,6 +1,7 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import pluginReact from "eslint-plugin-react";
+import pluginJs from '@eslint/js';
+import importPlugin from 'eslint-plugin-import';
+import pluginReact from 'eslint-plugin-react';
+import globals from 'globals';
 
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
@@ -8,14 +9,30 @@ export default [
   pluginReact.configs.flat.recommended,
 
   {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
+    files: ['**/*.{js,mjs,cjs,jsx}'],
     languageOptions: { globals: globals.browser },
-    plugins: { react: pluginReact },
+    plugins: { react: pluginReact, import: importPlugin },
     rules: {
       ...pluginReact.configs.recommended.rules,
-      "react/prop-types": "off",
-      "react/react-in-jsx-scope": "off"
+      'react/prop-types': 'off',
+      'react/react-in-jsx-scope': 'off',
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            ['sibling', 'parent', 'index'],
+          ],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
     },
-    settings: { react: { version: "detect" } },
+    settings: { react: { version: 'detect' } },
   },
 ];
