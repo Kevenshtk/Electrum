@@ -8,8 +8,6 @@ import { Home } from './pages/home';
 import ListProducts from './pages/listProducts';
 import ProductsRegister from './pages/register/products';
 
-
-
 import './styles/reset.sass';
 
 function App() {

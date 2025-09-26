@@ -9,6 +9,7 @@ export const AuthContextProvider = ({ children }) => {
     status: false,
     email: '',
     name: '',
+    id: 0
   });
 
   const handleLogin = async (email, password) => {
@@ -27,6 +28,7 @@ export const AuthContextProvider = ({ children }) => {
         status: true,
         email: email,
         name: user.username,
+        id : user.id
       });
 
       return 'ok'

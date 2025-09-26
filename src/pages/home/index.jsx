@@ -15,8 +15,6 @@ import { api } from '../../services/api.js';
 
 import './styles/main.sass';
 
-
-
 const Home = ({ setCurrentUser, statusAPI }) => {
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);

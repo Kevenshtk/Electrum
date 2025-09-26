@@ -20,3 +20,77 @@ export const createProduct = async (productData) => {
 
   return response.data;
 };
+
+export const addProductToFavorites = async (idUser, idProduct) => {
+  try {
+    const response = await api.post(
+      '/favorites',
+      {
+        usuario: {
+          id: idUser,
+        },
+        produto: {
+          id: idProduct,
+        },
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return { success: true, data: response.data };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message ||
+        'Erro ao adicionar produto aos favoritos',
+      status: error.response?.status || 500,
+    };
+  }
+};
+
+export const deleteProductToFavorites = async (idUser, idProduct) => {
+  try {
+    await api.delete(`/favorites/user/${idUser}/product/${idProduct}`);
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Erro ao remover o produto',
+      status: error.response?.status || 500,
+    };
+  }
+};
+
+export const getProductsFavorites = async (idUser) => {
+  try {
+    const response = await api.get(`/favorites/user/${idUser}`);
+    return { success: true, data: response.data };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message ||
+        'Erro ao buscar produtos favoritos',
+      status: error.response?.status || 500,
+    };
+  }
+};
+
+export const validateProductFavorites = async (idUser, idProduct) => {
+  try {
+    const response = await getProductsFavorites(idUser);
+    if (response.success) {
+      const result = response.data.find((product) => product.id === idProduct)
+      return !!result; // Retorna true se 'result' for encontrado, senão false.
+    }
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
