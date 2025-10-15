@@ -3,13 +3,16 @@ import {
   FaHeart,
   FaCartShopping,
 } from 'react-icons/fa6';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../Button';
+import { FavoriteContext } from '../../../context/favorites';
 
 import './styles.sass';
 
 const HeaderMain = () => {
     const navigate = useNavigate();
+    const { favorites } = useContext(FavoriteContext);
 
     const handleClickHome = () => {
         navigate('/');
@@ -27,7 +30,7 @@ const HeaderMain = () => {
       </form>
       <div className="header-actions-menu">
         <div className="wishlist-container">
-          <span className="qty">0</span>
+          <span className="qty">{favorites ? favorites.length : 0}</span>
           <FaHeart className="icon" />
           <a href="/">Favoritos</a>
         </div>

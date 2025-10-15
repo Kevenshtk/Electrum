@@ -21,6 +21,18 @@ export const createProduct = async (productData) => {
   return response.data;
 };
 
+export const getProductsById = async (idProduct) => {
+  try {
+    const response = await api.get(`/products/${idProduct}`);
+    return { success: true, data: response.data };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Erro ao buscar produto',
+    };
+  }
+};
+
 export const addProductToFavorites = async (idUser, idProduct) => {
   try {
     const response = await api.post(
@@ -74,23 +86,8 @@ export const getProductsFavorites = async (idUser) => {
     return {
       success: false,
       message:
-        error.response?.data?.message ||
-        'Erro ao buscar produtos favoritos',
+        error.response?.data?.message || 'Erro ao buscar produtos favoritos',
       status: error.response?.status || 500,
     };
   }
 };
-
-export const validateProductFavorites = async (idUser, idProduct) => {
-  try {
-    const response = await getProductsFavorites(idUser);
-    if (response.success) {
-      const result = response.data.find((product) => product.id === idProduct)
-      return !!result; // Retorna true se 'result' for encontrado, senão false.
-    }
-    return false;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
-}

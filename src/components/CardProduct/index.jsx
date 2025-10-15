@@ -1,13 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
-import { FaHeart, FaRegHeart  } from "react-icons/fa";
-import Swal from 'sweetalert2';
+import { useContext } from 'react';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 import { AuthContext } from '../../context/auth.jsx';
-import {
-  addProductToFavorites,
-  deleteProductToFavorites,
-  validateProductFavorites,
-} from '../../services/productService.js';
+import { FavoriteContext } from '../../context/favorites.jsx';
 import { removeHyphen } from '../../utils/textFormatter.js';
 import Button from '../Button';
 
@@ -23,71 +18,27 @@ const CardProduct = ({
   price,
 }) => {
   const { currentUser } = useContext(AuthContext);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { addFavorites, removeFavorites, isFavorite } = useContext(FavoriteContext);
 
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3500,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.onmouseenter = Swal.stopTimer;
-      toast.onmouseleave = Swal.resumeTimer;
-    },
-  });
-
-  const addFavorites = async (idUser, idProduct) => {
-    const result = await addProductToFavorites(idUser, idProduct);
-
-    if (result.success) {
-      setIsFavorite(true);
-    } else {
-      Toast.fire({
-        icon: 'warning',
-        title: result.message,
-      });
-    }
+  const toggleFavorite = () => {
+    isFavorite(idProduct)
+      ? removeFavorites(currentUser.id, idProduct)
+      : addFavorites(currentUser.id, idProduct);
   };
-
-  const removeFavorites = async (idUser, idProduct) => {
-    const result = await deleteProductToFavorites(idUser, idProduct);
-
-    if (result.success) {
-      setIsFavorite(false);
-    } else {
-      Toast.fire({
-        icon: 'warning',
-        title: result.message,
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (currentUser.status) {
-      const checkFavorite = async () => {
-        const isFav = await validateProductFavorites(currentUser.id, idProduct);
-        setIsFavorite(isFav);
-      };
-
-      checkFavorite();
-    }
-  }, [currentUser.id, currentUser.status, idProduct]);
 
   return (
     <div className={`products-grid-card-${className}`}>
       <span className={`label ${tag}`}>{tag}</span>
 
-      {currentUser.status &&
-        (isFavorite ? (
-          <button className="btn-favorite" onClick={() => removeFavorites(currentUser.id, idProduct)}>
-            <FaHeart size={20}/>
-          </button>
-        ) : (
-          <button className="btn-favorite" onClick={() => addFavorites(currentUser.id, idProduct)}>
+      {currentUser.status && (
+        <button className="btn-favorite" onClick={toggleFavorite}>
+          {isFavorite(idProduct) ? (
+            <FaHeart size={20} />
+          ) : (
             <FaRegHeart size={20} />
-          </button>
-        ))}
+          )}
+        </button>
+      )}
 
       <img src={image} alt={name} />
       <p className="category">

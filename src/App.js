@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import { AuthContextProvider } from './context/auth.jsx';
+import { FavoriteContextProvider } from './context/favorites.jsx';
 import useWakeUpAPI from './hooks/useWakeUpAPI.js';
 import Modal from './components/Modal';
 import UserForm from './components/Forms/UserForm';
@@ -55,25 +56,27 @@ function App() {
     <>
       <Router>
         <AuthContextProvider>
-          <Header
-            setShowModal={setShowModal}
-            setIsFormRegister={setIsFormRegister}
-          />
+          <FavoriteContextProvider>
+            <Header
+              setShowModal={setShowModal}
+              setIsFormRegister={setIsFormRegister}
+            />
 
-          <Routes>
-            <Route path="/" element={<Home statusAPI={statusAPI} />} />
-            <Route path="/register/products" element={<ProductsRegister />} />
-            <Route path="/list/:category" element={<ListProducts />} />
-          </Routes>
+            <Routes>
+              <Route path="/" element={<Home statusAPI={statusAPI} />} />
+              <Route path="/register/products" element={<ProductsRegister />} />
+              <Route path="/list/:category" element={<ListProducts />} />
+            </Routes>
 
-          {showModal && (
-            <Modal setShowModal={setShowModal}>
-              <UserForm
-                setShowModal={setShowModal}
-                isFormRegister={isFormRegister}
-              />
-            </Modal>
-          )}
+            {showModal && (
+              <Modal setShowModal={setShowModal}>
+                <UserForm
+                  setShowModal={setShowModal}
+                  isFormRegister={isFormRegister}
+                />
+              </Modal>
+            )}
+          </FavoriteContextProvider>
         </AuthContextProvider>
       </Router>
     </>
