@@ -80,12 +80,12 @@ const CardProduct = ({
 
       {currentUser.status &&
         (isFavorite ? (
-          <button onClick={() => removeFavorites(currentUser.id, idProduct)}>
-            <FaHeart />
+          <button className="btn-favorite" onClick={() => removeFavorites(currentUser.id, idProduct)}>
+            <FaHeart size={20}/>
           </button>
         ) : (
-          <button onClick={() => addFavorites(currentUser.id, idProduct)}>
-            <FaRegHeart />
+          <button className="btn-favorite" onClick={() => addFavorites(currentUser.id, idProduct)}>
+            <FaRegHeart size={20} />
           </button>
         ))}
 
