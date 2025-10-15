@@ -1,5 +1,6 @@
-import { removeHyphen } from '../../utils/textFormatter.js';
 import Button from '../Button';
+
+import { removeHyphen } from '../../utils/textFormatter.js';
 
 import './styles.sass';
 

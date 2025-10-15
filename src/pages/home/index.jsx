@@ -1,19 +1,25 @@
-import { useEffect, useState } from 'react';
-import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
-
+import Header from '../../components/Header';
 import Banner from '../../components/Banner';
-import Button from '../../components/Button';
-import Footer from '../../components/Footer';
 import SectionProducts from '../../components/SectionProducts';
+import Button from '../../components/Button';
+import Modal from '../../components/Modal';
+import UserForm from '../../components/Forms/UserForm';
 import Timer from '../../components/Timer';
+import Footer from '../../components/Footer';
+
+import { api } from '../../services/api.js';
+import { useEffect, useState } from 'react';
 import usePagination from '../../hooks/usePagination.js';
 import useWindowWidth from '../../hooks/useWindowWidth.js';
-import { api } from '../../services/api.js';
 
 import './styles/main.sass';
 
-const Home = ({ statusAPI }) => {
+import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+
+const Home = ({ currentUser, setCurrentUser, statusAPI }) => {
   const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [isFormRegister, setIsFormRegister] = useState(false);
 
   const width = useWindowWidth();
 
@@ -48,6 +54,21 @@ const Home = ({ statusAPI }) => {
 
   return (
     <>
+      <Header
+        currentUser={currentUser}
+        setShowModal={setShowModal}
+        setIsFormRegister={setIsFormRegister}
+      />
+      {showModal && (
+        <Modal setShowModal={setShowModal}>
+          <UserForm
+            setCurrentUser={setCurrentUser}
+            setShowModal={setShowModal}
+            isFormRegister={isFormRegister}
+          />
+        </Modal>
+      )}
+
       <section className="banners">
         <Banner id="banner-1" text="Promoção de Notebooks" category="Notebooks"/>
         <Banner id="banner-2" text="Lançamento de Acessórios" category="Acessórios" />
