@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 
 import Aside from '../../components/Aside';
 import CardProduct from '../../components/CardProduct';
-import Header from '../../components/Header';
 import { api } from '../../services/api.js';
 import {
   filterProductsByCategory,
@@ -51,7 +50,6 @@ const ListProducts = () => {
 
   return (
     <>
-      <Header/>
       <div className="container">
         <Aside
           title={category.includes('-') ? removeHyphen(category) : category}

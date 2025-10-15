@@ -31,6 +31,11 @@ export default [
             caseInsensitive: true,
           },
         },
+        {
+          env: {
+            jest: true,
+          },
+        },
       ],
     },
     settings: { react: { version: 'detect' } },
