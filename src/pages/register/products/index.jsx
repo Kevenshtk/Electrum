@@ -1,13 +1,11 @@
-import Button from '../../../components/Button';
-import Input from '../../../components/Input';
-
-import Swal from 'sweetalert2';
-
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
+import Button from '../../../components/Button';
+import Input from '../../../components/Input';
 import { createProduct } from '../../../services/productService.js';
 
 import './styles.sass';

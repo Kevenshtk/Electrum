@@ -1,22 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import useWakeUpAPI from './hooks/useWakeUpAPI.js';
-
-import { Home } from './pages/home';
-import ProductsRegister from './pages/register/products';
-import ListProducts from './pages/listProducts';
-
 import Swal from 'sweetalert2';
+
+import { AuthContextProvider } from './context/auth.jsx';
+import useWakeUpAPI from './hooks/useWakeUpAPI.js';
+import Modal from './components/Modal';
+import UserForm from './components/Forms/UserForm';
+import Header from './components/Header';
+import { Home } from './pages/home';
+import ListProducts from './pages/listProducts';
+import ProductsRegister from './pages/register/products';
 
 import './styles/reset.sass';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({
-    status: false,
-    email: '',
-    name: '',
-  });
-
+  const [showModal, setShowModal] = useState(false);
+  const [isFormRegister, setIsFormRegister] = useState(false);
   const statusAPI = useWakeUpAPI();
 
   useEffect(() => {
@@ -53,25 +52,31 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-              statusAPI={statusAPI}
-            />
-          }
-        />
-        <Route path="/register/products" element={<ProductsRegister />} />
-        <Route
-          path="/list/:category"
-          element={<ListProducts currentUser={currentUser} />}
-        />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <AuthContextProvider>
+          <Header
+            setShowModal={setShowModal}
+            setIsFormRegister={setIsFormRegister}
+          />
+
+          <Routes>
+            <Route path="/" element={<Home statusAPI={statusAPI} />} />
+            <Route path="/register/products" element={<ProductsRegister />} />
+            <Route path="/list/:category" element={<ListProducts />} />
+          </Routes>
+
+          {showModal && (
+            <Modal setShowModal={setShowModal}>
+              <UserForm
+                setShowModal={setShowModal}
+                isFormRegister={isFormRegister}
+              />
+            </Modal>
+          )}
+        </AuthContextProvider>
+      </Router>
+    </>
   );
 }
 

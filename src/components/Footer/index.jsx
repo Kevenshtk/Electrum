@@ -1,9 +1,10 @@
-import "./styles.sass";
 import {
   FaPhone,
   FaRegEnvelope,
   FaLocationDot
 } from "react-icons/fa6";
+
+import "./styles.sass";
 
 const Footer = () => {
   return (

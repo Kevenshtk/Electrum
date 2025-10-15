@@ -1,19 +1,19 @@
-import Input from '../../Input';
-import Button from '../../Button';
-
-import Swal from 'sweetalert2';
-
-import { useForm } from 'react-hook-form';
-
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
-import { fetchLogin } from '../../../services/loginService.js';
+import { AuthContext } from '../../../context/auth';
 import { registerUser } from '../../../services/userService.js';
+import Button from '../../Button';
+import Input from '../../Input';
 
 import './styles.sass';
 
-const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
+const UserForm = ({ setShowModal, isFormRegister }) => {
+  const { handleLogin } = useContext(AuthContext);
+  
   const schema = yup.object({
     firstUserName: isFormRegister
       ? yup
@@ -88,9 +88,10 @@ const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
 
       return;
     }
-    const users = await fetchLogin();
 
-    if (!users) {
+    const statusLogin = await handleLogin(data.email, data.password);
+
+    if (statusLogin === 'erroServer') {
       Swal.fire({
         position: 'top',
         icon: 'info',
@@ -103,17 +104,7 @@ const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
       return;
     }
 
-    const user = users.find(
-      (user) => user.email === data.email && user.password === data.password
-    );
-
-    if (user) {
-      setCurrentUser({
-        status: true,
-        email: data.email,
-        name: user.username,
-      });
-
+    if (statusLogin === 'ok') {
       setShowModal(false);
     } else {
       Swal.fire({

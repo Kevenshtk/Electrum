@@ -1,7 +1,7 @@
-import CardProduct from '../CardProduct';
-import Button from '../Button';
-
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+
+import Button from '../Button';
+import CardProduct from '../CardProduct';
 
 import './styles.sass';
 

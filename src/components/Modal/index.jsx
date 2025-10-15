@@ -1,6 +1,6 @@
-import Button from '../Button';
-
 import { RiCloseLargeLine } from "react-icons/ri";
+
+import Button from '../Button';
 
 import './styles.sass';
 

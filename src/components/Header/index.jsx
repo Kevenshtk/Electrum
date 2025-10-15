@@ -31,6 +31,7 @@ const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const width = useWindowWidth();
+  const { currentUser } = useContext(AuthContext);
 
   const handleCategoryClick = useCallback(
     (category) => {
