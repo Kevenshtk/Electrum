@@ -4,9 +4,6 @@ import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 import Banner from '../../components/Banner';
 import Button from '../../components/Button';
 import Footer from '../../components/Footer';
-import UserForm from '../../components/Forms/UserForm';
-import Header from '../../components/Header';
-import Modal from '../../components/Modal';
 import SectionProducts from '../../components/SectionProducts';
 import Timer from '../../components/Timer';
 import usePagination from '../../hooks/usePagination.js';
@@ -15,12 +12,8 @@ import { api } from '../../services/api.js';
 
 import './styles/main.sass';
 
-
-
-const Home = ({ setCurrentUser, statusAPI }) => {
+const Home = ({ statusAPI }) => {
   const [products, setProducts] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [isFormRegister, setIsFormRegister] = useState(false);
 
   const width = useWindowWidth();
 
@@ -55,20 +48,6 @@ const Home = ({ setCurrentUser, statusAPI }) => {
 
   return (
     <>
-      <Header
-        setShowModal={setShowModal}
-        setIsFormRegister={setIsFormRegister}
-      />
-      {showModal && (
-        <Modal setShowModal={setShowModal}>
-          <UserForm
-            setCurrentUser={setCurrentUser}
-            setShowModal={setShowModal}
-            isFormRegister={isFormRegister}
-          />
-        </Modal>
-      )}
-
       <section className="banners">
         <Banner id="banner-1" text="Promoção de Notebooks" category="Notebooks"/>
         <Banner id="banner-2" text="Lançamento de Acessórios" category="Acessórios" />
