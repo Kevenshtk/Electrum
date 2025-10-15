@@ -1,4 +1,9 @@
-import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCallback, useState } from 'react';
+import useWindowWidth from '../../hooks/useWindowWidth';
+
+import Button from '../Button';
+
 import {
   FaPhone,
   FaRegEnvelope,
@@ -9,28 +14,41 @@ import {
   FaHeart,
   FaCartShopping,
 } from 'react-icons/fa6';
-import { useNavigate } from 'react-router-dom';
-
-import { AuthContext } from '../../context/auth';
-import useWindowWidth from '../../hooks/useWindowWidth';
-import Button from '../Button';
 
 import './styles.sass';
 
-const Header = ({ setShowModal, setIsFormRegister }) => {
+const categories = [
+  'Periféricos',
+  'Pc Gamer',
+  'Hardware',
+  'Notebooks',
+  'Smartphones',
+  'Câmeras',
+  'Acessórios',
+];
+
+const Header = ({ currentUser, setShowModal, setIsFormRegister }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const width = useWindowWidth();
   const { currentUser } = useContext(AuthContext);
 
-  const handleCategoryClick = (category) => {
-    category === 'Pc Gamer' && (category = 'PC-Gamer');
-    navigate(`/list/${category}`);
-  };
+  const handleCategoryClick = useCallback(
+    (category) => {
+      category === 'Pc Gamer' && (category = 'PC-Gamer');
+      navigate(`/list/${category}`);
+    },
+    [navigate]
+  );
 
-  const handleShowModal = (button) => {
-    button === 'register' ? setIsFormRegister(true) : setIsFormRegister(false);
-    setShowModal(true);
-  };
+  const handleShowModal = useCallback(
+    (button) => {
+      setIsFormRegister(button === 'register');
+      setShowModal(true);
+      if (width <= 435) setIsOpen((prev) => !prev);
+    },
+    [width, setIsFormRegister, setShowModal]
+  );
 
   return (
     <header>
@@ -63,12 +81,14 @@ const Header = ({ setShowModal, setIsFormRegister }) => {
               className="btn-sign-in"
               text={currentUser.status ? currentUser.name : 'Login'}
               onClick={() => !currentUser.status && handleShowModal('login')}
+              aria-label="Abrir login"
             />
             {!currentUser.status && (
               <Button
                 className="btn-register"
                 text=" Registrar"
                 onClick={() => handleShowModal('register')}
+                aria-label="Abrir formulário de cadastro"
               />
             )}
           </div>
@@ -85,31 +105,71 @@ const Header = ({ setShowModal, setIsFormRegister }) => {
           <Button type="submit" className="btn btn-half" text="Pesquisar" />
         </form>
         <div className="header-actions-menu">
-          <div className="wishlist-container">
-            <span className="qty">0</span>
-            <FaHeart className="icon" />
-            <a href="/">Favoritos</a>
-          </div>
-          <div className="header-cart-container">
-            <span className="qty">0</span>
-            <FaCartShopping className="icon" />
-            <a href="/">Carrinho</a>
-          </div>
+          {width >= 435 ? (
+            <>
+              <div className="wishlist-container">
+                <span className="qty">0</span>
+                <FaHeart className="icon" />
+                <a href="/">Favoritos</a>
+              </div>
+              <div className="header-cart-container">
+                <span className="qty">0</span>
+                <FaCartShopping className="icon" />
+                <a href="/">Carrinho</a>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="header-user-container">
+                <FaUser
+                  className="icon"
+                  onClick={() => setIsOpen(!isOpen)}
+                  role="button"
+                  aria-label="Menu do usuário"
+                />
+                {isOpen && (
+                  <div className="dropdown-menu">
+                    {currentUser.status ? (
+                      <button className="dropdown-item">
+                        {currentUser.name}
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleShowModal('login')}
+                          aria-label="Abrir login"
+                        >
+                          Login
+                        </button>
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleShowModal('register')}
+                          aria-label="Abrir formulário de cadastro"
+                        >
+                          Registrar-se
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+              <div
+                className="header-cart-container"
+                role="button"
+                aria-label="Carrinho de compras"
+              >
+                <FaCartShopping className="icon" />
+              </div>
+            </>
+          )}
         </div>
       </div>
 
       <div className="header-bottom">
         <nav>
           <ul>
-            {[
-              'Periféricos',
-              'Pc Gamer',
-              'Hardware',
-              'Notebooks',
-              'Smartphones',
-              'Câmeras',
-              'Acessórios',
-            ].map((category, index) => {
+            {categories.map((category, index) => {
               if (
                 width <= 435 &&
                 (category === 'Periféricos' ||
@@ -123,6 +183,7 @@ const Header = ({ setShowModal, setIsFormRegister }) => {
                     className="btn-category"
                     text={category}
                     onClick={() => handleCategoryClick(category)}
+                    aria-label={`Abrir lista de ${category}`}
                   />
                 </li>
               );
