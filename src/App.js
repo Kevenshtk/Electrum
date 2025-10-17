@@ -10,6 +10,7 @@ import UserForm from './components/Forms/UserForm';
 import Header from './components/Header';
 import { Home } from './pages/home';
 import ListProducts from './pages/listProducts';
+import Favorites from './pages/favorites';
 import ProductsRegister from './pages/register/products';
 
 import './styles/reset.sass';
@@ -66,6 +67,7 @@ function App() {
               <Route path="/" element={<Home statusAPI={statusAPI} />} />
               <Route path="/register/products" element={<ProductsRegister />} />
               <Route path="/list/:category" element={<ListProducts />} />
+              <Route path="/favorites/:idUser" element={<Favorites />} />
             </Routes>
 
             {showModal && (
