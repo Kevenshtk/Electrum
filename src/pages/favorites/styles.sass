@@ -1,0 +1,45 @@
+@use '../../styles/variables' as *
+@use '../../styles/mixins' as *
+
+.favorites
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+  //background-color: $bg-color
+
+.favorites-content
+  flex: 1
+  padding: 3rem 1rem
+
+.favorites-container
+  @include center-content
+  flex-direction: column
+  max-width: $container-width
+  width: 100%
+
+.favorites-title
+  //color: $light-color
+  font-size: 2.5rem
+  font-weight: 700
+  text-align: center
+  margin-bottom: 3rem
+  text-transform: uppercase
+  letter-spacing: 1px
+
+  @include mobile
+    font-size: 1.8rem
+    margin-bottom: 2rem
+
+.favorites-grid
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  gap: 2rem
+  width: 100%
+
+  @media (max-width: 992px)
+    grid-template-columns: repeat(3, 1fr)
+    gap: 1.5rem
+
+  @include mobile
+    grid-template-columns: 1fr
+    gap: 1.5rem
