@@ -1,37 +1,35 @@
+import { Link } from 'react-router-dom';
 import useWindowWidth from '../../../hooks/useWindowWidth';
-import Button from '../../Button';
 import './styles.sass';
 
-const HeaderBottom = ({ handleCategoryClick }) => {
+const HeaderBottom = () => {
   const width = useWindowWidth();
+
+  const listCategories = [
+    {text: 'Periféricos', url: 'perifericos'},
+    {text: 'Pc Gamer', url: 'pc-gamer'},
+    {text: 'Hardware', url: 'hardware'},
+    {text: 'Notebooks', url: 'notebook'},
+    {text: 'Celulares', url: 'celular'},
+    {text: 'Câmeras', url: 'camera'},
+    {text: 'Acessórios', url: 'acessorio'},
+  ];
 
   return (
     <div className="header-bottom">
       <nav>
         <ul>
-          {[
-            'Periféricos',
-            'Pc Gamer',
-            'Hardware',
-            'Notebooks',
-            'Smartphones',
-            'Câmeras',
-            'Acessórios',
-          ].map((category, index) => {
+          {listCategories.map((item, index) => {
             if (
               width <= 435 &&
-              (category === 'Periféricos' ||
-                category === 'Notebooks' ||
-                category === 'Câmeras')
+              (item.text === 'Periféricos' ||
+                item.text === 'Notebooks' ||
+                item.text === 'Câmeras')
             )
               return null;
             return (
               <li key={index}>
-                <Button
-                  className="btn-category"
-                  text={category}
-                  onClick={() => handleCategoryClick(category)}
-                />
+                <Link to={`/list/${item.url}`} className="link-category">{item.text}</Link>
               </li>
             );
           })}

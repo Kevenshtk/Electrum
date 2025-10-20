@@ -1,6 +1,6 @@
 import { FaBolt, FaHeart, FaCartShopping } from 'react-icons/fa6';
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../Button';
 import Swal from 'sweetalert2';
 import { FavoriteContext } from '../../../context/favorites';
@@ -10,10 +10,6 @@ import './styles.sass';
 const HeaderMain = ({ currentUser }) => {
   const navigate = useNavigate();
   const { favorites } = useContext(FavoriteContext);
-
-  const handleClickHome = () => {
-    navigate('/');
-  };
 
   const handleClickFavorites = () => {
     currentUser.status
@@ -29,24 +25,27 @@ const HeaderMain = ({ currentUser }) => {
 
   return (
     <div className="main-header">
-      <a id="brand" onClick={handleClickHome}>
+      <Link to="/" id="brand">
         Electrum
         <FaBolt className="icon" />
-      </a>
+      </Link>
+      
       <form action="" id="search-form">
         <input type="text" id="search" placeholder="Busque aqui" />
         <Button type="submit" className="btn btn-half" text="Pesquisar" />
       </form>
+
       <div className="header-actions-menu">
         <div className="wishlist-container">
           <span className="qty">{favorites ? favorites.length : 0}</span>
           <FaHeart className="icon" />
-          <a onClick={handleClickFavorites}>Favoritos</a>
+          <Button className="btn-simples" text="Favoritos" onClick={handleClickFavorites} />
         </div>
+
         <div className="header-cart-container">
           <span className="qty">0</span>
           <FaCartShopping className="icon" />
-          <a href="/">Carrinho</a>
+          <Button className="btn-simples" text="Carrinho" />
         </div>
       </div>
     </div>

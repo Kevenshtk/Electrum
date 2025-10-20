@@ -6,6 +6,7 @@ import {
   FaUser,
 } from 'react-icons/fa6';
 import Button from '../../Button';
+import { Link } from 'react-router-dom';
 
 import './styles.sass';
 
@@ -29,22 +30,21 @@ const HeaderTop = ({currentUser, handleShowModal}) => {
         </div>
         <div className="header-user-top-menu">
           <span>
-            <a href="/">
+            <Link to="/">
               <FaDollarSign className="icon" />
               BRL
-            </a>
+            </Link>
           </span>
-
           <FaUser className="icon" />
           <Button
-            className="btn-sign-in"
-            text={currentUser.status ? currentUser.name : 'Login'}
+            className="btn-simples"
+            text={currentUser.status ? currentUser.name : 'Login '}
             onClick={() => !currentUser.status && handleShowModal('login')}
           />
           {!currentUser.status && (
             <Button
-              className="btn-register"
-              text=" Registrar"
+              className="btn-simples register"
+              text="Registrar"
               onClick={() => handleShowModal('register')}
             />
           )}
