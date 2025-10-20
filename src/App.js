@@ -3,14 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import { AuthContextProvider } from './context/auth.jsx';
-import { FavoriteContextProvider } from './context/favorites.jsx';
 import useWakeUpAPI from './hooks/useWakeUpAPI.js';
 import Modal from './components/Modal';
 import UserForm from './components/Forms/UserForm';
 import Header from './components/Header';
 import { Home } from './pages/home';
 import ListProducts from './pages/listProducts';
-import Favorites from './pages/favorites';
 import ProductsRegister from './pages/register/products';
 
 import './styles/reset.sass';
@@ -57,28 +55,25 @@ function App() {
     <>
       <Router>
         <AuthContextProvider>
-          <FavoriteContextProvider>
-            <Header
-              setShowModal={setShowModal}
-              setIsFormRegister={setIsFormRegister}
-            />
+          <Header
+            setShowModal={setShowModal}
+            setIsFormRegister={setIsFormRegister}
+          />
 
-            <Routes>
-              <Route path="/" element={<Home statusAPI={statusAPI} />} />
-              <Route path="/register/products" element={<ProductsRegister />} />
-              <Route path="/list/:category" element={<ListProducts />} />
-              <Route path="/favorites/:idUser" element={<Favorites />} />
-            </Routes>
+          <Routes>
+            <Route path="/" element={<Home statusAPI={statusAPI} />} />
+            <Route path="/register/products" element={<ProductsRegister />} />
+            <Route path="/list/:category" element={<ListProducts />} />
+          </Routes>
 
-            {showModal && (
-              <Modal setShowModal={setShowModal}>
-                <UserForm
-                  setShowModal={setShowModal}
-                  isFormRegister={isFormRegister}
-                />
-              </Modal>
-            )}
-          </FavoriteContextProvider>
+          {showModal && (
+            <Modal setShowModal={setShowModal}>
+              <UserForm
+                setShowModal={setShowModal}
+                isFormRegister={isFormRegister}
+              />
+            </Modal>
+          )}
         </AuthContextProvider>
       </Router>
     </>

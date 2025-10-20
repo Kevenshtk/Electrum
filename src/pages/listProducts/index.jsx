@@ -63,7 +63,6 @@ const ListProducts = () => {
               return (
                 <CardProduct
                   key={id}
-                  idProduct={id}
                   className="list"
                   tag={tag}
                   image={image}
