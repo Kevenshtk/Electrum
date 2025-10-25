@@ -9,35 +9,41 @@ export const AuthContextProvider = ({ children }) => {
     status: false,
     email: '',
     name: '',
-    id: 0
+    id: 0,
   });
 
   const handleLogin = async (email, password) => {
     const users = await fetchLogin();
 
-    if (!users) {
+    switch (users.success) {
+      case false:
         return 'errorServer';
-    }
+        break;
 
-    const user = users.find(
-      (user) => user.email === email && user.password === password
-    );
+      default:
+        const user = users.data.find(
+          (user) => user.email === email && user.password === password
+        );
 
-    if (user) {
-      setCurrentUser({
-        status: true,
-        email: email,
-        name: user.username,
-        id : user.id
-      });
+        if (user) {
+          setCurrentUser({
+            status: true,
+            email: email,
+            name: user.username,
+            id: user.id,
+          });
 
-      return 'ok'
-    } else {
-      return 'falied'
+          return 'ok';
+        } else {
+          return 'falied';
+        }
+        break;
     }
   };
 
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser, handleLogin }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser, handleLogin }}>
+      {children}
+    </AuthContext.Provider>
   );
 };

@@ -13,7 +13,7 @@ import './styles.sass';
 
 const UserForm = ({ setShowModal, isFormRegister }) => {
   const { handleLogin } = useContext(AuthContext);
-  
+
   const schema = yup.object({
     firstUserName: isFormRegister
       ? yup
@@ -60,7 +60,7 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
             timer: 1500,
           });
           setShowModal(false);
-          
+
           break;
 
         case 'errorEmail':
@@ -91,30 +91,32 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
 
     const statusLogin = await handleLogin(data.email, data.password);
 
-    if (statusLogin === 'erroServer') {
-      Swal.fire({
-        position: 'top',
-        icon: 'info',
-        title: 'Erro ao realizar login',
-        text: 'Tente novamente mais tarde.',
-        showConfirmButton: false,
-        timer: 3000,
-      });
+    switch (statusLogin) {
+      case 'ok':
+        setShowModal(false);
+        break;
 
-      return;
-    }
+      case 'falied':
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Verifique seu e-mail ou senha.',
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        break;
 
-    if (statusLogin === 'ok') {
-      setShowModal(false);
-    } else {
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Verifique seu e-mail ou senha.',
-        showConfirmButton: false,
-        timer: 3000,
-      });
+      default:
+        Swal.fire({
+          position: 'top',
+          icon: 'info',
+          title: 'Erro ao realizar login',
+          text: 'Tente novamente mais tarde.',
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        break;
     }
   };
 

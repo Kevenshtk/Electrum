@@ -1,36 +1,58 @@
 import { api } from './api.js';
 import { fetchLogin } from './loginService.js';
 
-const registerUser = async (userData) => {
+export const checkEmail = async (email) => {
   const users = await fetchLogin();
 
-  if(users){
-    const user = users.find((user) => user.email === userData.email);
+  switch (users.success) {
+    case true:
+      const user = users.data.find((user) => user.email === email);
 
-    if (user) {
-      return 'errorEmail';
-    }
-  }
-
-  try {
-    await api.post(
-      '/users',
-      {
-        username: userData.firstUserName,
-        email: userData.email,
-        password: userData.password,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      if (user) {
+        return 'errorEmail';
+      } else {
+        return 'ok';
       }
-    );
+      break;
 
-    return 'ok';
-  } catch (error) {
-    return 'errorServer';
+    default:
+      return 'errorServer';
+      break;
   }
 };
 
-export { registerUser };
+export const registerUser = async (userData) => {
+  const emailExists = await checkEmail(userData.email);
+
+  switch (emailExists) {
+    case 'ok':
+      try {
+        await api.post(
+          '/users',
+          {
+            username: userData.firstUserName,
+            email: userData.email,
+            password: userData.password,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        return 'ok';
+      } catch (error) {
+        return 'errorServer';
+      }
+      break;
+
+    case 'errorEmail':
+      return 'errorEmail';
+      break;
+
+    default:
+      return 'errorServer';
+      break;
+  }
+};
