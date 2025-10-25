@@ -2,10 +2,15 @@ import { api } from './api.js';
 
 const fetchLogin = async () => {
   try {
-    const responce = await api.get('/users');
-    return responce.data;
+    const response = await api.get('/users');
+    return { success: true, data: response.data };
   } catch (error) {
-    return error;
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || 'Erro ao buscar informações',
+      status: error.response?.status || 500,
+    };
   }
 };
 

@@ -31,6 +31,7 @@ const SectionProducts = ({
             {page.map((product) => (
               <CardProduct
                 key={product?.id}
+                idProduct={product?.id}
                 className="home"
                 tag={product?.tag}
                 image={product?.image}

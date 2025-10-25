@@ -1,0 +1,28 @@
+@use '../../../styles/variables' as *
+@use '../../../styles/mixins' as *
+
+.header-top
+    background-color: $secondary-bg-color
+    color: $light-color
+
+    @include mobile
+        display: none
+
+    &-container
+        @include center-content
+        padding: .8rem 0
+
+        .store-info-container, .header-user-top-menu
+            display: flex
+            align-items: center
+            
+            span
+                display: flex
+                align-items: center
+                margin-right: 1rem
+
+        .icon
+            margin-right: .3rem
+
+        a
+            color: $light-color

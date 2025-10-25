@@ -1,8 +1,20 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+<<<<<<< HEAD
+=======
+import Swal from 'sweetalert2';
+
+import { AuthContextProvider } from './context/auth.jsx';
+import { FavoriteContextProvider } from './context/favorites.jsx';
+>>>>>>> develop
 import useWakeUpAPI from './hooks/useWakeUpAPI.js';
 
 import { Home } from './pages/home';
+<<<<<<< HEAD
+=======
+import ListProducts from './pages/listProducts';
+import Favorites from './pages/favorites';
+>>>>>>> develop
 import ProductsRegister from './pages/register/products';
 import ListProducts from './pages/listProducts';
 
@@ -53,6 +65,7 @@ function App() {
   }, []);
 
   return (
+<<<<<<< HEAD
     <Router>
       <Routes>
         <Route
@@ -72,6 +85,36 @@ function App() {
         />
       </Routes>
     </Router>
+=======
+    <>
+      <Router>
+        <AuthContextProvider>
+          <FavoriteContextProvider>
+            <Header
+              setShowModal={setShowModal}
+              setIsFormRegister={setIsFormRegister}
+            />
+
+            <Routes>
+              <Route path="/" element={<Home statusAPI={statusAPI} />} />
+              <Route path="/register/products" element={<ProductsRegister />} />
+              <Route path="/list/:category" element={<ListProducts />} />
+              <Route path="/favorites/:idUser" element={<Favorites />} />
+            </Routes>
+
+            {showModal && (
+              <Modal setShowModal={setShowModal}>
+                <UserForm
+                  setShowModal={setShowModal}
+                  isFormRegister={isFormRegister}
+                />
+              </Modal>
+            )}
+          </FavoriteContextProvider>
+        </AuthContextProvider>
+      </Router>
+    </>
+>>>>>>> develop
   );
 }
 

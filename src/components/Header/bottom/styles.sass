@@ -1,0 +1,30 @@
+@use '../../../styles/variables' as *
+@use '../../../styles/mixins' as *
+
+.header-bottom
+    background-color: $light-color
+    border-bottom: 2px solid $section-bg-color
+    border-top: 3px solid $primary-color
+
+    ul
+        @include center-content
+        justify-content: left
+        padding: 1rem 0
+
+        @include mobile
+            justify-content: center
+
+        li
+            margin-right: 1.3rem
+
+            .link-category
+                background: none
+                border: none
+                color: $link-color
+                border-bottom: 2px solid transparent
+                cursor: pointer
+                transition: .4s
+
+                &:hover
+                    color: $primary-color
+                    border-color: $primary-color
