@@ -48,9 +48,8 @@ const ProductsRegister = () => {
 
   const onSubmit = useCallback(
     async (data) => {
-      const status = await createProduct(data);
-      
-      if (status.success) {
+      try {
+        await createProduct(data);
         Swal.fire({
           position: 'top',
           icon: 'success',
@@ -60,7 +59,7 @@ const ProductsRegister = () => {
         });
 
         reset();
-      } else {
+      } catch (error) {
         Swal.fire({
           position: 'top',
           icon: 'error',
@@ -69,13 +68,14 @@ const ProductsRegister = () => {
           showConfirmButton: false,
           timer: 3000,
         });
+        console.error('Erro ao cadastrar produto:', error);
       }
     },
     [reset]
   );
 
   return (
-    <main className="mainRegisterProducts">
+    <main className='mainRegisterProducts'>
       <h1>Cadastro de produtos</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}

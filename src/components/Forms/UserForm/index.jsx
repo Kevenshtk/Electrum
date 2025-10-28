@@ -13,13 +13,7 @@ import { registerUser } from '../../../services/userService.js';
 
 import './styles.sass';
 
-<<<<<<< HEAD
 const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
-=======
-const UserForm = ({ setShowModal, isFormRegister }) => {
-  const { handleLogin } = useContext(AuthContext);
-
->>>>>>> develop
   const schema = yup.object({
     firstUserName: isFormRegister
       ? yup
@@ -66,7 +60,7 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
             timer: 1500,
           });
           setShowModal(false);
-
+          
           break;
 
         case 'errorEmail':
@@ -96,7 +90,6 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
     }
     const users = await fetchLogin();
 
-<<<<<<< HEAD
     if (!users) {
       Swal.fire({
         position: 'top',
@@ -106,27 +99,10 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
         showConfirmButton: false,
         timer: 3000,
       });
-=======
-    const statusLogin = await handleLogin(data.email, data.password);
 
-    switch (statusLogin) {
-      case 'ok':
-        setShowModal(false);
-        break;
->>>>>>> develop
+      return;
+    }
 
-      case 'falied':
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Verifique seu e-mail ou senha.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
-        break;
-
-<<<<<<< HEAD
     const user = users.find(
       (user) => user.email === data.email && user.password === data.password
     );
@@ -148,18 +124,6 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
         showConfirmButton: false,
         timer: 3000,
       });
-=======
-      default:
-        Swal.fire({
-          position: 'top',
-          icon: 'info',
-          title: 'Erro ao realizar login',
-          text: 'Tente novamente mais tarde.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
-        break;
->>>>>>> develop
     }
   };
 
