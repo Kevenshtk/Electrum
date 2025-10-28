@@ -1,8 +1,8 @@
-import Button from '../Button';
 import { useState } from 'react';
-import useWindowWidth from '../../hooks/useWindowWidth';
-
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+
+import useWindowWidth from '../../hooks/useWindowWidth';
+import Button from '../Button';
 
 import './styles.sass';
 

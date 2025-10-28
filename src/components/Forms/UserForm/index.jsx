@@ -1,19 +1,19 @@
-import Input from '../../Input';
-import Button from '../../Button';
-
-import Swal from 'sweetalert2';
-
-import { useForm } from 'react-hook-form';
-
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
-import { fetchLogin } from '../../../services/loginService.js';
+import { AuthContext } from '../../../context/auth';
 import { registerUser } from '../../../services/userService.js';
+import Button from '../../Button';
+import Input from '../../Input';
 
 import './styles.sass';
 
-const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
+const UserForm = ({ setShowModal, isFormRegister }) => {
+  const { handleLogin } = useContext(AuthContext);
+
   const schema = yup.object({
     firstUserName: isFormRegister
       ? yup
@@ -60,7 +60,7 @@ const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
             timer: 1500,
           });
           setShowModal(false);
-          
+
           break;
 
         case 'errorEmail':
@@ -88,42 +88,35 @@ const UserForm = ({ setCurrentUser, setShowModal, isFormRegister }) => {
 
       return;
     }
-    const users = await fetchLogin();
 
-    if (!users) {
-      Swal.fire({
-        position: 'top',
-        icon: 'info',
-        title: 'Erro ao realizar login',
-        text: 'Tente novamente mais tarde.',
-        showConfirmButton: false,
-        timer: 3000,
-      });
+    const statusLogin = await handleLogin(data.email, data.password);
 
-      return;
-    }
+    switch (statusLogin) {
+      case 'ok':
+        setShowModal(false);
+        break;
 
-    const user = users.find(
-      (user) => user.email === data.email && user.password === data.password
-    );
+      case 'falied':
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Verifique seu e-mail ou senha.',
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        break;
 
-    if (user) {
-      setCurrentUser({
-        status: true,
-        email: data.email,
-        name: user.username,
-      });
-
-      setShowModal(false);
-    } else {
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Verifique seu e-mail ou senha.',
-        showConfirmButton: false,
-        timer: 3000,
-      });
+      default:
+        Swal.fire({
+          position: 'top',
+          icon: 'info',
+          title: 'Erro ao realizar login',
+          text: 'Tente novamente mais tarde.',
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        break;
     }
   };
 

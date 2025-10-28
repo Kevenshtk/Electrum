@@ -1,7 +1,7 @@
-import CardProduct from '../CardProduct';
-import Button from '../Button';
-
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+
+import Button from '../Button';
+import CardProduct from '../CardProduct';
 
 import './styles.sass';
 
@@ -31,6 +31,7 @@ const SectionProducts = ({
             {page.map((product) => (
               <CardProduct
                 key={product?.id}
+                idProduct={product?.id}
                 className="home"
                 tag={product?.tag}
                 image={product?.image}

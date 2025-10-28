@@ -1,13 +1,11 @@
-import Button from '../../../components/Button';
-import Input from '../../../components/Input';
-
-import Swal from 'sweetalert2';
-
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
+import Button from '../../../components/Button';
+import Input from '../../../components/Input';
 import { createProduct } from '../../../services/productService.js';
 
 import './styles.sass';
@@ -48,8 +46,9 @@ const ProductsRegister = () => {
 
   const onSubmit = useCallback(
     async (data) => {
-      try {
-        await createProduct(data);
+      const status = await createProduct(data);
+      
+      if (status.success) {
         Swal.fire({
           position: 'top',
           icon: 'success',
@@ -59,7 +58,7 @@ const ProductsRegister = () => {
         });
 
         reset();
-      } catch (error) {
+      } else {
         Swal.fire({
           position: 'top',
           icon: 'error',
@@ -68,14 +67,13 @@ const ProductsRegister = () => {
           showConfirmButton: false,
           timer: 3000,
         });
-        console.error('Erro ao cadastrar produto:', error);
       }
     },
     [reset]
   );
 
   return (
-    <main className='mainRegisterProducts'>
+    <main className="mainRegisterProducts">
       <h1>Cadastro de produtos</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
