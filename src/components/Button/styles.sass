@@ -44,25 +44,7 @@
         @include mobile
             margin: 0 auto
 
-.btn-simples
-    color: $light-color
-    background: transparent
-    border: none
-    cursor: pointer
-    transition-duration: .4s
-
-    &:hover
-        color: $primary-color
-
-    &.register
-        margin-left: 8px 
-
-        &::before
-            content: '/'
-            margin-right: 8px
-
-
-.btn-filter
+.btn-category, .btn-filter
     background: none
     border: none
     color: $link-color
@@ -86,6 +68,22 @@
     .icon
         font-size: 1.5rem
         color: $primary-color
+
+.btn-sign-in, .btn-register
+    color: $light-color
+    background: transparent
+    border: none
+    cursor: pointer
+    transition-duration: .4s
+
+    &:hover
+        color: $primary-color
+
+.btn-register
+    margin-left: 8px 
+
+    &::before
+        content: '/'
 
 .btn-close-modal
     position: absolute

@@ -1,6 +1,6 @@
 export const filterProductsByCategory = (products, category) => {
   const groups = {
-    perifericos: ['monitor', 'teclado', 'mouse'],
+    Periféricos: ['Monitores', 'Teclados', 'Mouses'],
   };
 
   if (groups[category]) {
