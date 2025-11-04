@@ -132,7 +132,12 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
             control={control}
             render={({ field }) => (
               <div className="containerInputError">
-                <input id="firstUserName" type="text" {...field} />
+                <input
+                  id="firstUserName"
+                  type="text"
+                  placeholder="seu nome"
+                  {...field}
+                />
                 <span className="error">
                   {errors.firstUserName && errors.firstUserName.message}
                 </span>
