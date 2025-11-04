@@ -2,9 +2,6 @@ import { Link } from 'react-router-dom';
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import './styles.sass';
 
-const HeaderBottom = () => {
-  const width = useWindowWidth();
-
   const listCategories = [
     {text: 'Periféricos', url: 'perifericos'},
     {text: 'Pc Gamer', url: 'pc-gamer'},
@@ -14,6 +11,9 @@ const HeaderBottom = () => {
     {text: 'Câmeras', url: 'camera'},
     {text: 'Acessórios', url: 'acessorio'},
   ];
+
+const HeaderBottom = () => {
+  const width = useWindowWidth();
 
   return (
     <div className="header-bottom">
