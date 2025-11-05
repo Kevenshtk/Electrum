@@ -18,7 +18,8 @@ const CardProduct = ({
   price,
 }) => {
   const { currentUser } = useContext(AuthContext);
-  const { addFavorites, removeFavorites, isFavorite } = useContext(FavoriteContext);
+  const { addFavorites, removeFavorites, isFavorite } =
+    useContext(FavoriteContext);
 
   const toggleFavorite = () => {
     isFavorite(idProduct)
@@ -27,7 +28,7 @@ const CardProduct = ({
   };
 
   return (
-    <div className={`products-grid-card-${className}`}>
+    <div className={`card-product-${className}`}>
       <span className={`label ${tag}`}>{tag}</span>
 
       {currentUser.status && (
@@ -40,12 +41,18 @@ const CardProduct = ({
         </button>
       )}
 
-      <img src={image} alt={name} />
-      <p className="category">
-        {category.includes('-') ? removeHyphen(category) : category}
-      </p>
-      <h3 className="product-name">{name}</h3>
-      <p className="product-price">R$ {price}</p>
+      <div className="card-product-image">
+        <img src={image} alt={name} />
+      </div>
+
+      <div className="card-product-info">
+        <p className="product-category">
+          {category.includes('-') ? removeHyphen(category) : category}
+        </p>
+        <h3 className="product-name">{name}</h3>
+        <p className="product-price">R$ {price}</p>
+      </div>
+
       <Button className="btn" text="Comprar" />
     </div>
   );

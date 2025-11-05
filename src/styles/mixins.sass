@@ -6,8 +6,8 @@
     display: flex
     justify-content: space-around
 
-@mixin floating-container($shadow)
-    max-width: 700px
+@mixin floating-container($width, $shadow)
+    max-width: $width
     border-radius: 37px
     box-shadow: #{$shadow}
     margin: 50px auto

@@ -9,9 +9,12 @@
     
     
 .containerList
-    @include floating-container("24px 24px 48px #afafaf, -24px -24px 48px #ffffff")
+    @include floating-container(auto, "24px 24px 48px #afafaf, -24px -24px 48px #ffffff")
     width: 90%
     display: flex
     justify-content: space-between
     flex-wrap: wrap
     gap: 1.5rem
+
+    @include mobile
+        justify-content: center

@@ -1,79 +1,57 @@
 @use '../../styles/variables' as *
 @use '../../styles/mixins' as *
 
-.products-grid-card-home, .products-grid-card-list, .products-grid-card-favorite
-    height: 450px
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    border: 1px solid $gray-text-color
-    transition: .4s, box-shadow .4s
-    padding: 1rem
-    position: relative
+.card-product
+    &-home, &-list, &-favorite
+        height: 450px
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        border: 1px solid $gray-text-color
+        border-radius: 8px
+        transition: .4s, box-shadow .4s
+        padding: 1rem
+        position: relative
 
-    &:hover
-        border-color: $primary-color
-        transform: translateY(-5px)
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15)
+        &:hover
+            border-color: $primary-color
+            transform: translateY(-5px)
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15)
 
-    .label
-        text-transform: uppercase
-        border: 1px solid $primary-color
-        color: $primary-color
-        padding: 2px 6px
-        position: absolute
-        top: 1rem
-        right: 1rem
-
-    .promo
-        background-color: $primary-color
-        color: $light-color
-
-    img
-        width: 90%
+    &-home
+        width: 20%
+        position: relative
 
         @include mobile
-            width: 50%
+            width: 90%
+            margin: 1rem
 
-    .category, .product-name, .product-price, .rating-box, .btn
-        margin-bottom: 1rem
+    &-list
+        width: 30%
 
-    .category
-        margin-top: 1rem
-        text-transform: uppercase
-        color: $gray-text-color
+        @include mobile
+            width: 90%
+            height: 380px
 
-    .product-name
-        text-transform: uppercase
-        font-size: 1.2rem
+            .card-product-image 
+                height: 40%
 
-    .product-price
-        font-size: 1.5rem
-        font-weight: bold
-        color: $primary-color
+                img
+                    width: 50%
 
-.products-grid-card-home
-    width: 20%
-    position: relative
+    &-favorite
+        background-color: $light-color
 
-    @include mobile
-        width: 90%
-        margin: 1rem
+        @include mobile
+            width: 90%
+            height: 380px
 
-.products-grid-card-list
-    width: 30%
-
-    @include mobile
-        width: 90%
-        height: 380px
-
-.products-grid-card-favorite
-    background-color: $light-color
-
-    @include mobile
-        width: 100%
-        height: 380px
+            .card-product-image 
+                height: 40%
+                
+                img
+                    width: 50%
 
 .btn-favorite
     width: 55px
@@ -82,7 +60,7 @@
     border: none
     color: $primary-color
     cursor: pointer
-    transition: .04s
+    transition: transform 0.4s
     position: absolute
     top: 0
     left: 0
@@ -90,88 +68,66 @@
     &:hover
         transform: scale(1.1)
 
-/*.products-grid-card-favorite
-    background-color: $light-color
-    border-radius: 8px
-    overflow: hidden
-    position: relative
-    transition: transform 0.3s, box-shadow 0.3s
-    border: 1px solid #e5e5e5
+.label
+    font-size: 0.75rem
+    font-weight: 700
+    text-transform: uppercase
+    color: $primary-color
+    border-radius: 4px
+    padding: 0.35rem 0.75rem
+    z-index: 1
+    position: absolute
+    top: 1rem
+    right: 1rem
 
-    &:hover
-        transform: translateY(-5px)
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15)
+.promo
+    background-color: $primary-color
+    color: $light-color
 
-    img
-        max-width: 100%
-        max-height: 100%
-        object-fit: contain
+.card-product
+    &-image
         width: 100%
-        height: 250px
+        height: 200px
         display: flex
         align-items: center
         justify-content: center
         padding: 1rem
         background-color: $light-color
 
-    .category
-        color: $gray-text-color
-        font-size: 0.75rem
-        font-weight: 600
-        text-transform: uppercase
-        letter-spacing: 0.5px
-        display: block
-        margin-bottom: 0.5rem    
+        img
+            max-width: 100%
+            max-height: 100%
+            object-fit: contain
 
-    .product-name
-        color: $dark-color
-        font-size: 1rem
-        font-weight: 600
-        margin: 0 0 1rem 0
-        line-height: 1.4
-        min-height: 2.8rem
-        display: -webkit-box
-        -webkit-line-clamp: 2
-        -webkit-box-orient: vertical
-        overflow: hidden    
+    &-info
+        padding: 1.5rem
+        text-align: center
 
-    .product-price
-        color: $primary-color
-        font-size: 1.5rem
-        font-weight: 700
-        margin: 0 0 1rem 0
+        .product
+            &-category, &-name, &-price
+                margin-bottom: 1rem
 
-    .card-product-button
-        background-color: $primary-color
-        color: $light-color
-        border: none
-        padding: 0.75rem 2rem
-        font-weight: 600
-        border-radius: 25px
-        cursor: pointer
-        transition: background-color 0.3s
-        width: 100%
+            &-category
+                display: block
+                font-size: 0.75rem
+                font-weight: 600
+                text-transform: uppercase
+                letter-spacing: 0.5px
+                color: $gray-text-color
 
-        &:hover
-            opacity: 0.9
+            &-name
+                min-height: 2.8rem
+                display: -webkit-box
+                -webkit-line-clamp: 2
+                -webkit-box-orient: vertical
+                font-size: 1rem
+                font-weight: 600
+                text-align: center
+                line-height: 1.4
+                color: $dark-color
+                overflow: hidden
 
-    .btn-favorite
-        position: absolute
-        top: 10px
-        right: 10px
-        background-color: rgba($light-color, 0.9)
-        border: none
-        width: 36px
-        height: 36px
-        border-radius: 50%
-        cursor: pointer
-        font-size: 1.25rem
-        display: flex
-        align-items: center
-        justify-content: center
-        transition: transform 0.3s
-
-        &:hover
-            transform: scale(1.1)
-            background-color: $primary-color
-        
+            &-price 
+                color: $primary-color
+                font-size: 1.5rem
+                font-weight: 700
