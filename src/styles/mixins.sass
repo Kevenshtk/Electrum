@@ -4,7 +4,13 @@
     max-width: $container-width
     margin: 0 auto
     display: flex
-    justify-content: space-around
+    justify-content: space-between
+
+    @media (max-width: 1200px)
+        margin: 0 20px
+
+    @include mobile
+        margin: 0 auto
 
 @mixin floating-container($width, $shadow)
     max-width: $width
