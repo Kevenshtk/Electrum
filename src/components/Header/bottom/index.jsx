@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom';
 import useWindowWidth from '../../../hooks/useWindowWidth';
+import { formatCategory } from '../../../utils/textFormatter';
 import './styles.sass';
 
-  const listCategories = [
-    {text: 'Periféricos', url: 'perifericos'},
-    {text: 'Pc Gamer', url: 'pc-gamer'},
-    {text: 'Hardware', url: 'hardware'},
-    {text: 'Notebooks', url: 'notebook'},
-    {text: 'Celulares', url: 'celular'},
-    {text: 'Câmeras', url: 'camera'},
-    {text: 'Acessórios', url: 'acessorio'},
-  ];
+const listCategories = [
+  'perifericos',
+  'pc-gamer',
+  'hardware',
+  'notebook',
+  'celular',
+  'camera',
+  'acessorio',
+];
 
 const HeaderBottom = () => {
   const width = useWindowWidth();
@@ -22,14 +23,16 @@ const HeaderBottom = () => {
           {listCategories.map((item, index) => {
             if (
               width <= 435 &&
-              (item.text === 'Periféricos' ||
-                item.text === 'Notebooks' ||
-                item.text === 'Câmeras')
+              (item === 'perifericos' ||
+                item === 'notebook' ||
+                item === 'camera')
             )
               return null;
             return (
               <li key={index}>
-                <Link to={`/list/${item.url}`} className="link-category">{item.text}</Link>
+                <Link to={`/list/${item}`} className="link-category">
+                  {formatCategory(item)}
+                </Link>
               </li>
             );
           })}

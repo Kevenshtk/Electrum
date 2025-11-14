@@ -8,7 +8,7 @@ import {
   filterProductsByCategory,
   filterProductsByTag,
 } from '../../utils/filterProducts.js';
-import { removeHyphen } from '../../utils/textFormatter.js';
+import { formatCategory } from '../../utils/textFormatter.js';
 
 import './styles.sass';
 
@@ -52,7 +52,7 @@ const ListProducts = () => {
     <>
       <div className="container">
         <Aside
-          title={category.includes('-') ? removeHyphen(category) : category}
+          title={formatCategory(category)}
           totalResult={viewProducts.length}
           onSelectedTag={setSelectedTag}
           onOrderProducts={orderProductsByPrice}

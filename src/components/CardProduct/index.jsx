@@ -3,7 +3,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 import { AuthContext } from '../../context/auth.jsx';
 import { FavoriteContext } from '../../context/favorites.jsx';
-import { removeHyphen } from '../../utils/textFormatter.js';
+import { formatPrice, formatCategory } from '../../utils/textFormatter.js';
 import Button from '../Button';
 
 import './styles.sass';
@@ -47,10 +47,10 @@ const CardProduct = ({
 
       <div className="card-product-info">
         <p className="product-category">
-          {category.includes('-') ? removeHyphen(category) : category}
+          {formatCategory(category)}
         </p>
         <h3 className="product-name">{name}</h3>
-        <p className="product-price">R$ {price}</p>
+        <p className="product-price">R$ {formatPrice(price)}</p>
       </div>
 
       <Button className="btn" text="Comprar" />
