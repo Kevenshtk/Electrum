@@ -7,27 +7,33 @@ import {
 } from 'react-icons/fa6';
 import Button from '../../Button';
 import { Link } from 'react-router-dom';
+import useWindowWidth from '../../../hooks/useWindowWidth';
 
 import './styles.sass';
 
-const HeaderTop = ({currentUser, handleShowModal}) => {
+const HeaderTop = ({ currentUser, handleShowModal }) => {
+  const width = useWindowWidth();
+  
   return (
     <div className="header-top">
       <div className="header-top-container">
-        <div className="store-info-container">
-          <span>
-            <FaPhone className="icon" />
-            (48) 99999-0000
-          </span>
-          <span>
-            <FaRegEnvelope className="icon" />
-            electrum@email.com
-          </span>
-          <span>
-            <FaLocationDot className="icon" />
-            Rua Teste, 1234
-          </span>
-        </div>
+        {width > 435 && (
+          <div className="store-info-container">
+            <span>
+              <FaPhone className="icon" />
+              (48) 99999-0000
+            </span>
+            <span>
+              <FaRegEnvelope className="icon" />
+              electrum@email.com
+            </span>
+            <span>
+              <FaLocationDot className="icon" />
+              Rua Teste, 1234
+            </span>
+          </div>
+        )}
+
         <div className="header-user-top-menu">
           <span>
             <Link to="/">
