@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Aside from '../../components/Aside';
-import CardProduct from '../../components/CardProduct';
+import AsideFilterProducts from '../../components/Aside/AsideFilterProducts';
+import CardVertical from '../../components/CardProduct/CardVertical';
 import { api } from '../../services/api.js';
 import {
   filterProductsByCategory,
@@ -51,17 +51,17 @@ const ListProducts = () => {
   return (
     <>
       <div className="container">
-        <Aside
+        <AsideFilterProducts
           title={formatCategory(category)}
           totalResult={viewProducts.length}
           onSelectedTag={setSelectedTag}
           onOrderProducts={orderProductsByPrice}
         />
-        <main className="containerList">
+        <main className="container-list">
           {viewProducts.length !== 0 ? (
             viewProducts.map(({ id, tag, image, category, name, price }) => {
               return (
-                <CardProduct
+                <CardVertical
                   key={id}
                   idProduct={id}
                   className="list"

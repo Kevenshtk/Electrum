@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-import useWindowWidth from '../../hooks/useWindowWidth';
-import Button from '../Button';
+import useWindowWidth from '../../../hooks/useWindowWidth';
+import Button from '../../Button';
 
 import './styles.sass';
 
-const Aside = ({ title, totalResult, onSelectedTag, onOrderProducts }) => {
+const AsideFilterProducts = ({ title, totalResult, onSelectedTag, onOrderProducts }) => {
   const [isOpen, setIsOpen] = useState(false);
   const width = useWindowWidth();
 
@@ -55,4 +55,4 @@ const Aside = ({ title, totalResult, onSelectedTag, onOrderProducts }) => {
   );
 };
 
-export default Aside;
+export default AsideFilterProducts;

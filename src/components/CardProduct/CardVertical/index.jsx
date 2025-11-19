@@ -1,14 +1,14 @@
 import { useContext } from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
-import { AuthContext } from '../../context/auth.jsx';
-import { FavoriteContext } from '../../context/favorites.jsx';
-import { formatPrice, formatCategory } from '../../utils/textFormatter.js';
-import Button from '../Button';
+import { AuthContext } from '../../../context/auth.jsx';
+import { FavoriteContext } from '../../../context/favorites.jsx';
+import { formatPrice, formatCategory } from '../../../utils/textFormatter.js';
+import Button from '../../Button';
 
 import './styles.sass';
 
-const CardProduct = ({
+const CardVertical = ({
   idProduct,
   className,
   tag,
@@ -58,4 +58,4 @@ const CardProduct = ({
   );
 };
 
-export default CardProduct;
+export default CardVertical;
