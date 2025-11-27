@@ -23,7 +23,8 @@ export const createProduct = async (productData) => {
   } catch (error) {
     return {
       success: false,
-      message: error.response?.data?.message || 'Erro ao tentar criar um produto',
+      message:
+        error.response?.data?.message || 'Erro ao tentar criar um produto',
       status: error.response?.status || 500,
     };
   }
@@ -95,6 +96,42 @@ export const getProductsFavorites = async (idUser) => {
       success: false,
       message:
         error.response?.data?.message || 'Erro ao buscar produtos favoritos',
+      status: error.response?.status || 500,
+    };
+  }
+};
+
+
+export const cartService = {
+  add: (idUser, idProduct) => addProductToShoppingCart(idUser, idProduct)
+}
+
+export const addProductToShoppingCart = async (idUser, idProduct) => {
+  try {
+    const response = await api.post(
+      '/shopping-cart',
+      {
+        usuario: {
+          id: idUser,
+        },
+        produto: {
+          id: idProduct,
+        },
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return { success: true, data: response.data };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message ||
+        'Erro ao adicionar produto no carrinho',
       status: error.response?.status || 500,
     };
   }

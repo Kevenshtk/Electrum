@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 
 import { AuthContextProvider } from './context/auth.jsx';
 import { FavoriteContextProvider } from './context/favorites.jsx';
+import { ShoppingCartContextProvider } from './context/shoppingCart.jsx';
+
 import useWakeUpAPI from './hooks/useWakeUpAPI.js';
 import Modal from './components/Modal';
 import UserForm from './components/Forms/UserForm';
@@ -59,6 +61,7 @@ function App() {
       <Router>
         <AuthContextProvider>
           <FavoriteContextProvider>
+            <ShoppingCartContextProvider>
             <Header
               setShowModal={setShowModal}
               setIsFormRegister={setIsFormRegister}
@@ -80,6 +83,7 @@ function App() {
                 />
               </Modal>
             )}
+            </ShoppingCartContextProvider>
           </FavoriteContextProvider>
         </AuthContextProvider>
       </Router>

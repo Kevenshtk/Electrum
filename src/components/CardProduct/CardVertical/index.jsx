@@ -3,6 +3,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 import { AuthContext } from '../../../context/auth.jsx';
 import { FavoriteContext } from '../../../context/favorites.jsx';
+import { ShoppingCartContext } from '../../../context/shoppingCart.jsx';
 import { formatPrice, formatCategory } from '../../../utils/textFormatter.js';
 import Button from '../../Button';
 
@@ -20,6 +21,7 @@ const CardVertical = ({
   const { currentUser } = useContext(AuthContext);
   const { addFavorites, removeFavorites, isFavorite } =
     useContext(FavoriteContext);
+  const { addShoppingCart } = useContext(ShoppingCartContext);
 
   const toggleFavorite = () => {
     isFavorite(idProduct)
@@ -46,14 +48,16 @@ const CardVertical = ({
       </div>
 
       <div className="card-product-info">
-        <p className="product-category">
-          {formatCategory(category)}
-        </p>
+        <p className="product-category">{formatCategory(category)}</p>
         <h3 className="product-name">{name}</h3>
         <p className="product-price">R$ {formatPrice(price)}</p>
       </div>
 
-      <Button className="btn" text="Comprar" />
+      <Button
+        className="btn"
+        text="Comprar"
+        onClick={() => addShoppingCart(idProduct)}
+      />
     </div>
   );
 };
