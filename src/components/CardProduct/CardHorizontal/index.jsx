@@ -1,3 +1,5 @@
+import { MdDeleteOutline } from "react-icons/md";
+
 import './styles.sass';
 
 const CardHorizontal = () => {
@@ -40,7 +42,7 @@ const CardHorizontal = () => {
         <span className="cart-item-subtotal-value">R$ 1.171,15</span>
       </div>
 
-      <button className="cart-item-remove">🗑️</button>
+      <button className="cart-item-remove"><MdDeleteOutline size={25}/></button>
     </div>
   );
 };
