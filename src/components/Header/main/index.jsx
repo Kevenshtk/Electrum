@@ -4,23 +4,27 @@ import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../Button';
 import Swal from 'sweetalert2';
 import { FavoriteContext } from '../../../context/favorites';
+import { ShoppingCartContext } from '../../../context/shoppingCart';
 
 import './styles.sass';
+
+const alertToDoLogin = () => {Swal.fire({
+  position: 'top',
+  icon: 'warning',
+  title: 'Por favor, faça login para continuar!',
+  showConfirmButton: false,
+  timer: 1500,
+})}
 
 const HeaderMain = ({ currentUser }) => {
   const navigate = useNavigate();
   const { favorites } = useContext(FavoriteContext);
+  const { products } = useContext(ShoppingCartContext);
 
-  const handleClickFavorites = () => {
+  const handleNavegate = (page) => {
     currentUser.status
-      ? navigate(`/favorites/${currentUser.id}`)
-      : Swal.fire({
-          position: 'top',
-          icon: 'warning',
-          title: 'Por favor faça login para acessar!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+      ? navigate(`/${page}/${currentUser.id}`)
+      : alertToDoLogin()
   };
 
   return (
@@ -29,7 +33,7 @@ const HeaderMain = ({ currentUser }) => {
         Electrum
         <FaBolt className="icon" />
       </Link>
-      
+
       <form action="" id="search-form">
         <input type="text" id="search" placeholder="Busque aqui" />
         <Button type="submit" className="btn btn-half" text="Pesquisar" />
@@ -39,13 +43,21 @@ const HeaderMain = ({ currentUser }) => {
         <div className="wishlist-container">
           <span className="qty">{favorites ? favorites.length : 0}</span>
           <FaHeart className="icon" />
-          <Button className="btn-simples" text="Favoritos" onClick={handleClickFavorites} />
+          <Button
+            className="btn-simples"
+            text="Favoritos"
+            onClick={() => handleNavegate('favorites')}
+          />
         </div>
 
         <div className="header-cart-container">
-          <span className="qty">0</span>
+          <span className="qty">{products ? products.length : 0}</span>
           <FaCartShopping className="icon" />
-          <Button className="btn-simples" text="Carrinho" />
+          <Button
+            className="btn-simples"
+            text="Carrinho"
+            onClick={() => handleNavegate('shoppingCar')}
+          />
         </div>
       </div>
     </div>

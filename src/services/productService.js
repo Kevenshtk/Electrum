@@ -103,12 +103,13 @@ export const getProductsFavorites = async (idUser) => {
 
 
 export const cartService = {
-  add: (idUser, idProduct) => addProductToShoppingCart(idUser, idProduct)
+  add: (idUser, idProduct) => addProductToShoppingCart(idUser, idProduct),
+  get: (idUser) => getProductShoppingCart(idUser),
 }
 
 export const addProductToShoppingCart = async (idUser, idProduct) => {
   try {
-    const response = await api.post(
+    const { data } = await api.post(
       '/shopping-cart',
       {
         usuario: {
@@ -125,7 +126,7 @@ export const addProductToShoppingCart = async (idUser, idProduct) => {
       }
     );
 
-    return { success: true, data: response.data };
+    return { success: true, data };
   } catch (error) {
     return {
       success: false,
@@ -136,3 +137,17 @@ export const addProductToShoppingCart = async (idUser, idProduct) => {
     };
   }
 };
+
+export const getProductShoppingCart = async (idUser) => {
+  try {
+    const { data } = await api.get(`/shopping-cart/user/${idUser}`);
+    return { success: true, data };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error.response?.data?.message || 'Erro ao buscar produtos',
+      status: error.response?.status || 500,
+    };
+  }
+}

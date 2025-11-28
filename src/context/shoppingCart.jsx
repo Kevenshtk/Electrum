@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { AuthContext } from './auth';
 import { cartService } from '../services/productService';
 import Swal from 'sweetalert2';
@@ -19,6 +19,25 @@ export const ShoppingCartContext = createContext();
 
 export const ShoppingCartContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    if (!currentUser?.id) return;
+    loadProducts(currentUser.id);
+  }, [currentUser?.id]);
+
+  const loadProducts = async (idUser) => {
+    const result = await cartService.get(idUser);
+
+    if (result.success) {
+      setProducts(result.data);
+    } else {
+      Toast.fire({
+        icon: 'warning',
+        title: result.message,
+      });
+    }
+  };
 
   const addShoppingCart = useCallback(
     async (idProduct) => {
@@ -38,6 +57,8 @@ export const ShoppingCartContextProvider = ({ children }) => {
           icon: 'success',
           title: 'Produto adicionado ao carrinho',
         });
+
+        setProducts((prev) => [...prev, products.data]);
       } else {
         Toast.fire({
           icon: 'warning',
@@ -45,11 +66,11 @@ export const ShoppingCartContextProvider = ({ children }) => {
         });
       }
     },
-    [currentUser]
+    [currentUser, products]
   );
 
   return (
-    <ShoppingCartContext.Provider value={{ addShoppingCart }}>
+    <ShoppingCartContext.Provider value={{ products, addShoppingCart }}>
       {children}
     </ShoppingCartContext.Provider>
   );
