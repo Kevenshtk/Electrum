@@ -17,10 +17,11 @@ const ShoppingCar = () => {
 
           <div className="cart-layout">
             <div className="cart-items">
-              {products.map((item, index) => {
+              {products.map((item) => {
                 return (
                   <CardHorizontal
-                    key={index}
+                    key={item.id}
+                    idProduct={item.id}
                     image={item.image}
                     category={item.category}
                     name={item.name}

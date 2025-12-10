@@ -105,7 +105,8 @@ export const getProductsFavorites = async (idUser) => {
 export const cartService = {
   add: (idUser, idProduct) => addProductToShoppingCart(idUser, idProduct),
   get: (idUser) => getProductShoppingCart(idUser),
-}
+  del: (idUser, idProduct) => deleteProductShoppingCart(idUser, idProduct),
+};
 
 export const addProductToShoppingCart = async (idUser, idProduct) => {
   try {
@@ -145,9 +146,22 @@ export const getProductShoppingCart = async (idUser) => {
   } catch (error) {
     return {
       success: false,
-      message:
-        error.response?.data?.message || 'Erro ao buscar produtos',
+      message: error.response?.data?.message || 'Erro ao buscar produtos',
       status: error.response?.status || 500,
     };
   }
-}
+};
+
+export const deleteProductShoppingCart = async (idUser, idProduct) => {
+  try {
+    await api.delete(`/shopping-cart/user/${idUser}/product/${idProduct}`);
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Erro ao remover o produto',
+      status: error.response?.status || 500,
+    };
+  }
+};

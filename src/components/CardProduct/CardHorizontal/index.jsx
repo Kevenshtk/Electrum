@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
+import { ShoppingCartContext } from '../../../context/shoppingCart.jsx';
 import { formatPrice, formatCategory } from '../../../utils/textFormatter.js';
 
 import './styles.sass';
 
-const CardHorizontal = ({ image, category, name, price }) => {
+const CardHorizontal = ({ idProduct, image, category, name, price }) => {
   const [qtyProducts, setQtyProducts] = useState(1);
+  const { removeShoppingCart } = useContext(ShoppingCartContext);
 
   return (
     <div className="cart-item">
@@ -55,7 +57,7 @@ const CardHorizontal = ({ image, category, name, price }) => {
         </span>
       </div>
 
-      <button className="cart-item-remove">
+      <button className="cart-item-remove" onClick={() => removeShoppingCart(idProduct)}>
         <MdDeleteOutline size={25} />
       </button>
     </div>

@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { AuthContext } from './auth';
 import { cartService } from '../services/productService';
 import Swal from 'sweetalert2';
@@ -58,7 +64,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
           title: 'Produto adicionado ao carrinho',
         });
 
-        setProducts((prev) => [...prev, products.data]);
+        setProducts((prev) => [...prev, result.data]);
       } else {
         Toast.fire({
           icon: 'warning',
@@ -66,11 +72,27 @@ export const ShoppingCartContextProvider = ({ children }) => {
         });
       }
     },
-    [currentUser, products]
+    [currentUser]
+  );
+
+  const removeShoppingCart = useCallback(
+    async (idProduct) => {
+      const result = await cartService.del(currentUser.id, idProduct);
+
+      if (result.success) {
+        setProducts((prev) => prev.filter((item) => item.id !== idProduct));
+      } else {
+        Toast.fire({
+          icon: 'warning',
+          title: result.message,
+        });
+      }
+    },
+    [currentUser]
   );
 
   return (
-    <ShoppingCartContext.Provider value={{ products, addShoppingCart }}>
+    <ShoppingCartContext.Provider value={{ products, addShoppingCart, removeShoppingCart }}>
       {children}
     </ShoppingCartContext.Provider>
   );
