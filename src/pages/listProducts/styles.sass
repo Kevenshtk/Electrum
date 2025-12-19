@@ -16,11 +16,14 @@
   flex-direction: column
 
 .products-layout
+  width: 100%
   display: grid
   grid-template-columns: 280px 1fr
   gap: 2rem
-  width: 100%
 
+  @include mobile
+    grid-template-columns: 1fr
+  
 
 .products-grid
   display: grid

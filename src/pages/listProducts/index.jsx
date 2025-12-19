@@ -42,13 +42,19 @@ const ListProducts = () => {
 
   const orderProductsByPrice = useCallback(
     (order) => {
-      let productsOrdered = order.includes('menor')
-        ? [...viewProducts].sort((a, b) => a.price - b.price)
-        : [...viewProducts].sort((a, b) => b.price - a.price);
+      let productsOrdered 
+
+      if (order.includes('menor')){
+        productsOrdered = [...viewProducts].sort((a, b) => a.price - b.price)
+      } else if (order.includes('maior')){
+        productsOrdered = [...viewProducts].sort((a, b) => b.price - a.price)
+      } else {
+        productsOrdered = filterProductsByCategory(products, category);
+      }
 
       setVeiwProducts(productsOrdered);
     },
-    [viewProducts]
+    [viewProducts, products, category]
   );
 
   return (

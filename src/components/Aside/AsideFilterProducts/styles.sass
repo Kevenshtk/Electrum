@@ -2,26 +2,29 @@
 @use '../../../styles/variables' as *
 
 .products-sidebar
+  height: fit-content
   background-color: $light-color
   border-radius: 4px
   padding: 1.5rem
-  height: fit-content
   position: sticky
   top: 20px
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08)
 
-.products-sidebar-title
-  color: $dark-color
-  font-size: 1.25rem
-  font-weight: 700
-  margin-bottom: 0.5rem
+  @include mobile
+    position: relative
 
-.products-sidebar-count
-  color: $gray-text-color
-  font-size: 0.9rem
-  margin-bottom: 1.5rem
-  padding-bottom: 1rem
-  border-bottom: 1px solid rgba($dark-color, 0.1)
+  &-title
+    color: $dark-color
+    font-size: 1.25rem
+    font-weight: 700
+    margin-bottom: 0.5rem
+
+  &-count
+    color: $gray-text-color
+    font-size: 0.9rem
+    margin-bottom: 1.5rem
+    padding-bottom: 1rem
+    border-bottom: 1px solid rgba($dark-color, 0.1)
 
 .products-sidebar-section
   margin-bottom: 1.5rem
@@ -32,43 +35,9 @@
   font-weight: 600
   margin-bottom: 0.75rem
 
-.products-sidebar-options
+.products-sidebar-options, .products-sidebar-tags
   display: flex
-  flex-direction: column
-  gap: 0.5rem
-
-.products-sidebar-option
-  display: flex
-  align-items: center
-  gap: 0.5rem
-  cursor: pointer
-  color: $dark-color
-  font-size: 0.9rem
-
-  input[type="radio"]
-    accent-color: $primary-color
-
-  &:hover
-    color: $primary-color
-
-.products-sidebar-tags
-  display: flex
-  flex-wrap: wrap
-  gap: 0.5rem
-
-.products-sidebar-tag
-  display: flex
-  align-items: center
-  gap: 0.4rem
-  cursor: pointer
-  color: $dark-color
-  font-size: 0.85rem
-
-  input[type="checkbox"]
-    accent-color: $primary-color
-
-  &:hover
-    color: $primary-color
+  justify-content: space-around
 
 .products-sidebar-clear
   width: 100%
