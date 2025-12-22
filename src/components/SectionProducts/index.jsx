@@ -15,9 +15,9 @@ const SectionProducts = ({
   statusAPI,
 }) => {
   return (
-    <section className="products-grid">
+    <section className="products-carousel">
       <h2>{title}</h2>
-      <div className="products-grid-container">
+      <div className="products-carousel-list">
         {statusAPI ? (
           <>
             <Button
