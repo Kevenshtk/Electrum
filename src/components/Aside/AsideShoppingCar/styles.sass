@@ -2,7 +2,7 @@
 @use '../../../styles/mixins' as *
 
 .cart-summary
-  background-color: $secondary-bg-color
+  background-color: $light-color
   border-radius: 12px
   padding: 2rem
   height: fit-content
@@ -14,7 +14,6 @@
     top: 0
 
 .cart-summary-title
-  color: $light-color
   font-size: 1.5rem
   font-weight: 700
   margin-bottom: 1.5rem
@@ -27,7 +26,6 @@
   justify-content: space-between
   align-items: center
   margin-bottom: 1rem
-  color: $gray-text-color
   font-size: 1rem
 
   span
@@ -39,11 +37,10 @@
 
 .cart-summary-divider
   height: 1px
-  background-color: rgba($light-color, 0.1)
+  background-color: rgba($dark-color, 0.1)
   margin: 1rem 0
 
 .cart-summary-total
-  color: $light-color
   font-size: 1.25rem
   font-weight: 700
   margin-bottom: 0
@@ -56,10 +53,9 @@
 .cart-summary-coupon-input
   flex: 1
   padding: 0.75rem 1rem
-  border: 1px solid rgba($light-color, 0.2)
+  border: 1px solid rgba($dark-color, 0.1)
   border-radius: 8px
   background-color: transparent
-  color: $light-color
   font-size: 0.95rem
 
   &::placeholder
@@ -91,7 +87,6 @@
   margin-bottom: 1.5rem
 
 .cart-summary-shipping-text
-  color: $light-color
   font-size: 0.9rem
   margin: 0
   line-height: 1.5
