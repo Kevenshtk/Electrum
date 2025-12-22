@@ -1,19 +1,37 @@
 @use '../../styles/mixins' as *
+@use '../../styles/variables' as *
     
-.container
-    @include center-content
-    width: 100%
-    display: flex
-    justify-content: space-between
-    margin-top: 20px
-    
-    &-list
-        @include floating-container(auto, "24px 24px 48px #afafaf, -24px -24px 48px #ffffff")
-        width: 90%
-        display: flex
-        justify-content: space-between
-        flex-wrap: wrap
-        gap: 1.5rem
+.products
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+  background-color: $section-bg-color
 
-        @include mobile
-            justify-content: center
+.products-content
+  flex: 1
+  padding: 2rem 1rem
+
+.products-container
+  @include center-content
+  flex-direction: column
+
+.products-layout
+  width: 100%
+  display: grid
+  grid-template-columns: 280px 1fr
+  gap: 2rem
+
+  @include mobile
+    grid-template-columns: 1fr
+  
+
+.products-grid
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+  gap: 1.5rem
+
+  @media (max-width: 992px)
+    grid-template-columns:  repeat(2, 1fr)
+
+  @include mobile
+    grid-template-columns: 1fr

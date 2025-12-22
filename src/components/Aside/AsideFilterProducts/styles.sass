@@ -1,47 +1,57 @@
 @use '../../../styles/mixins' as *
 @use '../../../styles/variables' as *
 
-aside
-    width: 300px
-    
-    @include mobile
-        width: auto
-        height: 300px
-        position: fixed
-        z-index: 1
-        display: flex
-        flex-direction: row
-        justify-content: center
-        align-items: center
+.products-sidebar
+  height: fit-content
+  background-color: $light-color
+  border-radius: 4px
+  padding: 1.5rem
+  position: sticky
+  top: 20px
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08)
 
-.asideListProducts
-    width: 240px
-    height: 250px
-    display: flex
-    flex-direction: column
-    justify-content: space-between
-    margin: 50px 0 0 20px
-    position: fixed
+  @include mobile
+    position: relative
 
-    @include mobile
-        display: none
-        border: 1px solid $gray-text-color
-        border-radius: 10px
-        background-color: #ffffff
-        box-shadow: 20px 20px 30px #afafaf
-        padding: 0.8rem
-        position: relative
+  &-title
+    color: $dark-color
+    font-size: 1.25rem
+    font-weight: 700
+    margin-bottom: 0.5rem
 
-    h3
-        font-size: 1.5rem
-        font-weight: 600
+  &-count
+    color: $gray-text-color
+    font-size: 0.9rem
+    margin-bottom: 1.5rem
+    padding-bottom: 1rem
+    border-bottom: 1px solid rgba($dark-color, 0.1)
 
-    .containerFilterValue, .containerFilterTags
-        max-width: 200px
-        display: flex
-        justify-content: space-between
-        flex-wrap: wrap
-        margin-top: 10px
+.products-sidebar-section
+  margin-bottom: 1.5rem
 
-.show
-    display: flex
+.products-sidebar-label
+  color: $dark-color
+  font-size: 0.95rem
+  font-weight: 600
+  margin-bottom: 0.75rem
+
+.products-sidebar-options, .products-sidebar-tags
+  display: flex
+  justify-content: space-around
+
+.products-sidebar-clear
+  width: 100%
+  padding: 0.75rem
+  background-color: $primary-color
+  color: $light-color
+  border: none
+  border-radius: 4px
+  font-size: 0.85rem
+  font-weight: 700
+  text-transform: uppercase
+  cursor: pointer
+  transition: all 0.3s
+  margin-top: 1rem
+
+  &:hover
+    background-color: darken($primary-color, 8%)

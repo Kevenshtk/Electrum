@@ -40,45 +40,57 @@ const ListProducts = () => {
     setVeiwProducts(productsFiltered);
   }, [products, category, selectedTag]);
 
-  const orderProductsByPrice = useCallback((order) => {
-    let productsOrdered = order.includes('Menor')
-      ? [...viewProducts].sort((a, b) => a.price - b.price)
-      : [...viewProducts].sort((a, b) => b.price - a.price);
+  const orderProductsByPrice = useCallback(
+    (order) => {
+      let productsOrdered 
 
-    setVeiwProducts(productsOrdered);
-  }, [viewProducts]);
+      if (order.includes('menor')){
+        productsOrdered = [...viewProducts].sort((a, b) => a.price - b.price)
+      } else if (order.includes('maior')){
+        productsOrdered = [...viewProducts].sort((a, b) => b.price - a.price)
+      } else {
+        productsOrdered = filterProductsByCategory(products, category);
+      }
+
+      setVeiwProducts(productsOrdered);
+    },
+    [viewProducts, products, category]
+  );
 
   return (
-    <>
-      <div className="container">
-        <AsideFilterProducts
-          title={formatCategory(category)}
-          totalResult={viewProducts.length}
-          onSelectedTag={setSelectedTag}
-          onOrderProducts={orderProductsByPrice}
-        />
-        <main className="container-list">
-          {viewProducts.length !== 0 ? (
-            viewProducts.map(({ id, tag, image, category, name, price }) => {
-              return (
-                <CardVertical
-                  key={id}
-                  idProduct={id}
-                  className="list"
-                  tag={tag}
-                  image={image}
-                  category={category}
-                  name={name}
-                  price={price}
-                />
-              );
-            })
-          ) : (
-            <p>Nenhum produto encontrado para {category}.</p>
-          )}
-        </main>
+    <div className="products-content">
+      <div className="products-container">
+        <div className="products-layout">
+          <AsideFilterProducts
+            title={formatCategory(category)}
+            totalResult={viewProducts.length}
+            onSelectedTag={setSelectedTag}
+            onOrderProducts={orderProductsByPrice}
+          />
+
+          <main className="products-grid">
+            {viewProducts.length !== 0 ? (
+              viewProducts.map(({ id, tag, image, category, name, price }) => {
+                return (
+                  <CardVertical
+                    key={id}
+                    idProduct={id}
+                    className="list"
+                    tag={tag}
+                    image={image}
+                    category={category}
+                    name={name}
+                    price={price}
+                  />
+                );
+              })
+            ) : (
+              <p>Nenhum produto encontrado para {category}.</p>
+            )}
+          </main>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
