@@ -80,7 +80,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
       const result = await cartService.del(currentUser.id, idProduct);
 
       if (result.success) {
-        setProducts((prev) => prev.filter((item) => item.id !== idProduct));
+        setProducts((prev) => prev.filter((item) => item.produto.id !== idProduct));
       } else {
         Toast.fire({
           icon: 'warning',
@@ -91,8 +91,18 @@ export const ShoppingCartContextProvider = ({ children }) => {
     [currentUser]
   );
 
+  const incrementQuant = async (idProduct) => {
+    await cartService.inc(currentUser.id, idProduct);
+  };
+
+  const decrementQuant = async (idProduct) => {
+    const { status } = await cartService.dec(currentUser.id, idProduct);
+
+    status === 200 && loadProducts(currentUser.id);
+  };
+
   return (
-    <ShoppingCartContext.Provider value={{ products, addShoppingCart, removeShoppingCart }}>
+    <ShoppingCartContext.Provider value={{ products, addShoppingCart, removeShoppingCart, incrementQuant, decrementQuant }}>
       {children}
     </ShoppingCartContext.Provider>
   );

@@ -20,12 +20,13 @@ const ShoppingCar = () => {
               {products.map((item) => {
                 return (
                   <CardHorizontal
-                    key={item.id}
-                    idProduct={item.id}
-                    image={item.image}
-                    category={item.category}
-                    name={item.name}
-                    price={item.price}
+                    key={item.produto.id}
+                    idProduct={item.produto.id}
+                    image={item.produto.image}
+                    category={item.produto.category}
+                    name={item.produto.name}
+                    price={item.produto.price}
+                    qtd={item.quantidade}
                   />
                 );
               })}

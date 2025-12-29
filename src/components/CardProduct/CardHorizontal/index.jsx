@@ -5,9 +5,23 @@ import { formatPrice, formatCategory } from '../../../utils/textFormatter.js';
 
 import './styles.sass';
 
-const CardHorizontal = ({ idProduct, image, category, name, price }) => {
-  const [qtyProducts, setQtyProducts] = useState(1);
-  const { removeShoppingCart } = useContext(ShoppingCartContext);
+const CardHorizontal = ({ idProduct, image, category, name, price, qtd }) => {
+  const [qtyProducts, setQtyProducts] = useState(qtd);
+  const { removeShoppingCart, incrementQuant, decrementQuant } =
+    useContext(ShoppingCartContext);
+
+  const quantProducts = (action) => {
+    switch (action) {
+      case 'increment':
+        incrementQuant(idProduct);
+        setQtyProducts((prev) => prev + 1);
+        break;
+      case 'decrement':
+        decrementQuant(idProduct);
+        setQtyProducts((prev) => prev - 1);
+        break;
+    }
+  };
 
   return (
     <div className="cart-item">
@@ -30,7 +44,7 @@ const CardHorizontal = ({ idProduct, image, category, name, price }) => {
         <div className="cart-item-quantity-controls">
           <button
             className="cart-item-quantity-button"
-            onClick={() => setQtyProducts((prev) => prev - 1)}
+            onClick={() => quantProducts('decrement')}
           >
             -
           </button>
@@ -43,7 +57,7 @@ const CardHorizontal = ({ idProduct, image, category, name, price }) => {
           />
           <button
             className="cart-item-quantity-button"
-            onClick={() => setQtyProducts((prev) => prev + 1)}
+            onClick={() => quantProducts('increment')}
           >
             +
           </button>
@@ -57,7 +71,10 @@ const CardHorizontal = ({ idProduct, image, category, name, price }) => {
         </span>
       </div>
 
-      <button className="cart-item-remove" onClick={() => removeShoppingCart(idProduct)}>
+      <button
+        className="cart-item-remove"
+        onClick={() => removeShoppingCart(idProduct)}
+      >
         <MdDeleteOutline size={25} />
       </button>
     </div>

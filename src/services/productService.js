@@ -101,11 +101,12 @@ export const getProductsFavorites = async (idUser) => {
   }
 };
 
-
 export const cartService = {
   add: (idUser, idProduct) => addProductToShoppingCart(idUser, idProduct),
   get: (idUser) => getProductShoppingCart(idUser),
   del: (idUser, idProduct) => deleteProductShoppingCart(idUser, idProduct),
+  inc: (idUser, idProduct) => incrementProductShoppingCart(idUser, idProduct),
+  dec: (idUser, idProduct) => decrementProductShoppingCart(idUser, idProduct),
 };
 
 export const addProductToShoppingCart = async (idUser, idProduct) => {
@@ -161,6 +162,32 @@ export const deleteProductShoppingCart = async (idUser, idProduct) => {
     return {
       success: false,
       message: error.response?.data?.message || 'Erro ao remover o produto',
+      status: error.response?.status || 500,
+    };
+  }
+};
+
+export const incrementProductShoppingCart = async (idUser, idProduct) => {
+  try {
+    await api.put(`/shopping-cart/user/${idUser}/product/${idProduct}/increment`);
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Erro no servidor',
+      status: error.response?.status || 500,
+    };
+  }
+};
+
+export const decrementProductShoppingCart = async (idUser, idProduct) => {
+  try {
+    const response = await api.put(`/shopping-cart/user/${idUser}/product/${idProduct}/decrement`);
+    return { success: true , status: response.status};
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Erro no servidor',
       status: error.response?.status || 500,
     };
   }
