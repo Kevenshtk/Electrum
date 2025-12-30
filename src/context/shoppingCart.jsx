@@ -65,6 +65,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
         });
 
         setProducts((prev) => [...prev, result.data]);
+        loadProducts(currentUser.id);
       } else {
         Toast.fire({
           icon: 'warning',
