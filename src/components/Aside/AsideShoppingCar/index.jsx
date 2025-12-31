@@ -1,6 +1,11 @@
 import './styles.sass';
+import { useContext } from 'react';
+import { formatPrice } from '../../../utils/textFormatter.js';
+import { ShoppingCartContext } from '../../../context/shoppingCart.jsx';
 
 const AsideShoppingCar = () => {
+  const { totalPrice } = useContext(ShoppingCartContext);
+
   return (
     <aside className="cart-summary">
       <h2 className="cart-summary-title">Resumo da Compra</h2>
@@ -8,7 +13,7 @@ const AsideShoppingCar = () => {
       <div className="cart-summary-section">
         <div className="cart-summary-row">
           <span>Subtotal</span>
-          <span>R$ 3.513,45</span>
+          <span>R$ {formatPrice(totalPrice)}</span>
         </div>
         <div className="cart-summary-row">
           <span>Frete</span>

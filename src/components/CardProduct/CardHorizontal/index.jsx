@@ -6,7 +6,6 @@ import { formatPrice, formatCategory } from '../../../utils/textFormatter.js';
 import './styles.sass';
 
 const CardHorizontal = ({ idProduct, image, category, name, price, qtd }) => {
-  const [qtyProducts, setQtyProducts] = useState(qtd);
   const { removeShoppingCart, incrementQuant, decrementQuant } =
     useContext(ShoppingCartContext);
 
@@ -14,11 +13,9 @@ const CardHorizontal = ({ idProduct, image, category, name, price, qtd }) => {
     switch (action) {
       case 'increment':
         incrementQuant(idProduct);
-        setQtyProducts((prev) => prev + 1);
         break;
       case 'decrement':
         decrementQuant(idProduct);
-        setQtyProducts((prev) => prev - 1);
         break;
     }
   };
@@ -50,7 +47,7 @@ const CardHorizontal = ({ idProduct, image, category, name, price, qtd }) => {
           </button>
           <input
             type="number"
-            value={qtyProducts}
+            value={qtd}
             min="1"
             className="cart-item-quantity-input"
             readOnly
@@ -67,7 +64,7 @@ const CardHorizontal = ({ idProduct, image, category, name, price, qtd }) => {
       <div className="cart-item-subtotal">
         <span className="cart-item-subtotal-label">Subtotal</span>
         <span className="cart-item-subtotal-value">
-          R$ {formatPrice(qtyProducts * price)}
+          R$ {formatPrice(qtd * price)}
         </span>
       </div>
 

@@ -107,9 +107,10 @@ export const cartService = {
   del: (idUser, idProduct) => deleteProductShoppingCart(idUser, idProduct),
   inc: (idUser, idProduct) => incrementProductShoppingCart(idUser, idProduct),
   dec: (idUser, idProduct) => decrementProductShoppingCart(idUser, idProduct),
+  total: (idUser) => getTotalShoppingCart(idUser),
 };
 
-export const addProductToShoppingCart = async (idUser, idProduct) => {
+const addProductToShoppingCart = async (idUser, idProduct) => {
   try {
     const { data } = await api.post(
       '/shopping-cart',
@@ -140,7 +141,7 @@ export const addProductToShoppingCart = async (idUser, idProduct) => {
   }
 };
 
-export const getProductShoppingCart = async (idUser) => {
+const getProductShoppingCart = async (idUser) => {
   try {
     const { data } = await api.get(`/shopping-cart/user/${idUser}`);
     return { success: true, data };
@@ -153,7 +154,7 @@ export const getProductShoppingCart = async (idUser) => {
   }
 };
 
-export const deleteProductShoppingCart = async (idUser, idProduct) => {
+const deleteProductShoppingCart = async (idUser, idProduct) => {
   try {
     await api.delete(`/shopping-cart/user/${idUser}/product/${idProduct}`);
 
@@ -167,9 +168,11 @@ export const deleteProductShoppingCart = async (idUser, idProduct) => {
   }
 };
 
-export const incrementProductShoppingCart = async (idUser, idProduct) => {
+const incrementProductShoppingCart = async (idUser, idProduct) => {
   try {
-    await api.put(`/shopping-cart/user/${idUser}/product/${idProduct}/increment`);
+    await api.put(
+      `/shopping-cart/user/${idUser}/product/${idProduct}/increment`
+    );
     return { success: true };
   } catch (error) {
     return {
@@ -180,10 +183,25 @@ export const incrementProductShoppingCart = async (idUser, idProduct) => {
   }
 };
 
-export const decrementProductShoppingCart = async (idUser, idProduct) => {
+const decrementProductShoppingCart = async (idUser, idProduct) => {
   try {
-    const response = await api.put(`/shopping-cart/user/${idUser}/product/${idProduct}/decrement`);
-    return { success: true , status: response.status};
+    const response = await api.put(
+      `/shopping-cart/user/${idUser}/product/${idProduct}/decrement`
+    );
+    return { success: true, status: response.status };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Erro no servidor',
+      status: error.response?.status || 500,
+    };
+  }
+};
+
+const getTotalShoppingCart = async (idUser) => {
+  try {
+    const response = await api.get(`/shopping-cart/user/${idUser}/total`);
+    return { success: true, data: response.data.total };
   } catch (error) {
     return {
       success: false,
