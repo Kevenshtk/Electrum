@@ -30,7 +30,12 @@ export const ShoppingCartContextProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    if (!currentUser?.id) return;
+    if (!currentUser?.id) {
+      setProducts([]);
+      setSubTotalPrice(0);
+      setTotalPrice(0);
+    }
+
     loadProducts(currentUser.id);
   }, [currentUser?.id]);
 
@@ -92,9 +97,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
       const result = await cartService.del(currentUser.id, idProduct);
 
       if (result.success) {
-        setProducts((prev) =>
-          prev.filter((item) => item.produto.id !== idProduct)
-        );
+        loadProducts(currentUser.id);
       } else {
         Toast.fire({
           icon: 'warning',
