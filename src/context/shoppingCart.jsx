@@ -26,6 +26,7 @@ export const ShoppingCartContext = createContext();
 export const ShoppingCartContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
+  const [subTotalPrice, setSubTotalPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -34,8 +35,12 @@ export const ShoppingCartContextProvider = ({ children }) => {
   }, [currentUser?.id]);
 
   useEffect(() => {
-    totalPriceCart();
+    subTotalPriceCart();
   }, [currentUser?.id, products]);
+
+  useEffect(() => {
+    totalPriceCart();
+  }, [subTotalPrice]);
 
   const loadProducts = async (idUser) => {
     if (!idUser) return;
@@ -123,18 +128,18 @@ export const ShoppingCartContextProvider = ({ children }) => {
       setProducts((prev) =>
         prev.map((item) =>
           item.produto.id === idProduct
-            ? { ...item, quantidade: item.quantidade - 1 } 
+            ? { ...item, quantidade: item.quantidade - 1 }
             : item
         )
       );
     }
   };
 
-  const totalPriceCart = useCallback(async () => {
+  const subTotalPriceCart = useCallback(async () => {
     const result = await cartService.total(currentUser.id);
 
     if (result.success) {
-      setTotalPrice(result.data);
+      setSubTotalPrice(result.data);
     } else {
       Toast.fire({
         icon: 'warning',
@@ -145,6 +150,21 @@ export const ShoppingCartContextProvider = ({ children }) => {
     }
   }, [currentUser]);
 
+  const totalPriceCart = useCallback(async () => {
+    if (subTotalPrice < 500) {
+      setTotalPrice(subTotalPrice + 50);
+    } else {
+      setTotalPrice(subTotalPrice);
+    }
+  }, [subTotalPrice]);
+
+  const finalizeOrder = () => {
+    Toast.fire({
+      icon: 'warning',
+      title: 'Funcionalidade em desenvolvimento!',
+    });
+  };
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -153,6 +173,8 @@ export const ShoppingCartContextProvider = ({ children }) => {
         removeShoppingCart,
         incrementQuant,
         decrementQuant,
+        finalizeOrder,
+        subTotalPrice,
         totalPrice,
       }}
     >

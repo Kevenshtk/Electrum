@@ -4,7 +4,7 @@ import { formatPrice } from '../../../utils/textFormatter.js';
 import { ShoppingCartContext } from '../../../context/shoppingCart.jsx';
 
 const AsideShoppingCar = () => {
-  const { totalPrice } = useContext(ShoppingCartContext);
+  const { subTotalPrice, totalPrice, finalizeOrder } = useContext(ShoppingCartContext);
 
   return (
     <aside className="cart-summary">
@@ -13,16 +13,16 @@ const AsideShoppingCar = () => {
       <div className="cart-summary-section">
         <div className="cart-summary-row">
           <span>Subtotal</span>
-          <span>R$ {formatPrice(totalPrice)}</span>
+          <span>R$ {formatPrice(subTotalPrice)}</span>
         </div>
         <div className="cart-summary-row">
           <span>Frete</span>
-          <span className="cart-summary-free">Grátis</span>
+          <span className="cart-summary-free">{subTotalPrice > 500 || subTotalPrice === 0 ? 'Gratis' : 'R$ 50,00'}</span>
         </div>
         <div className="cart-summary-divider"></div>
         <div className="cart-summary-row cart-summary-total">
           <span>Total</span>
-          <span>R$ 3.513,45</span>
+          <span>R$ {formatPrice(totalPrice)}</span>
         </div>
       </div>
 
@@ -41,7 +41,7 @@ const AsideShoppingCar = () => {
         </p>
       </div>
 
-      <button className="cart-summary-checkout">Finalizar Compra</button>
+      <button className="cart-summary-checkout" onClick={() => finalizeOrder()}>Finalizar Compra</button>
     </aside>
   );
 };
