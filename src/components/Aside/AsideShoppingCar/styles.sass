@@ -1,0 +1,109 @@
+@use '../../../styles/variables' as *
+@use '../../../styles/mixins' as *
+
+.cart-summary
+  background-color: $light-color
+  border-radius: 12px
+  padding: 2rem
+  height: fit-content
+  position: sticky
+  top: 20px
+
+  @media (max-width: 992px)
+    position: relative
+    top: 0
+
+.cart-summary-title
+  font-size: 1.5rem
+  font-weight: 700
+  margin-bottom: 1.5rem
+
+.cart-summary-section
+  margin-bottom: 1.5rem
+
+.cart-summary-row
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-bottom: 1rem
+  font-size: 1rem
+
+  span
+    &:last-child
+      font-weight: 600
+
+.cart-summary-free
+  color: #00B894 !important
+
+.cart-summary-divider
+  height: 1px
+  background-color: rgba($dark-color, 0.1)
+  margin: 1rem 0
+
+.cart-summary-total
+  font-size: 1.25rem
+  font-weight: 700
+  margin-bottom: 0
+
+.cart-summary-coupon
+  display: flex
+  gap: 0.5rem
+  margin-bottom: 1.5rem
+
+.cart-summary-coupon-input
+  flex: 1
+  padding: 0.75rem 1rem
+  border: 1px solid rgba($dark-color, 0.1)
+  border-radius: 8px
+  background-color: transparent
+  font-size: 0.95rem
+
+  &::placeholder
+    color: $gray-text-color
+
+  &:focus
+    outline: none
+    border-color: $primary-color
+
+.cart-summary-coupon-button
+  padding: 0.75rem 1.5rem
+  background-color: transparent
+  border: 1px solid $primary-color
+  color: $primary-color
+  border-radius: 8px
+  cursor: pointer
+  font-weight: 600
+  transition: all 0.3s
+
+  &:hover
+    background-color: $primary-color
+    color: $light-color
+
+.cart-summary-shipping
+  background-color: rgba($primary-color, 0.1)
+  border-left: 3px solid $primary-color
+  padding: 1rem
+  border-radius: 4px
+  margin-bottom: 1.5rem
+
+.cart-summary-shipping-text
+  font-size: 0.9rem
+  margin: 0
+  line-height: 1.5
+
+.cart-summary-checkout
+  width: 100%
+  padding: 1rem
+  background-color: $primary-color
+  color: $light-color
+  border: none
+  border-radius: 8px
+  font-size: 1.1rem
+  font-weight: 700
+  cursor: pointer
+  transition: all 0.3s
+
+  &:hover
+    background-color: darken($primary-color, 8%)
+    transform: translateY(-2px)
+    box-shadow: 0 4px 12px rgba($primary-color, 0.4)

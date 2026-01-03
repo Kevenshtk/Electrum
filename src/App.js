@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 
 import { AuthContextProvider } from './context/auth.jsx';
 import { FavoriteContextProvider } from './context/favorites.jsx';
+import { ShoppingCartContextProvider } from './context/shoppingCart.jsx';
+
 import useWakeUpAPI from './hooks/useWakeUpAPI.js';
 import Modal from './components/Modal';
 import UserForm from './components/Forms/UserForm';
@@ -11,6 +13,7 @@ import Header from './components/Header';
 import { Home } from './pages/home';
 import ListProducts from './pages/listProducts';
 import Favorites from './pages/favorites';
+import ShoppingCar from './pages/shoppingCar';
 import ProductsRegister from './pages/register/products';
 
 import './styles/reset.sass';
@@ -58,6 +61,7 @@ function App() {
       <Router>
         <AuthContextProvider>
           <FavoriteContextProvider>
+            <ShoppingCartContextProvider>
             <Header
               setShowModal={setShowModal}
               setIsFormRegister={setIsFormRegister}
@@ -68,6 +72,7 @@ function App() {
               <Route path="/register/products" element={<ProductsRegister />} />
               <Route path="/list/:category" element={<ListProducts />} />
               <Route path="/favorites/:idUser" element={<Favorites />} />
+              <Route path="/shoppingCar/:idUser" element={<ShoppingCar />} />
             </Routes>
 
             {showModal && (
@@ -78,6 +83,7 @@ function App() {
                 />
               </Modal>
             )}
+            </ShoppingCartContextProvider>
           </FavoriteContextProvider>
         </AuthContextProvider>
       </Router>

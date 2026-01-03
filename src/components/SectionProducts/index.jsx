@@ -1,7 +1,7 @@
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 import Button from '../Button';
-import CardProduct from '../CardProduct';
+import CardVertical from '../CardProduct/CardVertical';
 
 import './styles.sass';
 
@@ -15,9 +15,9 @@ const SectionProducts = ({
   statusAPI,
 }) => {
   return (
-    <section className="products-grid">
+    <section className="products-carousel">
       <h2>{title}</h2>
-      <div className="products-grid-container">
+      <div className="products-carousel-list">
         {statusAPI ? (
           <>
             <Button
@@ -29,7 +29,7 @@ const SectionProducts = ({
               aria-label="Voltar para a página anterior"
             />
             {page.map((product) => (
-              <CardProduct
+              <CardVertical
                 key={product?.id}
                 idProduct={product?.id}
                 className="home"
