@@ -17,6 +17,7 @@ const Favorites = () => {
           <div className="favorites-grid">
             {favorites.map((item) => (
               <CardVertical
+                key={item?.id}
                 idProduct={item?.id}
                 className="favorite"
                 tag={item?.tag}

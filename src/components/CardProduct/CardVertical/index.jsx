@@ -25,8 +25,8 @@ const CardVertical = ({
 
   const toggleFavorite = () => {
     isFavorite(idProduct)
-      ? removeFavorites(currentUser.id, idProduct)
-      : addFavorites(currentUser.id, idProduct);
+      ? removeFavorites(idProduct)
+      : addFavorites(idProduct);
   };
 
   return (
