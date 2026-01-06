@@ -1,5 +1,5 @@
 import Footer from '../../components/Footer';
-import CardProduct from '../../components/CardProduct';
+import CardVertical from '../../components/CardProduct/CardVertical';
 import { FavoriteContext } from '../../context/favorites';
 import { useContext } from 'react';
 
@@ -16,7 +16,8 @@ const Favorites = () => {
 
           <div className="favorites-grid">
             {favorites.map((item) => (
-              <CardProduct
+              <CardVertical
+                key={item?.id}
                 idProduct={item?.id}
                 className="favorite"
                 tag={item?.tag}

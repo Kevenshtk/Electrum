@@ -1,4 +1,4 @@
-import { RiCloseLargeLine } from "react-icons/ri";
+import { RiCloseLargeLine } from 'react-icons/ri';
 
 import Button from '../Button';
 
@@ -6,9 +6,15 @@ import './styles.sass';
 
 const Modal = ({ children, setShowModal }) => {
   return (
-    <div className="containerModal">
-      <div className="content">{children}</div>
-      <Button className="btn-close-modal" text={<RiCloseLargeLine />} onClick={() => setShowModal(false)}/>
+    <div className="modal-overlay">
+      <div className="modal">
+        <div className="modal-content">{children}</div>
+        <Button
+          className="modal-close"
+          text={<RiCloseLargeLine size={20} />}
+          onClick={() => setShowModal(false)}
+        />
+      </div>
     </div>
   );
 };

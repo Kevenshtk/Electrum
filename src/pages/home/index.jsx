@@ -49,9 +49,9 @@ const Home = ({ statusAPI }) => {
   return (
     <>
       <section className="banners">
-        <Banner id="banner-1" text="Promoção de Notebooks" category="Notebooks"/>
-        <Banner id="banner-2" text="Lançamento de Acessórios" category="Acessórios" />
-        <Banner id="banner-3" text="Câmeras Potentes" category="Câmeras" />
+        <Banner id="banner-1" text="Promoção de Notebooks" category="notebook"/>
+        <Banner id="banner-2" text="Lançamento de Acessórios" category="acessorio" />
+        <Banner id="banner-3" text="Câmeras Potentes" category="camera" />
       </section>
 
       <SectionProducts

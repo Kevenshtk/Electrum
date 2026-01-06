@@ -4,45 +4,47 @@ import { fetchLogin } from '../services/loginService.js';
 
 export const AuthContext = createContext();
 
+const initialUserState = {
+  status: false,
+  email: '',
+  name: '',
+  id: 0,
+}
+
 export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState({
-    status: false,
-    email: '',
-    name: '',
-    id: 0,
-  });
+  const [currentUser, setCurrentUser] = useState(initialUserState);
 
   const handleLogin = async (email, password) => {
     const users = await fetchLogin();
 
-    switch (users.success) {
-      case false:
-        return 'errorServer';
-        break;
+    if (!users.success) {
+      return 'errorServer';
+    }
 
-      default:
-        const user = users.data.find(
-          (user) => user.email === email && user.password === password
-        );
+    const user = users.data.find(
+      (user) => user.email === email && user.password === password
+    );
 
-        if (user) {
-          setCurrentUser({
-            status: true,
-            email: email,
-            name: user.username,
-            id: user.id,
-          });
+    if (user) {
+      setCurrentUser({
+        status: true,
+        email: email,
+        name: user.username,
+        id: user.id,
+      });
 
-          return 'ok';
-        } else {
-          return 'falied';
-        }
-        break;
+      return 'ok';
+    } else {
+      return 'falied';
     }
   };
 
+  const handleLogout = () => {
+    setCurrentUser(initialUserState);
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser, handleLogin }}>
+    <AuthContext.Provider value={{ currentUser, handleLogin, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );

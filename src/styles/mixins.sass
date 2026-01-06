@@ -4,10 +4,16 @@
     max-width: $container-width
     margin: 0 auto
     display: flex
-    justify-content: space-around
+    justify-content: space-between
 
-@mixin floating-container($shadow)
-    max-width: 700px
+    @media (max-width: 1200px)
+        margin: 0 20px
+
+    @include mobile
+        margin: 0 auto
+
+@mixin floating-container($width, $shadow)
+    max-width: $width
     border-radius: 37px
     box-shadow: #{$shadow}
     margin: 50px auto
@@ -30,7 +36,8 @@
             font-size: 0.8rem
             font-weight: 500
             color: $error-color
-            margin-top: 0.2rem
+            margin-top: 0.4rem
+            margin-left: 1rem
 
 @mixin rounded-input
     height: 40px
