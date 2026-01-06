@@ -11,7 +11,7 @@ import useWindowWidth from '../../../hooks/useWindowWidth';
 
 import './styles.sass';
 
-const HeaderTop = ({ currentUser, handleShowModal }) => {
+const HeaderTop = ({ currentUser, handleShowModal, handleLogout }) => {
   const width = useWindowWidth();
   
   return (
@@ -45,7 +45,7 @@ const HeaderTop = ({ currentUser, handleShowModal }) => {
           <Button
             className="btn-simples"
             text={currentUser.status ? currentUser.name : 'Login '}
-            onClick={() => !currentUser.status && handleShowModal('login')}
+            onClick={() => currentUser.status ? handleLogout() : handleShowModal('login') }
           />
           {!currentUser.status && (
             <Button

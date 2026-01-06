@@ -39,8 +39,12 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const handleLogout = () => {
+    setCurrentUser(initialUserState);
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser, handleLogin }}>
+    <AuthContext.Provider value={{ currentUser, handleLogin, handleLogout }}>
       {children}
     </AuthContext.Provider>
   );

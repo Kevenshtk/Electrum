@@ -6,11 +6,10 @@ import HeaderTop from './top';
 import HeaderMain from './main';
 import HeaderBottom from './bottom';
 
-
 import './styles.sass';
 
 const Header = ({ setShowModal, setIsFormRegister }) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, handleLogout } = useContext(AuthContext);
 
   const handleShowModal = (button) => {
     button === 'register' ? setIsFormRegister(true) : setIsFormRegister(false);
@@ -19,7 +18,7 @@ const Header = ({ setShowModal, setIsFormRegister }) => {
 
   return (
     <header>
-      <HeaderTop currentUser={currentUser} handleShowModal={handleShowModal}/>
+      <HeaderTop currentUser={currentUser} handleShowModal={handleShowModal} handleLogout={handleLogout} />
       <HeaderMain currentUser={currentUser} />
       <HeaderBottom />
     </header>
