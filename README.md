@@ -18,9 +18,10 @@ Electrum é um e-commerce de produtos eletrônicos desenvolvido em React. Ele pe
 - [React](https://reactjs.org/)
 - [SASS](https://sass-lang.com/)
 - [Axios](https://axios-http.com/ptbr)
-- [json-server](https://www.npmjs.com/package/json-server) (usado inicialmente como API fake)
-- [ESLint](https://eslint.org)
-- [Prettier](https://prettier.io)
+- [Context API](https://legacy.reactjs.org/docs/context.html)
+- [React Hook Form](https://www.react-hook-form.com)
+- [Yup](https://www.npmjs.com/package/yup)
+- [Jest](https://jestjs.io)
 
 ## Tela Inicial
 
@@ -28,16 +29,11 @@ Electrum é um e-commerce de produtos eletrônicos desenvolvido em React. Ele pe
 
 ## Funcionalidades
 
+- Login para clientes 
 - Filtrar produtos por categoria
 - Interface responsiva
-
-### Funcionalidades em Desenvolvimento
-
-- Buscar produtos por nome
-- Login para clientes e administrador
 - Lista de produtos favoritos
 - Carrinho de compras
-- CRUD completo de produtos
 
 ## Instalação
 
@@ -52,12 +48,8 @@ Electrum é um e-commerce de produtos eletrônicos desenvolvido em React. Ele pe
 3. Instale as dependências:
    ```terminal
    npm install
-
-4. Inicie o json-server (Opcional):
-   ```terminal
-   npm run api
    
-5. Inicie a aplicação:
+4. Inicie a aplicação:
    ```terminal
    npm start
 
