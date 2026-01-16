@@ -1,5 +1,5 @@
 import { fetchLogin } from '../loginService';
-import { checkEmail } from '../userService';
+import { checkEmail } from '../user/checkEmail';
 
 jest.mock('../api', () => ({
   api: { get: jest.fn() },
