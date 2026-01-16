@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
 import { AuthContext } from '../../../context/auth';
-import { registerUser } from '../../../services/userService.js';
+import { registerUser } from '../../../services/user/userService.js';
 import Button from '../../Button';
 import Input from '../../Input';
 
