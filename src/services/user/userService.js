@@ -2,37 +2,37 @@ import { api } from '../api.js';
 import { checkEmail } from './checkEmail.js';
 
 export const registerUser = async (userData) => {
-  const emailExists = await checkEmail(userData.email);
+  const { success, emailExists } = await checkEmail(userData.email);
 
-  switch (emailExists) {
-    case 'ok':
-      try {
-        await api.post(
-          '/users',
-          {
-            username: userData.firstUserName,
-            email: userData.email,
-            password: userData.password,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+  if (!success) {
+    return { success: false, message: 'Erro ao verificar email' };
+  }
 
-        return 'ok';
-      } catch (error) {
-        return 'errorServer';
+  if (emailExists) {
+    return { success: true, emailExists: true };
+  }
+
+  try {
+    await api.post(
+      '/users',
+      {
+        username: userData.firstUserName,
+        email: userData.email,
+        password: userData.password,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
-      break;
+    );
 
-    case 'errorEmail':
-      return 'errorEmail';
-      break;
-
-    default:
-      return 'errorServer';
-      break;
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Erro ao registrar usuário',
+      status: error.response?.status || 500,
+    };
   }
 };

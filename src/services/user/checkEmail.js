@@ -1,17 +1,17 @@
 import { fetchLogin } from '../loginService.js';
 
 export const checkEmail = async (email) => {
-  try {
-    const users = await fetchLogin();
+  const users = await fetchLogin();
 
-    if (users.success) {
-      const user = users.data.find((user) => user.email === email);
-
-      if (user) return 'errorEmail';
-
-      return 'ok';
-    }
-  } catch (error) {
-    return 'errorServer';
+  if (!users.success) {
+    return users;
   }
+
+  const user = users.data.find((user) => user.email === email);
+
+  if (user) {
+    return { success: true, emailExists: true };
+  }
+
+  return { success: true, emailExists: false };
 };
