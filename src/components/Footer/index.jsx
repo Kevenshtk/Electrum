@@ -19,32 +19,32 @@ const Footer = () => {
             sunt odit aspernatur?
           </p>
           <p>
-            <FaLocationDot className="icon" /> <a href="#">Rua Teste, 1234</a>
+            <FaLocationDot className="icon" /> <a href="/">Rua Teste, 1234</a>
           </p>
           <p>
-            <FaPhone className="icon" /> <a href="#">(48)99999-0000</a>
+            <FaPhone className="icon" /> <a href="/">(48)99999-0000</a>
           </p>
           <p>
-            <FaRegEnvelope className="icon" /> <a href="#">electrum@email.com</a>
+            <FaRegEnvelope className="icon" /> <a href="/">electrum@email.com</a>
           </p>
         </div>
         <div className="footer-top-categories">
           <h3>Categorias</h3>
           <ul>
             <li>
-              <a href="#">Promoções</a>
+              <a href="/">Promoções</a>
             </li>
             <li>
-              <a href="#">Headsets</a>
+              <a href="/">Headsets</a>
             </li>
             <li>
-              <a href="#">PC Gamer</a>
+              <a href="/">PC Gamer</a>
             </li>
             <li>
-              <a href="#">Câmeras</a>
+              <a href="/">Câmeras</a>
             </li>
             <li>
-              <a href="#">Mouse e teclado</a>
+              <a href="/">Mouse e teclado</a>
             </li>
           </ul>
         </div>
@@ -52,19 +52,19 @@ const Footer = () => {
           <h3>Informações</h3>
           <ul>
             <li>
-              <a href="#">Sobre nós</a>
+              <a href="/">Sobre nós</a>
             </li>
             <li>
-              <a href="#">Entre em contato</a>
+              <a href="/">Entre em contato</a>
             </li>
             <li>
-              <a href="#">Política de privacidade</a>
+              <a href="/">Política de privacidade</a>
             </li>
             <li>
-              <a href="#">Pedidos e devoluções</a>
+              <a href="/">Pedidos e devoluções</a>
             </li>
             <li>
-              <a href="#">Termos e condições</a>
+              <a href="/">Termos e condições</a>
             </li>
           </ul>
         </div>
@@ -72,16 +72,16 @@ const Footer = () => {
           <h3>Menu</h3>
           <ul>
             <li>
-              <a href="#">Minha Conta</a>
+              <a href="/">Minha Conta</a>
             </li>
             <li>
-              <a href="#">Carrinho</a>
+              <a href="/">Carrinho</a>
             </li>
             <li>
-              <a href="#">Lista de Desejos</a>
+              <a href="/">Lista de Desejos</a>
             </li>
             <li>
-              <a href="#">Rastrear Pedido</a>
+              <a href="/">Rastrear Pedido</a>
             </li>
           </ul>
         </div>
