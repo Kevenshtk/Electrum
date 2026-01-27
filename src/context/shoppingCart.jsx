@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useState,
+  useMemo,
 } from 'react';
 import { AuthContext } from './auth';
 import { cartService } from '../services/productService';
@@ -27,25 +28,6 @@ export const ShoppingCartContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const [subTotalPrice, setSubTotalPrice] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  useEffect(() => {
-    if (!currentUser?.id) {
-      setProducts([]);
-      setSubTotalPrice(0);
-      setTotalPrice(0);
-    }
-
-    loadProducts(currentUser.id);
-  }, [currentUser?.id]);
-
-  useEffect(() => {
-    subTotalPriceCart();
-  }, [currentUser?.id, products]);
-
-  useEffect(() => {
-    totalPriceCart();
-  }, [subTotalPrice]);
 
   const loadProducts = async (idUser) => {
     if (!idUser) return;
@@ -151,14 +133,14 @@ export const ShoppingCartContextProvider = ({ children }) => {
 
       return 0;
     }
-  }, [currentUser]);
+  }, [currentUser.id]);
 
-  const totalPriceCart = useCallback(async () => {
+  const totalPrice = useMemo(() => {
     if (subTotalPrice < 500) {
-      setTotalPrice(subTotalPrice + 50);
-    } else {
-      setTotalPrice(subTotalPrice);
+      return subTotalPrice + 50;
     }
+
+    return subTotalPrice;
   }, [subTotalPrice]);
 
   const finalizeOrder = () => {
@@ -167,6 +149,19 @@ export const ShoppingCartContextProvider = ({ children }) => {
       title: 'Funcionalidade em desenvolvimento!',
     });
   };
+
+  useEffect(() => {
+    if (!currentUser?.id) {
+      setProducts([]);
+      setSubTotalPrice(0);
+    }
+
+    loadProducts(currentUser.id);
+  }, [currentUser?.id]);
+
+  useEffect(() => {
+    subTotalPriceCart();
+  }, [products, subTotalPriceCart]);
 
   return (
     <ShoppingCartContext.Provider
