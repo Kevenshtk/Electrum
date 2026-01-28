@@ -1,11 +1,11 @@
-import { fetchLogin } from '../loginService';
+import { fetchLogin } from '../user/loginService';
 import { checkEmail } from '../user/checkEmail';
 
 jest.mock('../api', () => ({
   api: { get: jest.fn() },
 }));
 
-jest.mock('../loginService', () => ({
+jest.mock('../user/loginService', () => ({
   fetchLogin: jest.fn(),
 }));
 
