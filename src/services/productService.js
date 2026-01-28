@@ -30,18 +30,6 @@ export const createProduct = async (productData) => {
   }
 };
 
-export const getProductsById = async (idProduct) => {
-  try {
-    const response = await api.get(`/products/${idProduct}`);
-    return { success: true, data: response.data };
-  } catch (error) {
-    return {
-      success: false,
-      message: error.response?.data?.message || 'Erro ao buscar produto',
-    };
-  }
-};
-
 
 export const favoritesService = {
   get: (idUser) => getProductsFavorites(idUser),
