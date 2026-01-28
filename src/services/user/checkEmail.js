@@ -1,4 +1,4 @@
-import { fetchLogin } from '../loginService.js';
+import { fetchLogin } from '../user/loginService.js';
 
 export const checkEmail = async (email) => {
   const users = await fetchLogin();
