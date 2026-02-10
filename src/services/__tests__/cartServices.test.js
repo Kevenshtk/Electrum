@@ -68,7 +68,7 @@ describe('Servico de carrinho de compras', () => {
     });
   });
 
-  describe('Buscar de produtos no carrinho', () => {
+  describe('Buscar produtos no carrinho', () => {
     it('deve retornar success true e os dados do carrinho ao buscar', async () => {
       api.get.mockResolvedValueOnce({
         data: [
@@ -239,4 +239,38 @@ describe('Servico de carrinho de compras', () => {
       });
     });
   });
+
+  describe('Calcular total do carrinho', () => {
+    it('deve retornar success true e o total do carrinho', async () => {
+      api.get.mockResolvedValueOnce({ data: { total: 1000 }});
+
+      const result = await cartService.total(1);
+
+      expect(api.get).toHaveBeenCalledWith('/shopping-cart/user/1/total');
+      expect(result).toEqual({
+        success: true,
+        data: 1000
+      });
+    });
+
+    it('deve retornar success false e uma mensagem de erro ao falhar em calcular o total', async () => {
+      api.get.mockRejectedValueOnce({
+        response: {
+          data: {
+            message: 'Erro no servidor',
+          },
+          status: 500,
+        }
+      });
+
+      const result = await cartService.total(1);
+
+      expect(api.get).toHaveBeenCalledTimes(1);
+      expect(result).toEqual({
+        success: false,
+        message: 'Erro no servidor',
+        status: 500,
+      });
+    });
+  })
 });
