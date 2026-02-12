@@ -7,7 +7,7 @@ import {
   useMemo,
 } from 'react';
 import { AuthContext } from './auth';
-import { cartService } from '../services/productService';
+import cartService from '../services/product/cartService';
 import Swal from 'sweetalert2';
 
 const Toast = Swal.mixin({
@@ -101,6 +101,11 @@ export const ShoppingCartContextProvider = ({ children }) => {
             : item
         )
       );
+    } else {
+      Toast.fire({
+        icon: 'warning',
+        title: result.message,
+      });
     }
   };
 
@@ -117,6 +122,11 @@ export const ShoppingCartContextProvider = ({ children }) => {
             : item
         )
       );
+    } else {
+      Toast.fire({
+        icon: 'warning',
+        title: result.message,
+      });
     }
   };
 

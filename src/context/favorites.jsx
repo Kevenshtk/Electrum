@@ -7,7 +7,7 @@ import {
 } from 'react';
 import Swal from 'sweetalert2';
 import { AuthContext } from './auth';
-import { favoritesService } from '../services/productService';
+import favoritesService from '../services/product/favoritesService';
 
 const Toast = Swal.mixin({
   toast: true,

@@ -1,4 +1,4 @@
-import { createProduct } from '../productService';
+import { createProduct } from '../product/productService';
 import { api } from '../api';
 
 jest.mock('../api', () => ({
