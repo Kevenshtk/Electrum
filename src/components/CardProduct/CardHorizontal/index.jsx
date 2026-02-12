@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { ShoppingCartContext } from '../../../context/shoppingCart.jsx';
 import { formatPrice, formatCategory } from '../../../utils/textFormatter.js';
@@ -10,13 +10,10 @@ const CardHorizontal = ({ idProduct, image, category, name, price, qtd }) => {
     useContext(ShoppingCartContext);
 
   const quantProducts = (action) => {
-    switch (action) {
-      case 'increment':
-        incrementQuant(idProduct);
-        break;
-      case 'decrement':
-        decrementQuant(idProduct);
-        break;
+    if (action === 'increment') {
+      incrementQuant(idProduct);
+    } else {
+      decrementQuant(idProduct);
     }
   };
 

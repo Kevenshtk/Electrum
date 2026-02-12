@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 
-import { fetchLogin } from '../services/loginService.js';
+import { fetchLogin } from '../services/user/loginService.js';
 
 export const AuthContext = createContext();
 

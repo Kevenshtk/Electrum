@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
 import { AuthContext } from '../../../context/auth';
-import { registerUser } from '../../../services/userService.js';
+import { registerUser } from '../../../services/user/userService.js';
 import Button from '../../Button';
 import Input from '../../Input';
 
@@ -50,20 +50,8 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
     if (isFormRegister) {
       const statusRegister = await registerUser(data);
 
-      switch (statusRegister) {
-        case 'ok':
-          Swal.fire({
-            position: 'top',
-            icon: 'success',
-            title: 'Cadastrado realizado com sucesso!',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          setShowModal(false);
-
-          break;
-
-        case 'errorEmail':
+      if (statusRegister.success) {
+        if (statusRegister?.emailExists) {
           Swal.fire({
             position: 'top',
             icon: 'error',
@@ -72,18 +60,27 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
             showConfirmButton: false,
             timer: 2800,
           });
-          break;
+          return;
+        }
 
-        case 'errorServer':
-          Swal.fire({
-            position: 'top',
-            icon: 'error',
-            title: 'Erro ao realizar o cadastro.',
-            text: 'Por favor tente novamente mais tarde.',
-            showConfirmButton: false,
-            timer: 2800,
-          });
-          break;
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Cadastrado realizado com sucesso!',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setShowModal(false);
+        
+      } else {
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: 'Erro ao realizar o cadastro.',
+          text: 'Por favor tente novamente mais tarde.',
+          showConfirmButton: false,
+          timer: 2800,
+        });
       }
 
       return;

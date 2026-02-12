@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import './styles.sass';
 
 const Timer = ({ endDate }) => {
-  const calculateTimeLeft = () => {
+  const calculateTimeLeft = useCallback(() => {
     const difference = +new Date(endDate) - +new Date();
 
     if (difference <= 0) {
@@ -16,7 +16,7 @@ const Timer = ({ endDate }) => {
       minutes: Math.floor((difference / 1000 / 60) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     };
-  };
+  }, [endDate]);
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
@@ -25,7 +25,7 @@ const Timer = ({ endDate }) => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
     return () => clearInterval(timer);
-  }, [endDate]);
+  }, [calculateTimeLeft]);
 
   const pad = (num) => String(num).padStart(2, '0');
   const days = pad(timeLeft.days);

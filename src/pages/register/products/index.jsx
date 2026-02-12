@@ -6,7 +6,7 @@ import * as yup from 'yup';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
-import { createProduct } from '../../../services/productService.js';
+import { createProduct } from '../../../services/product/productService.js';
 
 import './styles.sass';
 
