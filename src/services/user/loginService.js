@@ -9,7 +9,6 @@ const fetchLogin = async () => {
       success: false,
       message:
         error.response?.data?.message || 'Erro ao buscar informações',
-      status: error.response?.status || 500,
     };
   }
 };
