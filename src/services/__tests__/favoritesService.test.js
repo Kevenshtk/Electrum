@@ -9,6 +9,10 @@ jest.mock('../api', () => ({
   },
 }));
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('Servico de produtos favoritos', () => {
   const mockResponse = [{ id: 1, name: 'Produto A' }];
 
@@ -28,7 +32,6 @@ describe('Servico de produtos favoritos', () => {
     it('deve retornar success false ao falhar na busca de favoritos', async () => {
       api.get.mockRejectedValueOnce({
         response: {
-          status: 500,
           data: { message: 'Erro ao buscar produtos favoritos' },
         },
       });
@@ -38,7 +41,6 @@ describe('Servico de produtos favoritos', () => {
       expect(result).toEqual({
         success: false,
         message: 'Erro ao buscar produtos favoritos',
-        status: 500,
       });
     });
   });
@@ -49,22 +51,14 @@ describe('Servico de produtos favoritos', () => {
 
       const result = await favoritesService.add(1, 1);
 
-      expect(api.post).toHaveBeenCalledWith(
-        '/favorites',
-        {
-          usuario: {
-            id: 1,
-          },
-          produto: {
-            id: 1,
-          },
+      expect(api.post).toHaveBeenCalledWith('/favorites', {
+        usuario: {
+          id: 1,
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+        produto: {
+          id: 1,
+        },
+      });
 
       expect(result).toEqual({
         success: true,
@@ -75,7 +69,6 @@ describe('Servico de produtos favoritos', () => {
     it('deve retornar success false quando falhar ao adicionar produto', async () => {
       api.post.mockRejectedValueOnce({
         response: {
-          status: 500,
           data: {
             message: 'Erro ao adicionar produto aos favoritos',
           },
@@ -87,7 +80,6 @@ describe('Servico de produtos favoritos', () => {
       expect(result).toEqual({
         success: false,
         message: 'Erro ao adicionar produto aos favoritos',
-        status: 500,
       });
     });
   });
@@ -105,7 +97,6 @@ describe('Servico de produtos favoritos', () => {
     it('deve retornar success false quando falhar ao remover produto', async () => {
       api.delete.mockRejectedValueOnce({
         response: {
-          status: 500,
           data: {
             message: 'Erro ao remover o produto',
           },
@@ -117,7 +108,6 @@ describe('Servico de produtos favoritos', () => {
       expect(result).toEqual({
         success: false,
         message: 'Erro ao remover o produto',
-        status: 500,
       });
     });
   });

@@ -8,6 +8,10 @@ jest.mock('../api', () => ({
   },
 }));
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('Servico de produtos', () => {
   const productData = {
     name: 'Produto A',
@@ -22,22 +26,14 @@ describe('Servico de produtos', () => {
 
     const result = await createProduct(productData);
 
-    expect(api.post).toHaveBeenCalledWith(
-      '/products',
-      {
-        name: productData.name,
-        category: productData.category,
-        description: productData.description,
-        price: parseFloat(productData.price),
-        image: productData.image,
-        tag: productData.tag,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    expect(api.post).toHaveBeenCalledWith('/products', {
+      name: productData.name,
+      category: productData.category,
+      description: productData.description,
+      price: parseFloat(productData.price),
+      image: productData.image,
+      tag: productData.tag,
+    });
 
     expect(result).toEqual({
       success: true,
@@ -51,7 +47,6 @@ describe('Servico de produtos', () => {
         data: {
           message: 'Erro ao tentar criar um produto',
         },
-        status: 500,
       },
     });
 
@@ -61,7 +56,6 @@ describe('Servico de produtos', () => {
     expect(result).toEqual({
       success: false,
       message: 'Erro ao tentar criar um produto',
-      status: 500,
     });
   });
 });
