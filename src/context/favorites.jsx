@@ -27,14 +27,6 @@ export const FavoriteContextProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (!currentUser?.id) {
-      setFavorites([]);
-    }
-
-    loadFavorites(currentUser.id);
-  }, [currentUser?.id]);
-
   const loadFavorites = async (idUser) => {
     const result = await favoritesService.get(idUser);
 
@@ -78,6 +70,14 @@ export const FavoriteContextProvider = ({ children }) => {
     (idProduct) => favorites.some((item) => item.id === idProduct),
     [favorites]
   );
+
+  useEffect(() => {
+    if (!currentUser?.id) {
+      setFavorites([]);
+    }
+
+    loadFavorites(currentUser.id);
+  }, [currentUser?.id]);
 
   return (
     <FavoriteContext.Provider
