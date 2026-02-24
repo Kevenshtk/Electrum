@@ -104,9 +104,9 @@ const Home = ({ statusAPI }) => {
           <Button type="submit" className="btn btn-half" text="Assinar" />
         </form>
         <div className="social-media">
-          <FaFacebookF className="icon" />
-          <FaInstagram className="icon" />
-          <FaTwitter className="icon" />
+          <a href="https://www.facebook.com/" target='_blank'><FaFacebookF className="icon" /></a>
+          <a href="https://www.instagram.com/" target='_blank'><FaInstagram className="icon" /></a>
+          <a href="https://x.com/" target='_blank'><FaTwitter className="icon" /></a>
         </div>
       </section>
 
