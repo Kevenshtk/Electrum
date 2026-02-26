@@ -11,6 +11,18 @@ import Input from '../../Input';
 
 import './styles.sass';
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
+
 const UserForm = ({ setShowModal, isFormRegister }) => {
   const { handleLogin } = useContext(AuthContext);
 
@@ -71,7 +83,6 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
           timer: 1500,
         });
         setShowModal(false);
-        
       } else {
         Swal.fire({
           position: 'top',
@@ -115,6 +126,13 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
         });
         break;
     }
+  };
+
+  const handleAlert = () => {
+    Toast.fire({
+      icon: 'warning',
+      title: 'Funcionalidade ainda não disponível!',
+    });
   };
 
   return (
@@ -205,6 +223,7 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
                 className="btn"
                 disabled={isSubmitting}
                 text="Esqueci a senha"
+                onClick={handleAlert}
               />
             </>
           )}

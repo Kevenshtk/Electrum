@@ -7,7 +7,21 @@ import { FavoriteContext } from '../../../context/favorites';
 import { ShoppingCartContext } from '../../../context/shoppingCart';
 import { AuthContext } from '../../../context/auth';
 
+import Swal from 'sweetalert2';
+
 import './styles.sass';
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
 
 const HeaderMain = ({ currentUser }) => {
   const navigate = useNavigate();
@@ -21,6 +35,13 @@ const HeaderMain = ({ currentUser }) => {
       : alertToDoLogin();
   };
 
+  const handleAlert = () => {
+    Toast.fire({
+      icon: 'warning',
+      title: 'Funcionalidade ainda não disponível!',
+    });
+  };
+
   return (
     <div className="main-header">
       <Link to="/" id="brand">
@@ -28,10 +49,14 @@ const HeaderMain = ({ currentUser }) => {
         <FaBolt className="icon" />
       </Link>
 
-      <form action="" id="search-form">
+      <div id="search-form">
         <input type="text" id="search" placeholder="Busque aqui" />
-        <Button type="submit" className="btn btn-half" text="Pesquisar" />
-      </form>
+        <Button
+          className="btn btn-half"
+          text="Pesquisar"
+          onClick={handleAlert}
+        />
+      </div>
 
       <div className="header-actions-menu">
         <div className="wishlist-container">

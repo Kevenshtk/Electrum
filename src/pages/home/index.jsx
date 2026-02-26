@@ -6,11 +6,24 @@ import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import SectionProducts from '../../components/SectionProducts';
 import Timer from '../../components/Timer';
+import Swal from 'sweetalert2';
 import usePagination from '../../hooks/usePagination.js';
 import useWindowWidth from '../../hooks/useWindowWidth.js';
 import { api } from '../../services/api.js';
 
 import './styles/main.sass';
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
 
 const Home = ({ statusAPI }) => {
   const [products, setProducts] = useState([]);
@@ -46,11 +59,26 @@ const Home = ({ statusAPI }) => {
     hasNext: btnNextHot,
   } = usePagination(products, 'hot', width <= 435 ? 1 : 4);
 
+  const handleAlert = () => {
+    Toast.fire({
+      icon: 'warning',
+      title: 'Funcionalidade ainda não disponível!',
+    });
+  };
+
   return (
     <>
       <section className="banners">
-        <Banner id="banner-1" text="Promoção de Notebooks" category="notebook"/>
-        <Banner id="banner-2" text="Lançamento de Acessórios" category="acessorio" />
+        <Banner
+          id="banner-1"
+          text="Promoção de Notebooks"
+          category="notebook"
+        />
+        <Banner
+          id="banner-2"
+          text="Lançamento de Acessórios"
+          category="acessorio"
+        />
         <Banner id="banner-3" text="Câmeras Potentes" category="camera" />
       </section>
 
@@ -77,7 +105,7 @@ const Home = ({ statusAPI }) => {
           <p className="deal-container-content-subtitle">
             Toda a linha gamer com 50% de desconto
           </p>
-          <button className="btn">Comprar Agora</button>
+          <button className="btn" onClick={handleAlert}>Comprar Agora</button>
         </div>
       </section>
 
@@ -95,18 +123,24 @@ const Home = ({ statusAPI }) => {
         <h2>
           Assine a nossa <span>Newsletter</span>
         </h2>
-        <form action="">
-          <input
-            type="email"
-            placeholder="Digite o seu e-mail"
-            required
+        <div>
+          <input type="email" placeholder="Digite o seu e-mail" required />
+          <Button
+            className="btn btn-half"
+            text="Assinar"
+            onClick={handleAlert}
           />
-          <Button type="submit" className="btn btn-half" text="Assinar" />
-        </form>
+        </div>
         <div className="social-media">
-          <a href="https://www.facebook.com/" target='_blank'><FaFacebookF className="icon" /></a>
-          <a href="https://www.instagram.com/" target='_blank'><FaInstagram className="icon" /></a>
-          <a href="https://x.com/" target='_blank'><FaTwitter className="icon" /></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+            <FaFacebookF className="icon" />
+          </a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+            <FaInstagram className="icon" />
+          </a>
+          <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+            <FaTwitter className="icon" />
+          </a>
         </div>
       </section>
 
