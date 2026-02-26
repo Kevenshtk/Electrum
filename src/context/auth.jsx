@@ -2,6 +2,8 @@ import { createContext, useState } from 'react';
 
 import { fetchLogin } from '../services/user/loginService.js';
 
+import Swal from 'sweetalert2';
+
 export const AuthContext = createContext();
 
 const initialUserState = {
@@ -9,7 +11,7 @@ const initialUserState = {
   email: '',
   name: '',
   id: 0,
-}
+};
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(initialUserState);
@@ -43,8 +45,18 @@ export const AuthContextProvider = ({ children }) => {
     setCurrentUser(initialUserState);
   };
 
+  const alertToDoLogin = () => {
+    Swal.fire({
+      position: 'top',
+      icon: 'warning',
+      title: 'Por favor, faça login para continuar!',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser, handleLogin, handleLogout }}>
+    <AuthContext.Provider value={{ currentUser, handleLogin, handleLogout, alertToDoLogin }}>
       {children}
     </AuthContext.Provider>
   );

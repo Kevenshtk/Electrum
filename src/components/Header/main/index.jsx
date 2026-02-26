@@ -2,29 +2,23 @@ import { FaBolt, FaHeart, FaCartShopping } from 'react-icons/fa6';
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../Button';
-import Swal from 'sweetalert2';
+
 import { FavoriteContext } from '../../../context/favorites';
 import { ShoppingCartContext } from '../../../context/shoppingCart';
+import { AuthContext } from '../../../context/auth';
 
 import './styles.sass';
-
-const alertToDoLogin = () => {Swal.fire({
-  position: 'top',
-  icon: 'warning',
-  title: 'Por favor, faça login para continuar!',
-  showConfirmButton: false,
-  timer: 1500,
-})}
 
 const HeaderMain = ({ currentUser }) => {
   const navigate = useNavigate();
   const { favorites } = useContext(FavoriteContext);
   const { products } = useContext(ShoppingCartContext);
+  const { alertToDoLogin } = useContext(AuthContext);
 
   const handleNavegate = (page) => {
     currentUser.status
       ? navigate(`/${page}/${currentUser.id}`)
-      : alertToDoLogin()
+      : alertToDoLogin();
   };
 
   return (

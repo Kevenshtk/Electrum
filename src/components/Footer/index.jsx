@@ -1,12 +1,41 @@
-import {
-  FaPhone,
-  FaRegEnvelope,
-  FaLocationDot
-} from "react-icons/fa6";
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/auth';
+import Swal from 'sweetalert2';
 
-import "./styles.sass";
+import { FaPhone, FaRegEnvelope, FaLocationDot } from 'react-icons/fa6';
+
+import './styles.sass';
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
 
 const Footer = () => {
+  const { alertToDoLogin, currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleNavegate = () => {
+    currentUser.status
+      ? navigate(`/shoppingCar/${currentUser.id}`)
+      : alertToDoLogin();
+  };
+
+  const handleAlert = () => {
+    Toast.fire({
+      icon: 'warning',
+      title: 'Funcionalidade ainda não disponível!',
+    });
+  };
+
   return (
     <footer>
       <div className="footer-top">
@@ -19,32 +48,53 @@ const Footer = () => {
             sunt odit aspernatur?
           </p>
           <p>
-            <FaLocationDot className="icon" /> <a href="/">Rua Teste, 1234</a>
+            <FaLocationDot className="icon" />{' '}
+            <a
+              href="https://www.google.com/maps"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Rua Teste, 1234
+            </a>
           </p>
           <p>
-            <FaPhone className="icon" /> <a href="/">(48)99999-0000</a>
+            <FaPhone className="icon" />{' '}
+            <a
+              href="https://web.whatsapp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              (48)99999-0000
+            </a>
           </p>
           <p>
-            <FaRegEnvelope className="icon" /> <a href="/">electrum@email.com</a>
+            <FaRegEnvelope className="icon" />{' '}
+            <a
+              href="mailto:electrum@email.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              electrum@email.com
+            </a>
           </p>
         </div>
         <div className="footer-top-categories">
           <h3>Categorias</h3>
           <ul>
             <li>
-              <a href="/">Promoções</a>
+              <button onClick={handleAlert}>Promoções</button>
             </li>
             <li>
-              <a href="/">Headsets</a>
+              <button onClick={handleAlert}>Headsets</button>
             </li>
             <li>
-              <a href="/">PC Gamer</a>
+              <Link to="/list/pc-gamer">PC Gamer</Link>
             </li>
             <li>
-              <a href="/">Câmeras</a>
+              <Link to="/list/camera">Câmeras</Link>
             </li>
             <li>
-              <a href="/">Mouse e teclado</a>
+              <button onClick={handleAlert}>Mouse e teclado</button>
             </li>
           </ul>
         </div>
@@ -52,19 +102,19 @@ const Footer = () => {
           <h3>Informações</h3>
           <ul>
             <li>
-              <a href="/">Sobre nós</a>
+              <button onClick={handleAlert}>Sobre nós</button>
             </li>
             <li>
-              <a href="/">Entre em contato</a>
+              <button onClick={handleAlert}>Entre em contato</button>
             </li>
             <li>
-              <a href="/">Política de privacidade</a>
+              <button onClick={handleAlert}>Política de privacidade</button>
             </li>
             <li>
-              <a href="/">Pedidos e devoluções</a>
+              <button onClick={handleAlert}>Pedidos e devoluções</button>
             </li>
             <li>
-              <a href="/">Termos e condições</a>
+              <button onClick={handleAlert}>Termos e condições</button>
             </li>
           </ul>
         </div>
@@ -72,16 +122,16 @@ const Footer = () => {
           <h3>Menu</h3>
           <ul>
             <li>
-              <a href="/">Minha Conta</a>
+              <button onClick={handleAlert}>Minha Conta</button>
             </li>
             <li>
-              <a href="/">Carrinho</a>
+              <button onClick={handleNavegate}>Carrinho</button>
             </li>
             <li>
-              <a href="/">Lista de Desejos</a>
+              <button onClick={handleAlert}>Lista de Desejos</button>
             </li>
             <li>
-              <a href="/">Rastrear Pedido</a>
+              <button onClick={handleAlert}>Rastrear Pedido</button>
             </li>
           </ul>
         </div>
