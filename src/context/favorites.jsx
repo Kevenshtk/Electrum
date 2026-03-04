@@ -27,43 +27,45 @@ export const FavoriteContextProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
+  const showError = (msg) => {
+    Toast.fire({
+      icon: 'warning',
+      title: msg,
+    });
+  };
+
   const loadFavorites = async (idUser) => {
     const result = await favoritesService.get(idUser);
 
     if (result.success) {
       setFavorites(result.data);
     } else {
-      Toast.fire({
-        icon: 'warning',
-        title: result.message,
-      });
+      showError(result.message);
     }
   };
 
-  const addFavorites = async (idProduct) => {
-    const result = await favoritesService.add(currentUser.id, idProduct);
+  const handleAction = async (action, idUser) => {
+    const result = await action();
 
     if (result.success) {
-      loadFavorites(currentUser.id);
+      await loadFavorites(idUser);
     } else {
-      Toast.fire({
-        icon: 'warning',
-        title: result.message,
-      });
+      showError(result.message);
     }
   };
 
-  const removeFavorites = async (idProduct) => {
-    const result = await favoritesService.del(currentUser.id, idProduct);
+  const addFavorites = (idProduct) => {
+    handleAction(
+      () => favoritesService.add(currentUser.id, idProduct),
+      currentUser.id
+    );
+  };
 
-    if (result.success) {
-      loadFavorites(currentUser.id);
-    } else {
-      Toast.fire({
-        icon: 'warning',
-        title: result.message,
-      });
-    }
+  const removeFavorites = (idProduct) => {
+    handleAction(
+      () => favoritesService.del(currentUser.id, idProduct),
+      currentUser.id
+    );
   };
 
   const isFavorite = useCallback(
@@ -74,6 +76,7 @@ export const FavoriteContextProvider = ({ children }) => {
   useEffect(() => {
     if (!currentUser?.id) {
       setFavorites([]);
+      return;
     }
 
     loadFavorites(currentUser.id);
