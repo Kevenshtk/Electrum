@@ -54,10 +54,10 @@ const incrementProductShoppingCart = async (idUser, idProduct) => {
 
 const decrementProductShoppingCart = async (idUser, idProduct) => {
   try {
-    const response = await api.put(
+    await api.put(
       `/shopping-cart/user/${idUser}/product/${idProduct}/decrement`
     );
-    return { success: true, status: response.status };
+    return { success: true };
   } catch (error) {
     return handleError(error, 'Erro ao decrementar a quantidade do produto');
   }

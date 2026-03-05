@@ -184,23 +184,23 @@ describe('Servico de carrinho de compras', () => {
     });
 
     it('deve retornar success true ao decrementar', async () => {
-      api.put.mockResolvedValueOnce({ status: 202 });
+      api.put.mockResolvedValueOnce();
 
       const result = await cartService.dec(1, 1);
 
       expect(api.put).toHaveBeenCalledWith(
         '/shopping-cart/user/1/product/1/decrement'
       );
-      expect(result).toEqual({ success: true, status: 202 });
+      expect(result).toEqual({ success: true });
     });
 
     it('deve retornar success true e status 200 quando a API retornar 200 no decrement', async () => {
-      api.put.mockResolvedValueOnce({ status: 200 });
+      api.put.mockResolvedValueOnce();
 
       const result = await cartService.dec(1, 1);
 
       expect(api.put).toHaveBeenCalledTimes(1);
-      expect(result).toEqual({ success: true, status: 200 });
+      expect(result).toEqual({ success: true });
     });
 
     it('deve retornar success false e uma mesagem de erro ao falhar em decrementar', async () => {
