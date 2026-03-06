@@ -34,7 +34,7 @@ export const FavoriteContextProvider = ({ children }) => {
     });
   };
 
-  const loadFavorites = async (idUser) => {
+  const loadFavorites = useCallback(async (idUser) => {
     const result = await favoritesService.get(idUser);
 
     if (result.success) {
@@ -42,7 +42,7 @@ export const FavoriteContextProvider = ({ children }) => {
     } else {
       showError(result.message);
     }
-  };
+  }, []);
 
   const handleAction = async (action, idUser) => {
     const result = await action();
