@@ -80,7 +80,7 @@ export const FavoriteContextProvider = ({ children }) => {
     }
 
     loadFavorites(currentUser.id);
-  }, [currentUser?.id]);
+  }, [currentUser?.id, loadFavorites]);
 
   return (
     <FavoriteContext.Provider
