@@ -108,7 +108,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
         'Produto adicionado ao carrinho'
       );
     },
-    [currentUser.id, handleActionAddRem]
+    [currentUser.id, currentUser.status, handleActionAddRem]
   );
 
   const removeShoppingCart = useCallback(
