@@ -13,18 +13,16 @@ beforeEach(() => {
 
 describe('Servico de login', () => {
   it('deve retornar success true e os dados do usuario ao realizar o login', async () => {
-    const dataUser = [
-      { username: 'teste', email: 'teste@emal.com', password: '123456' },
-    ];
+    const user = { username: 'teste', email: 'teste@emal.com', password: '123456' };
 
-    api.get.mockResolvedValueOnce({ data: dataUser });
+    api.get.mockResolvedValueOnce({ data: [user] });
 
-    const result = await fetchLogin();
+    const result = await fetchLogin(user.email, user.password);
 
     expect(api.get).toHaveBeenCalledWith('/users');
     expect(result).toEqual({
       success: true,
-      data: dataUser,
+      user,
     });
   });
 

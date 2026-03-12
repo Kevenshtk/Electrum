@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/auth';
+import Button from '../Button';
 import Swal from 'sweetalert2';
 
 import { FaPhone, FaRegEnvelope, FaLocationDot } from 'react-icons/fa6';
@@ -82,10 +83,18 @@ const Footer = () => {
           <h3>Categorias</h3>
           <ul>
             <li>
-              <button onClick={handleAlert}>Promoções</button>
+              <Button
+                className="btn-simples"
+                text="Promoções"
+                onClick={handleAlert}
+              />
             </li>
             <li>
-              <button onClick={handleAlert}>Headsets</button>
+              <Button
+                className="btn-simples"
+                text="Headsets"
+                onClick={handleAlert}
+              />
             </li>
             <li>
               <Link to="/list/pc-gamer">PC Gamer</Link>
@@ -94,7 +103,11 @@ const Footer = () => {
               <Link to="/list/camera">Câmeras</Link>
             </li>
             <li>
-              <button onClick={handleAlert}>Mouse e teclado</button>
+              <Button
+                className="btn-simples"
+                text="Mouse e teclado"
+                onClick={handleAlert}
+              />
             </li>
           </ul>
         </div>
@@ -102,19 +115,39 @@ const Footer = () => {
           <h3>Informações</h3>
           <ul>
             <li>
-              <button onClick={handleAlert}>Sobre nós</button>
+              <Button
+                className="btn-simples"
+                text="Sobre nós"
+                onClick={handleAlert}
+              />
             </li>
             <li>
-              <button onClick={handleAlert}>Entre em contato</button>
+              <Button
+                className="btn-simples"
+                text="Entre em contato"
+                onClick={handleAlert}
+              />
             </li>
             <li>
-              <button onClick={handleAlert}>Política de privacidade</button>
+              <Button
+                className="btn-simples"
+                text="Política de privacidade"
+                onClick={handleAlert}
+              />
             </li>
             <li>
-              <button onClick={handleAlert}>Pedidos e devoluções</button>
+              <Button
+                className="btn-simples"
+                text="Pedidos e devoluções"
+                onClick={handleAlert}
+              />
             </li>
             <li>
-              <button onClick={handleAlert}>Termos e condições</button>
+              <Button
+                className="btn-simples"
+                text="Termos e condições"
+                onClick={handleAlert}
+              />
             </li>
           </ul>
         </div>
@@ -122,16 +155,32 @@ const Footer = () => {
           <h3>Menu</h3>
           <ul>
             <li>
-              <button onClick={handleAlert}>Minha Conta</button>
+              <Button
+                className="btn-simples"
+                text="Minha Conta"
+                onClick={handleAlert}
+              />
             </li>
             <li>
-              <button onClick={handleNavegate}>Carrinho</button>
+              <Button
+                className="btn-simples"
+                text="Carrinho"
+                onClick={handleNavegate}
+              />
             </li>
             <li>
-              <button onClick={handleAlert}>Lista de Desejos</button>
+              <Button
+                className="btn-simples"
+                text="Lista de Desejos"
+                onClick={handleAlert}
+              />
             </li>
             <li>
-              <button onClick={handleAlert}>Rastrear Pedido</button>
+              <Button
+                className="btn-simples"
+                text="Rastrear Pedido"
+                onClick={handleAlert}
+              />
             </li>
           </ul>
         </div>
