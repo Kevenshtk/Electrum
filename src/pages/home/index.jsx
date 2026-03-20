@@ -6,24 +6,13 @@ import Button from '../../components/Button';
 import Footer from '../../components/Footer';
 import SectionProducts from '../../components/SectionProducts';
 import Timer from '../../components/Timer';
-import Swal from 'sweetalert2';
+import alert from '../../utils/alert.js';
+
 import usePagination from '../../hooks/usePagination.js';
 import useWindowWidth from '../../hooks/useWindowWidth.js';
 import { api } from '../../services/api.js';
 
 import './styles/main.sass';
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  },
-});
 
 const Home = ({ statusAPI }) => {
   const [products, setProducts] = useState([]);
@@ -58,13 +47,6 @@ const Home = ({ statusAPI }) => {
     hasPrev: btnBackHot,
     hasNext: btnNextHot,
   } = usePagination(products, 'hot', width <= 435 ? 1 : 4);
-
-  const handleAlert = () => {
-    Toast.fire({
-      icon: 'warning',
-      title: 'Funcionalidade ainda não disponível!',
-    });
-  };
 
   return (
     <>
@@ -105,7 +87,7 @@ const Home = ({ statusAPI }) => {
           <p className="deal-container-content-subtitle">
             Toda a linha gamer com 50% de desconto
           </p>
-          <button className="btn" onClick={handleAlert}>Comprar Agora</button>
+          <button className="btn" onClick={alert.unavailable}>Comprar Agora</button>
         </div>
       </section>
 
@@ -128,7 +110,7 @@ const Home = ({ statusAPI }) => {
           <Button
             className="btn btn-half"
             text="Assinar"
-            onClick={handleAlert}
+            onClick={alert.unavailable}
           />
         </div>
         <div className="social-media">

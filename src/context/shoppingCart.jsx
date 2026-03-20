@@ -8,32 +8,13 @@ import {
 } from 'react';
 import { AuthContext } from './auth';
 import cartService from '../services/product/cartService';
-import Swal from 'sweetalert2';
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3500,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  },
-});
+import alert from '../utils/alert';
 
 export const ShoppingCartContext = createContext();
 
 export const ShoppingCartContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
-
-  const showAlert = (icon, msg) => {
-    Toast.fire({
-      icon: icon,
-      title: msg,
-    });
-  };
 
   const loadProducts = useCallback (async (idUser) => {
     if (!idUser) return;
@@ -43,7 +24,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
     if (result.success) {
       setProducts(result.data);
     } else {
-      showAlert('warning', result.message);
+      alert.errorToast('warning', result.message);
     }
   }, []);
 
@@ -52,10 +33,10 @@ export const ShoppingCartContextProvider = ({ children }) => {
       const result = await action();
 
       if (result.success) {
-        if (msgSuccess) showAlert('success', msgSuccess);
+        if (msgSuccess) alert.successToast(msgSuccess);
         loadProducts(idUser);
       } else {
-        showAlert('warning', result.message);
+        alert.errorToast('warning', result.message);
       }
     },
     [loadProducts]
@@ -86,7 +67,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
           );
         }
       } else {
-        showAlert('warning', result.message);
+        alert.errorToast('warning', result.message);
       }
     },
     [loadProducts]
@@ -95,10 +76,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
   const addShoppingCart = useCallback(
     (idProduct) => {
       if (!currentUser?.status) {
-        showAlert(
-          'warning',
-          'Realize o login para dar sequência ao seu pedido!'
-        );
+        alert.errorToast('warning', 'Realize o login para dar sequência ao seu pedido!');
         return;
       }
 
@@ -155,7 +133,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
   }, [subTotalPriceCart]);
 
   const finalizeOrder = () => {
-    showAlert('warning', 'Funcionalidade em desenvolvimento!');
+    alert.unavailable();
   };
 
   useEffect(() => {

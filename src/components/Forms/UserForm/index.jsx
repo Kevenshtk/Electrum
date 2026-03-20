@@ -1,27 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
 import { AuthContext } from '../../../context/auth';
+import alert from '../../../utils/alert.js';
 import { registerUser } from '../../../services/user/userService.js';
 import Button from '../../Button';
 import Input from '../../Input';
 
 import './styles.sass';
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  },
-});
 
 const UserForm = ({ setShowModal, isFormRegister }) => {
   const { handleLogin } = useContext(AuthContext);
@@ -64,34 +52,15 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
 
       if (statusRegister.success) {
         if (statusRegister?.emailExists) {
-          Swal.fire({
-            position: 'top',
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Este e-mail já está cadastrado.',
-            showConfirmButton: false,
-            timer: 2800,
-          });
+          alert.error('error', 'Oops...', 'Este e-mail já está cadastrado.');
           return;
         }
 
-        Swal.fire({
-          position: 'top',
-          icon: 'success',
-          title: 'Cadastrado realizado com sucesso!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        alert.success('Cadastrado realizado com sucesso!');
+
         setShowModal(false);
       } else {
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: 'Erro ao realizar o cadastro.',
-          text: 'Por favor tente novamente mais tarde.',
-          showConfirmButton: false,
-          timer: 2800,
-        });
+        alert.error('info', 'Erro ao realizar o cadastro.', 'Por favor tente novamente mais tarde.');
       }
 
       return;
@@ -105,34 +74,13 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
         break;
 
       case 'falied':
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Verifique seu e-mail ou senha.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
+        alert.error('error', 'Oops...', 'Verifique seu e-mail ou senha.');
         break;
 
       default:
-        Swal.fire({
-          position: 'top',
-          icon: 'info',
-          title: 'Erro ao realizar login',
-          text: 'Tente novamente mais tarde.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
+        alert.error('info', 'Erro ao realizar login', 'Tente novamente mais tarde.');
         break;
     }
-  };
-
-  const handleAlert = () => {
-    Toast.fire({
-      icon: 'warning',
-      title: 'Funcionalidade ainda não disponível!',
-    });
   };
 
   return (
@@ -223,7 +171,7 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
                 className="btn"
                 disabled={isSubmitting}
                 text="Esqueci a senha"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </>
           )}

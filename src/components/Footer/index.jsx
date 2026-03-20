@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/auth';
+import alert from '../../utils/alert';
 import Button from '../Button';
 import Swal from 'sweetalert2';
 
@@ -21,20 +22,13 @@ const Toast = Swal.mixin({
 });
 
 const Footer = () => {
-  const { alertToDoLogin, currentUser } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleNavegate = () => {
     currentUser.status
       ? navigate(`/shoppingCar/${currentUser.id}`)
-      : alertToDoLogin();
-  };
-
-  const handleAlert = () => {
-    Toast.fire({
-      icon: 'warning',
-      title: 'Funcionalidade ainda não disponível!',
-    });
+      : alert.login();
   };
 
   return (
@@ -79,6 +73,7 @@ const Footer = () => {
             </a>
           </p>
         </div>
+
         <div className="footer-top-categories">
           <h3>Categorias</h3>
           <ul>
@@ -86,14 +81,14 @@ const Footer = () => {
               <Button
                 className="btn-simples"
                 text="Promoções"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
             <li>
               <Button
                 className="btn-simples"
                 text="Headsets"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
             <li>
@@ -106,11 +101,12 @@ const Footer = () => {
               <Button
                 className="btn-simples"
                 text="Mouse e teclado"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
           </ul>
         </div>
+
         <div className="footer-top-information">
           <h3>Informações</h3>
           <ul>
@@ -118,39 +114,40 @@ const Footer = () => {
               <Button
                 className="btn-simples"
                 text="Sobre nós"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
             <li>
               <Button
                 className="btn-simples"
                 text="Entre em contato"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
             <li>
               <Button
                 className="btn-simples"
                 text="Política de privacidade"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
             <li>
               <Button
                 className="btn-simples"
                 text="Pedidos e devoluções"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
             <li>
               <Button
                 className="btn-simples"
                 text="Termos e condições"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
           </ul>
         </div>
+
         <div className="footer-top-menu">
           <h3>Menu</h3>
           <ul>
@@ -158,7 +155,7 @@ const Footer = () => {
               <Button
                 className="btn-simples"
                 text="Minha Conta"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
             <li>
@@ -172,19 +169,20 @@ const Footer = () => {
               <Button
                 className="btn-simples"
                 text="Lista de Desejos"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
             <li>
               <Button
                 className="btn-simples"
                 text="Rastrear Pedido"
-                onClick={handleAlert}
+                onClick={alert.unavailable}
               />
             </li>
           </ul>
         </div>
       </div>
+
       <div className="footer-bottom">
         <div className="footer-bottom-payments">
           <i className="fab fa-cc-mastercard"></i>

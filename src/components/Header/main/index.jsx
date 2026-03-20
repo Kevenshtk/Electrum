@@ -5,41 +5,19 @@ import Button from '../../Button';
 
 import { FavoriteContext } from '../../../context/favorites';
 import { ShoppingCartContext } from '../../../context/shoppingCart';
-import { AuthContext } from '../../../context/auth';
-
-import Swal from 'sweetalert2';
+import alert from '../../../utils/alert';
 
 import './styles.sass';
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  },
-});
 
 const HeaderMain = ({ currentUser }) => {
   const navigate = useNavigate();
   const { favorites } = useContext(FavoriteContext);
   const { products } = useContext(ShoppingCartContext);
-  const { alertToDoLogin } = useContext(AuthContext);
 
   const handleNavegate = (page) => {
     currentUser.status
       ? navigate(`/${page}/${currentUser.id}`)
-      : alertToDoLogin();
-  };
-
-  const handleAlert = () => {
-    Toast.fire({
-      icon: 'warning',
-      title: 'Funcionalidade ainda não disponível!',
-    });
+      : alert.login();
   };
 
   return (
@@ -54,7 +32,7 @@ const HeaderMain = ({ currentUser }) => {
         <Button
           className="btn btn-half"
           text="Pesquisar"
-          onClick={handleAlert}
+          onClick={alert.unavailable}
         />
       </div>
 
