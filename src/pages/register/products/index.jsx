@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2';
+import alert from '../../../utils/alert.js';
 import * as yup from 'yup';
 
 import Button from '../../../components/Button';
@@ -46,27 +46,14 @@ const ProductsRegister = () => {
 
   const onSubmit = useCallback(
     async (data) => {
-      const status = await createProduct(data);
+      const result = await createProduct(data);
       
-      if (status.success) {
-        Swal.fire({
-          position: 'top',
-          icon: 'success',
-          title: 'Produto cadastrado com sucesso!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+      if (result.success) {
+        alert.success('Produto cadastrado com sucesso!');
 
         reset();
       } else {
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: 'Erro ao cadastrar o produto!',
-          text: 'Tente novamente mais tarde.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
+        alert.error("info", result.message, "Tente novamente mais tarde.");
       }
     },
     [reset]
