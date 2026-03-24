@@ -1,11 +1,15 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useContext } from 'react';
-import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
 import { AuthContext } from '../../../context/auth';
-import alert from '../../../utils/alert.js';
+
 import { registerUser } from '../../../services/user/userService.js';
+
+import alert from '../../../utils/alert.js';
+
 import Button from '../../Button';
 import Input from '../../Input';
 
@@ -60,7 +64,11 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
 
         setShowModal(false);
       } else {
-        alert.error('info', 'Erro ao realizar o cadastro.', 'Por favor tente novamente mais tarde.');
+        alert.error(
+          'info',
+          'Erro ao realizar o cadastro.',
+          'Por favor tente novamente mais tarde.'
+        );
       }
 
       return;
@@ -78,7 +86,11 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
         break;
 
       default:
-        alert.error('info', 'Erro ao realizar login', 'Tente novamente mais tarde.');
+        alert.error(
+          'info',
+          'Erro ao realizar login',
+          'Tente novamente mais tarde.'
+        );
         break;
     }
   };

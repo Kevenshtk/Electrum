@@ -1,9 +1,12 @@
-import { Routes, Route } from 'react-router-dom';
 import { useContext } from 'react';
+
+import { Routes, Route } from 'react-router-dom';
+
 import { AuthContext } from './context/auth';
+
 import useWakeUpAPI from './hooks/useWakeUpAPI.js';
 
-import { Home } from './pages/home';
+import Home from './pages/home';
 import ProductsRegister from './pages/register/products';
 import ListProducts from './pages/listProducts';
 import Favorites from './pages/favorites';

@@ -6,8 +6,11 @@ import {
   useState,
   useMemo,
 } from 'react';
+
 import { AuthContext } from './auth';
+
 import cartService from '../services/product/cartService';
+
 import alert from '../utils/alert';
 
 export const ShoppingCartContext = createContext();
@@ -16,7 +19,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
 
-  const loadProducts = useCallback (async (idUser) => {
+  const loadProducts = useCallback(async (idUser) => {
     if (!idUser) return;
 
     const result = await cartService.get(idUser);
@@ -76,7 +79,10 @@ export const ShoppingCartContextProvider = ({ children }) => {
   const addShoppingCart = useCallback(
     (idProduct) => {
       if (!currentUser?.status) {
-        alert.errorToast('warning', 'Realize o login para dar sequência ao seu pedido!');
+        alert.errorToast(
+          'warning',
+          'Realize o login para dar sequência ao seu pedido!'
+        );
         return;
       }
 

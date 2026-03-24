@@ -7,7 +7,9 @@ import {
 } from 'react';
 
 import { AuthContext } from './auth';
+
 import favoritesService from '../services/product/favoritesService';
+
 import alert from '../utils/alert';
 
 export const FavoriteContext = createContext();

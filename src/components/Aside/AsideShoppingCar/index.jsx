@@ -1,7 +1,9 @@
-import './styles.sass';
 import { useContext } from 'react';
-import { formatPrice } from '../../../utils/textFormatter.js';
 import { ShoppingCartContext } from '../../../context/shoppingCart.jsx';
+
+import { formatPrice } from '../../../utils/textFormatter.js';
+
+import './styles.sass';
 
 const AsideShoppingCar = () => {
   const { subTotalPriceCart, totalPrice, finalizeOrder } = useContext(ShoppingCartContext);

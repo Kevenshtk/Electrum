@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+
 import useWindowWidth from '../../../hooks/useWindowWidth';
 import { formatCategory } from '../../../utils/textFormatter';
+
 import './styles.sass';
 
 const listCategories = [

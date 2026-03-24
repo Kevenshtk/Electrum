@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   FaPhone,
   FaRegEnvelope,
@@ -5,15 +6,16 @@ import {
   FaDollarSign,
   FaUser,
 } from 'react-icons/fa6';
-import Button from '../../Button';
-import { Link } from 'react-router-dom';
+
 import useWindowWidth from '../../../hooks/useWindowWidth';
+
+import Button from '../../Button';
 
 import './styles.sass';
 
 const HeaderTop = ({ currentUser, handleShowModal, handleLogout }) => {
   const width = useWindowWidth();
-  
+
   return (
     <div className="header-top">
       <div className="header-top-container">
@@ -45,7 +47,9 @@ const HeaderTop = ({ currentUser, handleShowModal, handleLogout }) => {
           <Button
             className="btn-simples"
             text={currentUser.status ? currentUser.name : 'Login '}
-            onClick={() => currentUser.status ? handleLogout() : handleShowModal('login') }
+            onClick={() =>
+              currentUser.status ? handleLogout() : handleShowModal('login')
+            }
           />
           {!currentUser.status && (
             <Button

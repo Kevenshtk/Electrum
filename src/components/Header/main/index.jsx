@@ -1,11 +1,14 @@
-import { FaBolt, FaHeart, FaCartShopping } from 'react-icons/fa6';
 import { useContext } from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
-import Button from '../../Button';
+import { FaBolt, FaHeart, FaCartShopping } from 'react-icons/fa6';
 
 import { FavoriteContext } from '../../../context/favorites';
 import { ShoppingCartContext } from '../../../context/shoppingCart';
+
 import alert from '../../../utils/alert';
+
+import Button from '../../Button';
 
 import './styles.sass';
 
@@ -15,9 +18,7 @@ const HeaderMain = ({ currentUser }) => {
   const { products } = useContext(ShoppingCartContext);
 
   const handleNavegate = (page) => {
-    currentUser.status
-      ? navigate(`/${page}/${currentUser.id}`)
-      : alert.login();
+    currentUser.status ? navigate(`/${page}/${currentUser.id}`) : alert.login();
   };
 
   return (

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
+
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { AuthContextProvider } from './context/auth.jsx';
 import { FavoriteContextProvider } from './context/favorites.jsx';
 import { ShoppingCartContextProvider } from './context/shoppingCart.jsx';
+
 import alert from './utils/alert.js';
 
-import Modal from './components/Modal';
-import UserForm from './components/Forms/UserForm';
 import Header from './components/Header';
 import MainRoutes from './routes.jsx';
+import Modal from './components/Modal';
+import UserForm from './components/Forms/UserForm';
 
 import './styles/reset.sass';
 

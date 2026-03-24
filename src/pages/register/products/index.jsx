@@ -1,12 +1,15 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback } from 'react';
-import { useForm } from 'react-hook-form';
-import alert from '../../../utils/alert.js';
 import * as yup from 'yup';
 
-import Button from '../../../components/Button';
-import Input from '../../../components/Input';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
 import { createProduct } from '../../../services/product/productService.js';
+
+import alert from '../../../utils/alert.js';
+
+import Input from '../../../components/Input';
+import Button from '../../../components/Button';
 
 import './styles.sass';
 
@@ -47,13 +50,13 @@ const ProductsRegister = () => {
   const onSubmit = useCallback(
     async (data) => {
       const result = await createProduct(data);
-      
+
       if (result.success) {
         alert.success('Produto cadastrado com sucesso!');
 
         reset();
       } else {
-        alert.error("info", result.message, "Tente novamente mais tarde.");
+        alert.error('info', result.message, 'Tente novamente mais tarde.');
       }
     },
     [reset]

@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
+
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
-import Banner from '../../components/Banner';
-import Button from '../../components/Button';
-import Footer from '../../components/Footer';
-import SectionProducts from '../../components/SectionProducts';
-import Timer from '../../components/Timer';
+import { api } from '../../services/api.js';
+
+import useWindowWidth from '../../hooks/useWindowWidth.js';
+import usePagination from '../../hooks/usePagination.js';
 import alert from '../../utils/alert.js';
 
-import usePagination from '../../hooks/usePagination.js';
-import useWindowWidth from '../../hooks/useWindowWidth.js';
-import { api } from '../../services/api.js';
+import Banner from '../../components/Banner';
+import SectionProducts from '../../components/SectionProducts';
+import Timer from '../../components/Timer';
+import Button from '../../components/Button';
+import Footer from '../../components/Footer';
 
 import './styles/main.sass';
 
@@ -87,7 +89,9 @@ const Home = ({ statusAPI }) => {
           <p className="deal-container-content-subtitle">
             Toda a linha gamer com 50% de desconto
           </p>
-          <button className="btn" onClick={alert.unavailable}>Comprar Agora</button>
+          <button className="btn" onClick={alert.unavailable}>
+            Comprar Agora
+          </button>
         </div>
       </section>
 
@@ -114,10 +118,18 @@ const Home = ({ statusAPI }) => {
           />
         </div>
         <div className="social-media">
-          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.facebook.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaFacebookF className="icon" />
           </a>
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaInstagram className="icon" />
           </a>
           <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
@@ -131,4 +143,4 @@ const Home = ({ statusAPI }) => {
   );
 };
 
-export { Home };
+export default Home;

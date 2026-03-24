@@ -1,8 +1,10 @@
 import { useContext } from 'react';
+
+import { ShoppingCartContext } from '../../context/shoppingCart';
+
 import CardHorizontal from '../../components/CardProduct/CardHorizontal';
 import AsideShoppingCar from '../../components/Aside/AsideShoppingCar';
 import Footer from '../../components/Footer';
-import { ShoppingCartContext } from '../../context/shoppingCart';
 
 import './styles.sass';
 

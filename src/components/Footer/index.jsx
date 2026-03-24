@@ -1,10 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from '../../context/auth';
-import alert from '../../utils/alert';
-import Button from '../Button';
 
 import { FaPhone, FaRegEnvelope, FaLocationDot } from 'react-icons/fa6';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '../../context/auth';
+
+import alert from '../../utils/alert';
+
+import Button from '../Button';
 
 import './styles.sass';
 

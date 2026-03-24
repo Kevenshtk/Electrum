@@ -18,7 +18,11 @@ const Header = ({ setShowModal, setIsFormRegister }) => {
 
   return (
     <header>
-      <HeaderTop currentUser={currentUser} handleShowModal={handleShowModal} handleLogout={handleLogout} />
+      <HeaderTop
+        currentUser={currentUser}
+        handleShowModal={handleShowModal}
+        handleLogout={handleLogout}
+      />
       <HeaderMain currentUser={currentUser} />
       <HeaderBottom />
     </header>
