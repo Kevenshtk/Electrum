@@ -3,23 +3,10 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context/auth';
 import alert from '../../utils/alert';
 import Button from '../Button';
-import Swal from 'sweetalert2';
 
 import { FaPhone, FaRegEnvelope, FaLocationDot } from 'react-icons/fa6';
 
 import './styles.sass';
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  },
-});
 
 const Footer = () => {
   const { currentUser } = useContext(AuthContext);
