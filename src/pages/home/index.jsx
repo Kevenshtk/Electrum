@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
-import { api } from '../../services/api.js';
+import productsService from '../../services/product/productService.js';
 
 import useWindowWidth from '../../hooks/useWindowWidth.js';
 import usePagination from '../../hooks/usePagination.js';
@@ -22,16 +22,18 @@ const Home = ({ statusAPI }) => {
   const width = useWindowWidth();
 
   useEffect(() => {
-    const dataProducts = async () => {
-      try {
-        const response = await api.get('/products');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
+    const fetchProducts = async () => {
+      const result = await productsService.get();
+
+      if (!result.success) {
+        alert.errorToast('error', result.message);
+        return;
       }
+
+      setProducts(result.data);
     };
 
-    dataProducts();
+    fetchProducts();
   }, []);
 
   const {

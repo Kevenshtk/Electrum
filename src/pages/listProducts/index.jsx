@@ -2,7 +2,9 @@ import { useEffect, useState, useCallback } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { api } from '../../services/api.js';
+import productsService from '../../services/product/productService.js';
+
+import alert from '../../utils/alert';
 
 import {
   filterProductsByCategory,
@@ -23,12 +25,14 @@ const ListProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      try {
-        const response = await api.get('/products');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
+      const result = await productsService.get();
+
+      if (!result.success) {
+        alert.errorToast('error', result.message);
+        return;
       }
+
+      setProducts(result.data);
     };
 
     fetchProducts();

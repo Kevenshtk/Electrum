@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
-import { createProduct } from '../../../services/product/productService.js';
+import productsService from '../../../services/product/productService.js';
 
 import alert from '../../../utils/alert.js';
 
@@ -49,7 +49,7 @@ const ProductsRegister = () => {
 
   const onSubmit = useCallback(
     async (data) => {
-      const result = await createProduct(data);
+      const result = await productsService.add(data);
 
       if (result.success) {
         alert.success('Produto cadastrado com sucesso!');

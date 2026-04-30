@@ -1,4 +1,4 @@
-import { createProduct } from '../product/productService';
+import productsService from '../product/productService';
 import { api } from '../api';
 
 jest.mock('../api', () => ({
@@ -24,7 +24,7 @@ describe('Servico de produtos', () => {
   it('deve retornar success true e os dados do produto ao cria-lo', async () => {
     api.post.mockResolvedValueOnce({ data: productData });
 
-    const result = await createProduct(productData);
+    const result = await productsService.add(productData);
 
     expect(api.post).toHaveBeenCalledWith('/products', {
       name: productData.name,
@@ -50,7 +50,7 @@ describe('Servico de produtos', () => {
       },
     });
 
-    const result = await createProduct(productData);
+    const result = await productsService.add(productData);
 
     expect(api.post).toHaveBeenCalledTimes(1);
     expect(result).toEqual({
@@ -58,4 +58,32 @@ describe('Servico de produtos', () => {
       message: 'Erro ao tentar criar um produto',
     });
   });
+
+  it('deve retornar success true e os dados dos produtos', async () => {
+    api.get.mockResolvedValueOnce({ data: [productData] });
+
+    const result = await productsService.get();
+
+    expect(result).toEqual({
+      success: true,
+      data: [productData],
+    });
+  });
+
+  it('deve retornar success false e uma mensagem de erro', async () => {
+    api.get.mockRejectedValueOnce({
+      response:{
+        data: {
+          message: 'Erro ao buscar produtos',
+        }
+      }
+    });
+
+    const result = await productsService.get();
+
+    expect(result).toEqual({
+      success: false,
+      message: 'Erro ao buscar produtos',
+    })
+  })
 });
