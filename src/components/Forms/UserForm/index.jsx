@@ -81,7 +81,7 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
         setShowModal(false);
         break;
 
-      case 'falied':
+      case 'failed':
         alert.error('error', 'Oops...', 'Verifique seu e-mail ou senha.');
         break;
 
