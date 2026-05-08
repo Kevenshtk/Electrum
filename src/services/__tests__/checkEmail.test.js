@@ -1,47 +1,74 @@
-import { fetchLogin } from '../user/loginService';
-import { checkEmail } from '../user/checkEmail';
+import { api } from '../api';
+import { getEmailExists, checkEmail } from '../user/checkEmail';
 
 jest.mock('../api', () => ({
-  api: { get: jest.fn() },
+  api: {
+    get: jest.fn(),
+  },
 }));
 
-jest.mock('../user/loginService', () => ({
-  fetchLogin: jest.fn(),
-}));
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
-describe('Verificar email', () => {
-  const loginData = { success: true, data: [{ email: 'keven@gmail.com' }] };
-  it('deve retornar emailExists true ao verificar se o email ja existe', async () => {
-    fetchLogin.mockResolvedValueOnce(loginData);
+describe('Servico de check de email', () => {
+  const users = [{ email: 'teste@gmail.com' }];
+  describe('buscar emails existentes', () => {
+    it('deve retornar success true com dados quando a API responder', async () => {
+      api.get.mockResolvedValueOnce({ data: users });
 
-    const result = await checkEmail('keven@gmail.com');
+      const result = await getEmailExists('teste@gmail.com');
 
-    expect(fetchLogin).toHaveBeenCalledTimes(1);
-    expect(result).toEqual({ success: true, emailExists: true });
-  });
-
-  it('deve retornar emailExists false ao verificar um email nao cadastrado', async () => {
-    fetchLogin.mockResolvedValueOnce(loginData);
-
-    const result = await checkEmail('outro@gmail.com');
-
-    expect(fetchLogin).toHaveBeenCalledTimes(1);
-    expect(result).toEqual({ success: true, emailExists: false });
-  });
-
-  it('deve retornar erro quando o serviço de login falhar', async () => {
-    fetchLogin.mockResolvedValueOnce({
-      success: false,
-      message: 'Erro ao buscar informações',
-      status: 500,
+      expect(api.get).toHaveBeenCalledWith('/users');
+      expect(result).toEqual({
+        success: true,
+        data: users,
+      });
     });
 
-    const result = await checkEmail('outro@gmail.com');
+    it('deve retornar success false quando a API falhar', async () => {
+      api.get.mockRejectedValueOnce(new Error('Erro ao buscar informações'));
 
-    expect(result).toEqual({
-      success: false,
-      message: 'Erro ao buscar informações',
-      status: 500,
+      const result = await getEmailExists('teste@gmail.com');
+
+      expect(result).toEqual({
+        success: false,
+        message: 'Erro ao buscar informações',
+      });
     });
   });
+
+  describe('verificar se email existe', () => {
+    it('deve retornar success false e emailExists null quando a API falhar', async () => {
+      api.get.mockRejectedValueOnce(new Error('Erro ao buscar informações'));
+
+      const result = await checkEmail('teste@gmail.com');
+
+      expect(result).toEqual({
+        success: false,
+        emailExists: null,
+      });
+    });
+
+    it('deve retornar success true e emailExists true quando o email existir', async () => {
+      api.get.mockResolvedValueOnce({ data: users });
+
+      const result = await checkEmail('teste@gmail.com');
+      expect(result).toEqual({
+        success: true,
+        emailExists: true,
+      });
+    });
+
+    it('deve retornar success true e emailExists false quando o email não existir', async () => {
+      api.get.mockResolvedValueOnce({ data: users });
+
+      const result = await checkEmail('outro@gmail.com');
+      expect(result).toEqual({
+        success: true,
+        emailExists: false,
+      });
+    });
+  });
+
 });
