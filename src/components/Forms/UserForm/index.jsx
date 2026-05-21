@@ -105,19 +105,9 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
             label="Primeiro nome"
             className="inputFirstUserName"
             control={control}
-            render={({ field }) => (
-              <div className="containerInputError">
-                <input
-                  id="firstUserName"
-                  type="text"
-                  placeholder="seu nome"
-                  {...field}
-                />
-                <span className="error">
-                  {errors.firstUserName && errors.firstUserName.message}
-                </span>
-              </div>
-            )}
+            type="text"
+            placeholder="seu nome"
+            errors={errors}
           />
         )}
 
@@ -126,19 +116,9 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
           label="Email"
           className="inputEmail"
           control={control}
-          render={({ field }) => (
-            <div className="containerInputError">
-              <input
-                id="email"
-                type="email"
-                placeholder="usuario@email.com"
-                {...field}
-              />
-              <span className="error">
-                {errors.email && errors.email.message}
-              </span>
-            </div>
-          )}
+          type="email"
+          placeholder="usuario@email.com"
+          errors={errors}
         />
 
         <Input
@@ -146,19 +126,9 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
           label="Senha"
           className="inputPassword"
           control={control}
-          render={({ field }) => (
-            <div className="containerInputError">
-              <input
-                id="password"
-                type="password"
-                placeholder="senha"
-                {...field}
-              />
-              <span className="error">
-                {errors.password && errors.password.message}
-              </span>
-            </div>
-          )}
+          type="password"
+          placeholder="senha"
+          errors={errors}
         />
 
         <div className="containerBtnRow">

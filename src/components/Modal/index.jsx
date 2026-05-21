@@ -8,12 +8,12 @@ const Modal = ({ children, setShowModal }) => {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <div className="modal-content">{children}</div>
         <Button
           className="modal-close"
           text={<RiCloseLargeLine size={20} />}
           onClick={() => setShowModal(false)}
         />
+        <div className="modal-content">{children}</div>
       </div>
     </div>
   );
