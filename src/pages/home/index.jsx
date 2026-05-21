@@ -9,10 +9,10 @@ import usePagination from '../../hooks/usePagination.js';
 import alert from '../../utils/alert.js';
 
 import Banner from '../../components/Banner';
-import SectionProducts from '../../components/SectionProducts';
+import SectionProducts from '../../layout/SectionProducts';
 import Timer from '../../components/Timer';
 import Button from '../../components/Button';
-import Footer from '../../components/Footer';
+import Footer from '../../layout/Footer';
 
 import './styles/main.sass';
 

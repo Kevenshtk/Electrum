@@ -8,7 +8,7 @@ import { ShoppingCartContextProvider } from './context/shoppingCart.jsx';
 
 import alert from './utils/alert.js';
 
-import Header from './components/Header';
+import Header from './layout/Header';
 import MainRoutes from './routes.jsx';
 import Modal from './components/Modal';
 import UserForm from './components/Forms/UserForm';

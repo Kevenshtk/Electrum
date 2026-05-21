@@ -4,7 +4,7 @@ import { ShoppingCartContext } from '../../context/shoppingCart';
 
 import CardHorizontal from '../../components/CardProduct/CardHorizontal';
 import AsideShoppingCar from '../../components/Aside/AsideShoppingCar';
-import Footer from '../../components/Footer';
+import Footer from '../../layout/Footer';
 
 import './styles.sass';
 
