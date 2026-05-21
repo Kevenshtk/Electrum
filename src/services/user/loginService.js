@@ -1,15 +1,18 @@
 import { api } from '../api.js';
 
-const fetchLogin = async () => {
+const fetchLogin = async (email, password) => {
   try {
     const response = await api.get('/users');
-    return { success: true, data: response.data };
+
+    const user = response.data.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    return { success: true, user };
   } catch (error) {
     return {
       success: false,
-      message:
-        error.response?.data?.message || 'Erro ao buscar informações',
-      status: error.response?.status || 500,
+      message: error.response?.data?.message || 'Erro ao buscar informações',
     };
   }
 };

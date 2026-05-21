@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
+
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 
-import Banner from '../../components/Banner';
-import Button from '../../components/Button';
-import Footer from '../../components/Footer';
-import SectionProducts from '../../components/SectionProducts';
-import Timer from '../../components/Timer';
-import usePagination from '../../hooks/usePagination.js';
+import productsService from '../../services/product/productService.js';
+
 import useWindowWidth from '../../hooks/useWindowWidth.js';
-import { api } from '../../services/api.js';
+import usePagination from '../../hooks/usePagination.js';
+import alert from '../../utils/alert.js';
+
+import Banner from '../../components/Banner';
+import SectionProducts from '../../layout/SectionProducts';
+import Timer from '../../components/Timer';
+import Button from '../../components/Button';
+import Footer from '../../layout/Footer';
 
 import './styles/main.sass';
 
@@ -18,16 +22,18 @@ const Home = ({ statusAPI }) => {
   const width = useWindowWidth();
 
   useEffect(() => {
-    const dataProducts = async () => {
-      try {
-        const response = await api.get('/products');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
+    const fetchProducts = async () => {
+      const result = await productsService.get();
+
+      if (!result.success) {
+        alert.errorToast('error', result.message);
+        return;
       }
+
+      setProducts(result.data);
     };
 
-    dataProducts();
+    fetchProducts();
   }, []);
 
   const {
@@ -49,8 +55,16 @@ const Home = ({ statusAPI }) => {
   return (
     <>
       <section className="banners">
-        <Banner id="banner-1" text="Promoção de Notebooks" category="notebook"/>
-        <Banner id="banner-2" text="Lançamento de Acessórios" category="acessorio" />
+        <Banner
+          id="banner-1"
+          text="Promoção de Notebooks"
+          category="notebook"
+        />
+        <Banner
+          id="banner-2"
+          text="Lançamento de Acessórios"
+          category="acessorio"
+        />
         <Banner id="banner-3" text="Câmeras Potentes" category="camera" />
       </section>
 
@@ -77,7 +91,9 @@ const Home = ({ statusAPI }) => {
           <p className="deal-container-content-subtitle">
             Toda a linha gamer com 50% de desconto
           </p>
-          <button className="btn">Comprar Agora</button>
+          <button className="btn" onClick={alert.unavailable}>
+            Comprar Agora
+          </button>
         </div>
       </section>
 
@@ -95,18 +111,32 @@ const Home = ({ statusAPI }) => {
         <h2>
           Assine a nossa <span>Newsletter</span>
         </h2>
-        <form action="">
-          <input
-            type="email"
-            placeholder="Digite o seu e-mail"
-            required
+        <div>
+          <input type="email" placeholder="Digite o seu e-mail" required />
+          <Button
+            className="btn btn-half"
+            text="Assinar"
+            onClick={alert.unavailable}
           />
-          <Button type="submit" className="btn btn-half" text="Assinar" />
-        </form>
+        </div>
         <div className="social-media">
-          <FaFacebookF className="icon" />
-          <FaInstagram className="icon" />
-          <FaTwitter className="icon" />
+          <a
+            href="https://www.facebook.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebookF className="icon" />
+          </a>
+          <a
+            href="https://www.instagram.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaInstagram className="icon" />
+          </a>
+          <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+            <FaTwitter className="icon" />
+          </a>
         </div>
       </section>
 
@@ -115,4 +145,4 @@ const Home = ({ statusAPI }) => {
   );
 };
 
-export { Home };
+export default Home;

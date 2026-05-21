@@ -1,6 +1,9 @@
 import { useContext } from 'react';
+
 import { MdDeleteOutline } from 'react-icons/md';
+
 import { ShoppingCartContext } from '../../../context/shoppingCart.jsx';
+
 import { formatPrice, formatCategory } from '../../../utils/textFormatter.js';
 
 import './styles.sass';

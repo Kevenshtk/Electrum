@@ -13,26 +13,17 @@ export const registerUser = async (userData) => {
   }
 
   try {
-    await api.post(
-      '/users',
-      {
-        username: userData.firstUserName,
-        email: userData.email,
-        password: userData.password,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    await api.post('/users', {
+      username: userData.firstUserName,
+      email: userData.email,
+      password: userData.password,
+    });
 
     return { success: true };
   } catch (error) {
     return {
       success: false,
       message: error.response?.data?.message || 'Erro ao registrar usuário',
-      status: error.response?.status || 500,
     };
   }
 };

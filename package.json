@@ -10,7 +10,6 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.9.0",
-    "json-server": "^1.0.0-beta.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.56.4",
@@ -27,8 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint .",
-    "api": "json-server --watch db.json -p 8001"
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
@@ -49,7 +47,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.29.5",
     "@eslint/js": "^9.26.0",
+    "babel-jest": "^30.4.1",
     "eslint": "^8.57.1",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.37.5",

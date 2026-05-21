@@ -1,14 +1,19 @@
 import { useEffect, useState, useCallback } from 'react';
+
 import { useParams } from 'react-router-dom';
 
-import AsideFilterProducts from '../../components/Aside/AsideFilterProducts';
-import CardVertical from '../../components/CardProduct/CardVertical';
-import { api } from '../../services/api.js';
+import productsService from '../../services/product/productService.js';
+
+import alert from '../../utils/alert';
+
 import {
   filterProductsByCategory,
   filterProductsByTag,
 } from '../../utils/filterProducts.js';
 import { formatCategory } from '../../utils/textFormatter.js';
+
+import AsideFilterProducts from '../../components/Aside/AsideFilterProducts';
+import CardVertical from '../../components/CardProduct/CardVertical';
 
 import './styles.sass';
 
@@ -20,12 +25,14 @@ const ListProducts = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      try {
-        const response = await api.get('/products');
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
+      const result = await productsService.get();
+
+      if (!result.success) {
+        alert.errorToast('error', result.message);
+        return;
       }
+
+      setProducts(result.data);
     };
 
     fetchProducts();
@@ -42,12 +49,12 @@ const ListProducts = () => {
 
   const orderProductsByPrice = useCallback(
     (order) => {
-      let productsOrdered 
+      let productsOrdered;
 
-      if (order.includes('menor')){
-        productsOrdered = [...viewProducts].sort((a, b) => a.price - b.price)
-      } else if (order.includes('maior')){
-        productsOrdered = [...viewProducts].sort((a, b) => b.price - a.price)
+      if (order.includes('menor')) {
+        productsOrdered = [...viewProducts].sort((a, b) => a.price - b.price);
+      } else if (order.includes('maior')) {
+        productsOrdered = [...viewProducts].sort((a, b) => b.price - a.price);
       } else {
         productsOrdered = filterProductsByCategory(products, category);
       }

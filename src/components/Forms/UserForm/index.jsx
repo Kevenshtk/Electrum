@@ -1,11 +1,15 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useContext } from 'react';
-import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
 import { AuthContext } from '../../../context/auth';
+
 import { registerUser } from '../../../services/user/userService.js';
+
+import alert from '../../../utils/alert.js';
+
 import Button from '../../Button';
 import Input from '../../Input';
 
@@ -52,35 +56,19 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
 
       if (statusRegister.success) {
         if (statusRegister?.emailExists) {
-          Swal.fire({
-            position: 'top',
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Este e-mail já está cadastrado.',
-            showConfirmButton: false,
-            timer: 2800,
-          });
+          alert.error('error', 'Oops...', 'Este e-mail já está cadastrado.');
           return;
         }
 
-        Swal.fire({
-          position: 'top',
-          icon: 'success',
-          title: 'Cadastrado realizado com sucesso!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        alert.success('Cadastrado realizado com sucesso!');
+
         setShowModal(false);
-        
       } else {
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: 'Erro ao realizar o cadastro.',
-          text: 'Por favor tente novamente mais tarde.',
-          showConfirmButton: false,
-          timer: 2800,
-        });
+        alert.error(
+          'info',
+          'Erro ao realizar o cadastro.',
+          'Por favor tente novamente mais tarde.'
+        );
       }
 
       return;
@@ -93,26 +81,16 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
         setShowModal(false);
         break;
 
-      case 'falied':
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Verifique seu e-mail ou senha.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
+      case 'failed':
+        alert.error('error', 'Oops...', 'Verifique seu e-mail ou senha.');
         break;
 
       default:
-        Swal.fire({
-          position: 'top',
-          icon: 'info',
-          title: 'Erro ao realizar login',
-          text: 'Tente novamente mais tarde.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
+        alert.error(
+          'info',
+          'Erro ao realizar login',
+          'Tente novamente mais tarde.'
+        );
         break;
     }
   };
@@ -127,19 +105,9 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
             label="Primeiro nome"
             className="inputFirstUserName"
             control={control}
-            render={({ field }) => (
-              <div className="containerInputError">
-                <input
-                  id="firstUserName"
-                  type="text"
-                  placeholder="seu nome"
-                  {...field}
-                />
-                <span className="error">
-                  {errors.firstUserName && errors.firstUserName.message}
-                </span>
-              </div>
-            )}
+            type="text"
+            placeholder="seu nome"
+            errors={errors}
           />
         )}
 
@@ -148,19 +116,9 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
           label="Email"
           className="inputEmail"
           control={control}
-          render={({ field }) => (
-            <div className="containerInputError">
-              <input
-                id="email"
-                type="email"
-                placeholder="usuario@email.com"
-                {...field}
-              />
-              <span className="error">
-                {errors.email && errors.email.message}
-              </span>
-            </div>
-          )}
+          type="email"
+          placeholder="usuario@email.com"
+          errors={errors}
         />
 
         <Input
@@ -168,19 +126,9 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
           label="Senha"
           className="inputPassword"
           control={control}
-          render={({ field }) => (
-            <div className="containerInputError">
-              <input
-                id="password"
-                type="password"
-                placeholder="senha"
-                {...field}
-              />
-              <span className="error">
-                {errors.password && errors.password.message}
-              </span>
-            </div>
-          )}
+          type="password"
+          placeholder="senha"
+          errors={errors}
         />
 
         <div className="containerBtnRow">
@@ -205,6 +153,7 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
                 className="btn"
                 disabled={isSubmitting}
                 text="Esqueci a senha"
+                onClick={alert.unavailable}
               />
             </>
           )}

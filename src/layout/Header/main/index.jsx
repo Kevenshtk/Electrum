@@ -8,7 +8,7 @@ import { ShoppingCartContext } from '../../../context/shoppingCart';
 
 import alert from '../../../utils/alert';
 
-import Button from '../../Button';
+import Button from '../../../components/Button';
 
 import './styles.sass';
 

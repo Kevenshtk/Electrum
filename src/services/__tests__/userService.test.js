@@ -10,6 +10,10 @@ jest.mock('../user/checkEmail', () => ({
   checkEmail: jest.fn(),
 }));
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('Servico de usuario', () => {
   const userData = {
     firstUserName: 'teste',
@@ -24,19 +28,11 @@ describe('Servico de usuario', () => {
     const result = await registerUser(userData);
 
     expect(checkEmail).toHaveBeenCalledWith(userData.email);
-    expect(api.post).toHaveBeenCalledWith(
-      '/users',
-      {
-        username: userData.firstUserName,
-        email: userData.email,
-        password: userData.password,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    expect(api.post).toHaveBeenCalledWith('/users', {
+      username: userData.firstUserName,
+      email: userData.email,
+      password: userData.password,
+    });
 
     expect(result).toEqual({ success: true });
   });
@@ -52,7 +48,6 @@ describe('Servico de usuario', () => {
     expect(result).toEqual({
       success: false,
       message: 'Erro ao registrar usuário',
-      status: 500,
     });
   });
 
@@ -73,7 +68,6 @@ describe('Servico de usuario', () => {
     checkEmail.mockResolvedValueOnce({
       success: false,
       message: 'Erro ao buscar informações',
-      status: 500,
     });
 
     const result = await registerUser(userData);

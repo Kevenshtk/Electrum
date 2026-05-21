@@ -1,4 +1,4 @@
-import { createProduct } from '../product/productService';
+import productsService from '../product/productService';
 import { api } from '../api';
 
 jest.mock('../api', () => ({
@@ -7,6 +7,10 @@ jest.mock('../api', () => ({
     post: jest.fn(),
   },
 }));
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('Servico de produtos', () => {
   const productData = {
@@ -20,24 +24,16 @@ describe('Servico de produtos', () => {
   it('deve retornar success true e os dados do produto ao cria-lo', async () => {
     api.post.mockResolvedValueOnce({ data: productData });
 
-    const result = await createProduct(productData);
+    const result = await productsService.add(productData);
 
-    expect(api.post).toHaveBeenCalledWith(
-      '/products',
-      {
-        name: productData.name,
-        category: productData.category,
-        description: productData.description,
-        price: parseFloat(productData.price),
-        image: productData.image,
-        tag: productData.tag,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    expect(api.post).toHaveBeenCalledWith('/products', {
+      name: productData.name,
+      category: productData.category,
+      description: productData.description,
+      price: parseFloat(productData.price),
+      image: productData.image,
+      tag: productData.tag,
+    });
 
     expect(result).toEqual({
       success: true,
@@ -51,17 +47,43 @@ describe('Servico de produtos', () => {
         data: {
           message: 'Erro ao tentar criar um produto',
         },
-        status: 500,
       },
     });
 
-    const result = await createProduct(productData);
+    const result = await productsService.add(productData);
 
     expect(api.post).toHaveBeenCalledTimes(1);
     expect(result).toEqual({
       success: false,
       message: 'Erro ao tentar criar um produto',
-      status: 500,
     });
   });
+
+  it('deve retornar success true e os dados dos produtos', async () => {
+    api.get.mockResolvedValueOnce({ data: [productData] });
+
+    const result = await productsService.get();
+
+    expect(result).toEqual({
+      success: true,
+      data: [productData],
+    });
+  });
+
+  it('deve retornar success false e uma mensagem de erro', async () => {
+    api.get.mockRejectedValueOnce({
+      response:{
+        data: {
+          message: 'Erro ao buscar produtos',
+        }
+      }
+    });
+
+    const result = await productsService.get();
+
+    expect(result).toEqual({
+      success: false,
+      message: 'Erro ao buscar produtos',
+    })
+  })
 });

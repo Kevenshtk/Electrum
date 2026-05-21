@@ -6,30 +6,20 @@ import {
   useState,
   useMemo,
 } from 'react';
-import { AuthContext } from './auth';
-import cartService from '../services/product/cartService';
-import Swal from 'sweetalert2';
 
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3500,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.onmouseenter = Swal.stopTimer;
-    toast.onmouseleave = Swal.resumeTimer;
-  },
-});
+import { AuthContext } from './auth';
+
+import cartService from '../services/product/cartService';
+
+import alert from '../utils/alert';
 
 export const ShoppingCartContext = createContext();
 
 export const ShoppingCartContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
-  const [subTotalPrice, setSubTotalPrice] = useState(0);
 
-  const loadProducts = async (idUser) => {
+  const loadProducts = useCallback(async (idUser) => {
     if (!idUser) return;
 
     const result = await cartService.get(idUser);
@@ -37,141 +27,129 @@ export const ShoppingCartContextProvider = ({ children }) => {
     if (result.success) {
       setProducts(result.data);
     } else {
-      Toast.fire({
-        icon: 'warning',
-        title: result.message,
-      });
+      alert.errorToast('warning', result.message);
     }
-  };
+  }, []);
+
+  const handleActionAddRem = useCallback(
+    async (action, idUser, msgSuccess) => {
+      const result = await action();
+
+      if (result.success) {
+        if (msgSuccess) alert.successToast(msgSuccess);
+        loadProducts(idUser);
+      } else {
+        alert.errorToast('warning', result.message);
+      }
+    },
+    [loadProducts]
+  );
+
+  const handleActionIncDec = useCallback(
+    async (action, idProduct, idUser, operation) => {
+      const result = await action();
+
+      if (result.success) {
+        if (operation === 'dec') {
+          loadProducts(idUser);
+
+          setProducts((prev) =>
+            prev.map((item) =>
+              item.produto.id === idProduct
+                ? { ...item, quantidade: item.quantidade - 1 }
+                : item
+            )
+          );
+        } else {
+          setProducts((prev) =>
+            prev.map((item) =>
+              item.produto.id === idProduct
+                ? { ...item, quantidade: item.quantidade + 1 }
+                : item
+            )
+          );
+        }
+      } else {
+        alert.errorToast('warning', result.message);
+      }
+    },
+    [loadProducts]
+  );
 
   const addShoppingCart = useCallback(
-    async (idProduct) => {
+    (idProduct) => {
       if (!currentUser?.status) {
-        Toast.fire({
-          icon: 'warning',
-          title: 'Realize o login para dar sequência ao seu pedido!',
-        });
-
+        alert.errorToast(
+          'warning',
+          'Realize o login para dar sequência ao seu pedido!'
+        );
         return;
       }
 
-      const result = await cartService.add(currentUser.id, idProduct);
-
-      if (result.success) {
-        Toast.fire({
-          icon: 'success',
-          title: 'Produto adicionado ao carrinho',
-        });
-
-        loadProducts(currentUser.id);
-      } else {
-        Toast.fire({
-          icon: 'warning',
-          title: result.message,
-        });
-      }
+      handleActionAddRem(
+        () => cartService.add(currentUser.id, idProduct),
+        currentUser.id,
+        'Produto adicionado ao carrinho'
+      );
     },
-    [currentUser]
+    [currentUser.id, currentUser.status, handleActionAddRem]
   );
 
   const removeShoppingCart = useCallback(
-    async (idProduct) => {
-      const result = await cartService.del(currentUser.id, idProduct);
-
-      if (result.success) {
-        loadProducts(currentUser.id);
-      } else {
-        Toast.fire({
-          icon: 'warning',
-          title: result.message,
-        });
-      }
+    (idProduct) => {
+      handleActionAddRem(
+        () => cartService.del(currentUser.id, idProduct),
+        currentUser.id
+      );
     },
-    [currentUser]
+    [currentUser.id, handleActionAddRem]
   );
 
-  const incrementQuant = async (idProduct) => {
-    const result = await cartService.inc(currentUser.id, idProduct);
-
-    if (result.success) {
-      setProducts((prev) =>
-        prev.map((item) =>
-          item.produto.id === idProduct
-            ? { ...item, quantidade: item.quantidade + 1 }
-            : item
-        )
-      );
-    } else {
-      Toast.fire({
-        icon: 'warning',
-        title: result.message,
-      });
-    }
+  const incrementQuant = (idProduct) => {
+    handleActionIncDec(
+      () => cartService.inc(currentUser.id, idProduct),
+      idProduct,
+      currentUser.id,
+      'inc'
+    );
   };
 
-  const decrementQuant = async (idProduct) => {
-    const result = await cartService.dec(currentUser.id, idProduct);
-
-    result.status === 200 && loadProducts(currentUser.id);
-
-    if (result.success) {
-      setProducts((prev) =>
-        prev.map((item) =>
-          item.produto.id === idProduct
-            ? { ...item, quantidade: item.quantidade - 1 }
-            : item
-        )
-      );
-    } else {
-      Toast.fire({
-        icon: 'warning',
-        title: result.message,
-      });
-    }
+  const decrementQuant = (idProduct) => {
+    handleActionIncDec(
+      () => cartService.dec(currentUser.id, idProduct),
+      idProduct,
+      currentUser.id,
+      'dec'
+    );
   };
 
-  const subTotalPriceCart = useCallback(async () => {
-    const result = await cartService.total(currentUser.id);
-
-    if (result.success) {
-      setSubTotalPrice(result.data);
-    } else {
-      Toast.fire({
-        icon: 'warning',
-        title: result.message,
-      });
-
-      return 0;
-    }
-  }, [currentUser.id]);
+  const subTotalPriceCart = useMemo(() => {
+    return products.reduce(
+      (total, item) => total + item.produto.price * item.quantidade,
+      0
+    );
+  }, [products]);
 
   const totalPrice = useMemo(() => {
-    if (subTotalPrice < 500) {
-      return subTotalPrice + 50;
+    if (subTotalPriceCart < 500) {
+      return subTotalPriceCart + 50;
     }
 
-    return subTotalPrice;
-  }, [subTotalPrice]);
+    return subTotalPriceCart;
+  }, [subTotalPriceCart]);
 
   const finalizeOrder = () => {
-    Toast.fire({
-      icon: 'warning',
-      title: 'Funcionalidade em desenvolvimento!',
-    });
+    alert.unavailable();
   };
 
   useEffect(() => {
     if (!currentUser?.id) {
       setProducts([]);
-      setSubTotalPrice(0);
+      return;
     }
 
     loadProducts(currentUser.id);
-  }, [currentUser?.id]);
-
-  useEffect(() => {
-    subTotalPriceCart();
-  }, [products, subTotalPriceCart]);
+  }, [currentUser?.id, loadProducts]);
 
   return (
     <ShoppingCartContext.Provider
@@ -182,7 +160,7 @@ export const ShoppingCartContextProvider = ({ children }) => {
         incrementQuant,
         decrementQuant,
         finalizeOrder,
-        subTotalPrice,
+        subTotalPriceCart,
         totalPrice,
       }}
     >

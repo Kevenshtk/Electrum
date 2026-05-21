@@ -1,23 +1,15 @@
 import { api } from '../api.js';
 
-export const createProduct = async (productData) => {
+const createProduct = async (productData) => {
   try {
-    const response = await api.post(
-      '/products',
-      {
-        name: productData.name,
-        category: productData.category,
-        description: productData.description,
-        price: parseFloat(productData.price),
-        image: productData.image,
-        tag: productData.tag,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const response = await api.post('/products', {
+      name: productData.name,
+      category: productData.category,
+      description: productData.description,
+      price: parseFloat(productData.price),
+      image: productData.image,
+      tag: productData.tag,
+    });
 
     return { success: true, data: response.data };
   } catch (error) {
@@ -25,7 +17,27 @@ export const createProduct = async (productData) => {
       success: false,
       message:
         error.response?.data?.message || 'Erro ao tentar criar um produto',
-      status: error.response?.status || 500,
     };
   }
 };
+
+const getProducts = async () => {
+  try {
+    const response = await api.get('/products');
+
+    return { success: true, data: response.data };
+  } catch (error) {
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Erro ao buscar produtos',
+    };
+  }
+};
+
+const productsService = {
+  get: getProducts,
+  add: createProduct,
+};
+
+
+export default productsService;

@@ -1,7 +1,9 @@
-import Footer from '../../components/Footer';
-import CardVertical from '../../components/CardProduct/CardVertical';
-import { FavoriteContext } from '../../context/favorites';
 import { useContext } from 'react';
+
+import { FavoriteContext } from '../../context/favorites';
+
+import CardVertical from '../../components/CardProduct/CardVertical';
+import Footer from '../../layout/Footer';
 
 import './styles.sass';
 

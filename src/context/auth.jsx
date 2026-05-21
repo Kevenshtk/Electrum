@@ -9,33 +9,35 @@ const initialUserState = {
   email: '',
   name: '',
   id: 0,
-}
+};
+
+const loginStatus = {
+  OK: 'ok',
+  FAILED: 'failed',
+  SERVER_ERROR: 'server_error',
+};
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(initialUserState);
 
   const handleLogin = async (email, password) => {
-    const users = await fetchLogin();
+    const result = await fetchLogin(email, password);
 
-    if (!users.success) {
-      return 'errorServer';
+    if (!result.success) {
+      return loginStatus.SERVER_ERROR;
     }
 
-    const user = users.data.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (user) {
+    if (result.user) {
       setCurrentUser({
         status: true,
         email: email,
-        name: user.username,
-        id: user.id,
+        name: result.user.username,
+        id: result.user.id,
       });
 
-      return 'ok';
+      return loginStatus.OK;
     } else {
-      return 'falied';
+      return loginStatus.FAILED;
     }
   };
 

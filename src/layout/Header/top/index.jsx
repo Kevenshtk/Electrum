@@ -9,7 +9,7 @@ import {
 
 import useWindowWidth from '../../../hooks/useWindowWidth';
 
-import Button from '../../Button';
+import Button from '../../../components/Button';
 
 import './styles.sass';
 

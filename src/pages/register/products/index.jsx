@@ -1,12 +1,15 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback } from 'react';
-import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2';
 import * as yup from 'yup';
 
-import Button from '../../../components/Button';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+
+import productsService from '../../../services/product/productService.js';
+
+import alert from '../../../utils/alert.js';
+
 import Input from '../../../components/Input';
-import { createProduct } from '../../../services/product/productService.js';
+import Button from '../../../components/Button';
 
 import './styles.sass';
 
@@ -46,27 +49,14 @@ const ProductsRegister = () => {
 
   const onSubmit = useCallback(
     async (data) => {
-      const status = await createProduct(data);
-      
-      if (status.success) {
-        Swal.fire({
-          position: 'top',
-          icon: 'success',
-          title: 'Produto cadastrado com sucesso!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+      const result = await productsService.add(data);
+
+      if (result.success) {
+        alert.success('Produto cadastrado com sucesso!');
 
         reset();
       } else {
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          title: 'Erro ao cadastrar o produto!',
-          text: 'Tente novamente mais tarde.',
-          showConfirmButton: false,
-          timer: 3000,
-        });
+        alert.error('info', result.message, 'Tente novamente mais tarde.');
       }
     },
     [reset]

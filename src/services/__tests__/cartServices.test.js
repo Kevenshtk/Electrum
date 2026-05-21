@@ -21,22 +21,14 @@ describe('Servico de carrinho de compras', () => {
 
       const result = await cartService.add(1, 1);
 
-      expect(api.post).toHaveBeenCalledWith(
-        '/shopping-cart',
-        {
-          usuario: {
-            id: 1,
-          },
-          produto: {
-            id: 1,
-          },
+      expect(api.post).toHaveBeenCalledWith('/shopping-cart', {
+        usuario: {
+          id: 1,
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+        produto: {
+          id: 1,
+        },
+      });
 
       expect(result).toEqual({
         success: true,
@@ -53,7 +45,6 @@ describe('Servico de carrinho de compras', () => {
           data: {
             message: 'Erro ao adicionar produto no carrinho',
           },
-          status: 500,
         },
       });
 
@@ -63,7 +54,6 @@ describe('Servico de carrinho de compras', () => {
       expect(result).toEqual({
         success: false,
         message: 'Erro ao adicionar produto no carrinho',
-        status: 500,
       });
     });
   });
@@ -119,7 +109,6 @@ describe('Servico de carrinho de compras', () => {
           data: {
             message: 'Erro ao buscar produtos',
           },
-          status: 500,
         },
       });
 
@@ -129,7 +118,6 @@ describe('Servico de carrinho de compras', () => {
       expect(result).toEqual({
         success: false,
         message: 'Erro ao buscar produtos',
-        status: 500,
       });
     });
   });
@@ -152,7 +140,6 @@ describe('Servico de carrinho de compras', () => {
           data: {
             message: 'Erro ao remover o produto',
           },
-          status: 500,
         },
       });
 
@@ -162,7 +149,6 @@ describe('Servico de carrinho de compras', () => {
       expect(result).toEqual({
         success: false,
         message: 'Erro ao remover o produto',
-        status: 500,
       });
     });
   });
@@ -185,7 +171,6 @@ describe('Servico de carrinho de compras', () => {
           data: {
             message: 'Erro no servidor',
           },
-          status: 500,
         },
       });
 
@@ -195,28 +180,27 @@ describe('Servico de carrinho de compras', () => {
       expect(result).toEqual({
         success: false,
         message: 'Erro no servidor',
-        status: 500,
       });
     });
 
     it('deve retornar success true ao decrementar', async () => {
-      api.put.mockResolvedValueOnce({ status: 202 });
+      api.put.mockResolvedValueOnce();
 
       const result = await cartService.dec(1, 1);
 
       expect(api.put).toHaveBeenCalledWith(
         '/shopping-cart/user/1/product/1/decrement'
       );
-      expect(result).toEqual({ success: true, status: 202 });
+      expect(result).toEqual({ success: true });
     });
 
     it('deve retornar success true e status 200 quando a API retornar 200 no decrement', async () => {
-      api.put.mockResolvedValueOnce({ status: 200 });
+      api.put.mockResolvedValueOnce();
 
       const result = await cartService.dec(1, 1);
 
       expect(api.put).toHaveBeenCalledTimes(1);
-      expect(result).toEqual({ success: true, status: 200 });
+      expect(result).toEqual({ success: true });
     });
 
     it('deve retornar success false e uma mesagem de erro ao falhar em decrementar', async () => {
@@ -225,8 +209,7 @@ describe('Servico de carrinho de compras', () => {
           data: {
             message: 'Erro no servidor',
           },
-          status: 500,
-        }
+        },
       });
 
       const result = await cartService.dec(1, 1);
@@ -235,21 +218,20 @@ describe('Servico de carrinho de compras', () => {
       expect(result).toEqual({
         success: false,
         message: 'Erro no servidor',
-        status: 500,
       });
     });
   });
 
   describe('Calcular total do carrinho', () => {
     it('deve retornar success true e o total do carrinho', async () => {
-      api.get.mockResolvedValueOnce({ data: { total: 1000 }});
+      api.get.mockResolvedValueOnce({ data: { total: 1000 } });
 
       const result = await cartService.total(1);
 
       expect(api.get).toHaveBeenCalledWith('/shopping-cart/user/1/total');
       expect(result).toEqual({
         success: true,
-        data: 1000
+        data: 1000,
       });
     });
 
@@ -259,8 +241,7 @@ describe('Servico de carrinho de compras', () => {
           data: {
             message: 'Erro no servidor',
           },
-          status: 500,
-        }
+        },
       });
 
       const result = await cartService.total(1);
@@ -269,8 +250,7 @@ describe('Servico de carrinho de compras', () => {
       expect(result).toEqual({
         success: false,
         message: 'Erro no servidor',
-        status: 500,
       });
     });
-  })
+  });
 });

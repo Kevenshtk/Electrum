@@ -23,7 +23,9 @@ export default [
             'builtin',
             'external',
             'internal',
-            ['sibling', 'parent', 'index'],
+            "parent",
+            'sibling',
+            'index',
           ],
           'newlines-between': 'always',
           alphabetize: {

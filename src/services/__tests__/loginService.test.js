@@ -7,19 +7,22 @@ jest.mock('../api', () => ({
   },
 }));
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('Servico de login', () => {
   it('deve retornar success true e os dados do usuario ao realizar o login', async () => {
-    const dataUser = [
-      { username: 'teste', email: 'teste@emal.com', password: '123456' },
-    ];
-    api.get.mockResolvedValueOnce({ data: dataUser });
+    const user = { username: 'teste', email: 'teste@emal.com', password: '123456' };
 
-    const result = await fetchLogin();
+    api.get.mockResolvedValueOnce({ data: [user] });
+
+    const result = await fetchLogin(user.email, user.password);
 
     expect(api.get).toHaveBeenCalledWith('/users');
     expect(result).toEqual({
       success: true,
-      data: dataUser,
+      user,
     });
   });
 
@@ -29,7 +32,6 @@ describe('Servico de login', () => {
         data: {
           message: 'Erro ao buscar informações',
         },
-        status: 500,
       },
     });
 
@@ -39,7 +41,6 @@ describe('Servico de login', () => {
     expect(result).toEqual({
       success: false,
       message: 'Erro ao buscar informações',
-      status: 500,
     });
   });
 });
