@@ -1,11 +1,11 @@
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-import Button from '../Button';
-import CardVertical from '../CardProduct/CardVertical';
+import Button from '../../../components/Button';
+import CardVertical from '../../../components/CardProduct/CardVertical';
 
 import './styles.sass';
 
-const SectionProducts = ({
+const ProductsSection = ({
   title,
   page,
   btnNext,
@@ -61,4 +61,4 @@ const SectionProducts = ({
   );
 };
 
-export default SectionProducts;
+export default ProductsSection;
