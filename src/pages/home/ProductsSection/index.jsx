@@ -2,6 +2,7 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 import Button from '../../../components/Button';
 import CardVertical from '../../../components/CardProduct/CardVertical';
+import { Loader } from '../../../components/Loader';
 
 import './styles.sass';
 
@@ -50,11 +51,7 @@ const ProductsSection = ({
             />
           </>
         ) : (
-          <div className="loader">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
+          <Loader />
         )}
       </div>
     </section>
