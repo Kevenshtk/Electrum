@@ -1,7 +1,7 @@
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
 import Button from '../../../components/Button';
-import CardVertical from '../../../components/CardProduct/CardVertical';
+import { CardVertical } from '../../../components/CardProduct';
 import { Loader } from '../../../components/Loader';
 
 import './styles.sass';

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { FavoriteContext } from '../../context/favorites';
 
-import CardVertical from '../../components/CardProduct/CardVertical';
+import { CardVertical } from '../../components/CardProduct';
 import Footer from '../../layout/Footer';
 
 import './styles.sass';
