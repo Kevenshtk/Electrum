@@ -8,7 +8,7 @@ import productsService from '../../../services/product/productService.js';
 
 import alert from '../../../utils/alert.js';
 
-import Input from '../../../components/Input';
+import { Input } from '../../../components/Input';
 import Button from '../../../components/Button';
 
 import './styles.sass';

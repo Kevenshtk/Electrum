@@ -11,7 +11,7 @@ import { registerUser } from '../../../services/user/userService.js';
 import alert from '../../../utils/alert.js';
 
 import Button from '../../Button';
-import Input from '../../Input';
+import { Input } from '../../Input';
 
 import './styles.sass';
 

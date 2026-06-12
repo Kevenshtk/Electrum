@@ -1,4 +1,5 @@
 import Button from '../../../components/Button';
+import { InputRounded } from '../../../components/Input';
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 import alert from '../../../utils/alert.js';
 
@@ -29,7 +30,8 @@ const Newsletter = () => {
         Assine a nossa <span>Newsletter</span>
       </h2>
       <div>
-        <input type="email" placeholder="Digite o seu e-mail" required />
+        <InputRounded type="email" className="email" placeholder="Digite o seu e-mail" />
+        
         <Button
           className="btn btn-half"
           text="Assinar"

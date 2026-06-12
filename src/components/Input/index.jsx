@@ -37,4 +37,10 @@ const Input = ({
   );
 };
 
-export default Input;
+const InputRounded = ({type, className, placeholder}) => {
+  return(
+    <input type={type} className={`inputRounded ${className || ''}`} placeholder={placeholder} required />
+  );
+}
+
+export { Input, InputRounded };
