@@ -1,73 +1,153 @@
 # Electrum
 
-## Índice
+E-commerce de produtos eletrônicos desenvolvido em React que simula uma experiência completa de compra online. O projeto foi criado com foco na aplicação de boas práticas de desenvolvimento Front-end, arquitetura de aplicações, integração com APIs, gerenciamento de estado e testes automatizados.
 
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Funcionalidades](#funcionalidades)
-- [Instalação](#instalação)
-- [Contribuidores](#contribuidores)
-- [API](#api)
+## 🎯 Objetivos do projeto
 
-## Sobre o Projeto
+Este projeto foi desenvolvido como um laboratório de desenvolvimento Front-end, reunindo tecnologias e padrões utilizados em aplicações reais. A proposta foi construir uma aplicação organizada, escalável e de fácil manutenção, explorando abordagens para gerenciamento de estado, formulários, testes e otimização de componentes.
 
-Electrum é um e-commerce de produtos eletrônicos desenvolvido em React. Ele permite aos usuários buscar, visualizar e interagir com diversos produtos tech de forma simples e intuitiva.
+Durante o desenvolvimento foram explorados conceitos como:
 
-## Tecnologias Utilizadas
+- Arquitetura e organização de aplicações React
+- Componentização e reutilização de código
+- Integração com APIs REST
+- Context API para gerenciamento de estado global
+- React Hook Form + Yup para formulários e validações
+- Testes unitários com Jest
+- Testes de componentes com Testing Library
+- Boas práticas de desenvolvimento e manutenção de código
 
-- [React](https://reactjs.org/)
-- [SASS](https://sass-lang.com/)
-- [Axios](https://axios-http.com/ptbr)
-- [Context API](https://legacy.reactjs.org/docs/context.html)
-- [React Hook Form](https://www.react-hook-form.com)
-- [Yup](https://www.npmjs.com/package/yup)
-- [Jest](https://jestjs.io)
+## 📑 Índice
 
-## Tela Inicial
+- [Demonstração](#-demonstração)
+- [Funcionalidades](#-funcionalidades)
+- [Tecnologias](#-tecnologias)
+- [Conceitos aplicados](#-conceitos-aplicados)
+- [Estrutura do projeto](#-estrutura-do-projeto)
+- [Instalação](#-instalação)
+- [Contribuidores](#-contribuidores)
+- [Back-end](#-back-end)
 
-![Tela Inicial](https://github.com/Kevenshtk/Electrum/blob/main/public/telaInicial.png)
+## 📷 Demonstração
 
-## Funcionalidades
+### Home
+ ![Tela Inicial](https://kevenshtk.github.io/Projetos/img/telas-electrum/telaInicial.png)
 
-- Login para clientes 
-- Filtrar produtos por categoria
-- Interface responsiva
-- Lista de produtos favoritos
-- Carrinho de compras
+### Listagem de Produtos
+ ![Lista Produtos](https://kevenshtk.github.io/Projetos/img/telas-electrum/telaListaProdutos.png)
 
-## Instalação
+### Favoritos
+ ![Produtos Favoritos](https://kevenshtk.github.io/Projetos/img/telas-electrum/telaProdutosFavoritos.png)
+
+## ✨ Funcionalidades
+
+- Autenticação de usuários com login e cadastro
+- Listagem de produtos obtidos por meio de API
+- Filtragem de produtos por categoria
+- Gerenciamento de produtos favoritos
+- Carrinho de compras com adição, remoção e atualização de quantidades
+- Cálculo automático do subtotal e valor total da compra
+- Persistência dos dados do carrinho e favoritos
+- Interface responsiva para diferentes tamanhos de tela
+
+## 🛠️ Tecnologias
+
+### Front-end
+
+- React
+- SASS
+
+### Gerenciamento de estado
+
+- Context API
+
+### Formulários
+
+- React Hook Form
+- Yup
+
+### Testes
+
+- Jest
+- Testing Library
+
+### Comunicação
+
+- Axios
+
+## 💡 Conceitos aplicados
+
+- Componentização
+- Context API
+- Custom Hooks
+- Arquitetura em camadas
+- Testes unitários
+- Testes de componentes
+
+## 📁 Estrutura do projeto
+```
+src/
+├── pages/      → Páginas da aplicação.
+├── components/   → Componentes reutilizáveis da interface.
+├── context/      → Gerenciamento de estado global com React Context.
+├── hooks/        → Hooks customizados.
+├── layouts/      → Estruturas reutilizáveis das páginas.
+├── services/     → Camada responsável pelas requisições HTTP e integração com a API.
+├── styles/       → Recursos globais compartilhados de estilização.
+└── utils/        → Funções utilitárias compartilhadas.
+```
+
+
+## 🚀 Instalação
 
 1. Clone o repositório:
-   ```terminal
-   git clone https://github.com/Kevenshtk/Electrum.git
 
-2. Navegue até o diretório do projeto:
-   ```terminal
+   ```bash
+   git clone https://github.com/Kevenshtk/Electrum.git
+   ```
+
+2. Acesse o diretório do projeto:
+
+   ```bash
    cd Electrum
+   ```
 
 3. Instale as dependências:
-   ```terminal
+
+   ```bash
    npm install
-   
+   ```
+
 4. Inicie a aplicação:
-   ```terminal
+
+   ```bash
    npm start
+   ```
 
-## Contribuidores
+5. Acesse no navegador:
 
-Keven Di Camargo – Desenvolvimento principal
+   ```text
+   http://localhost:3000
+   ```
 
-Mateus Zancho Neto – Colaboração no projeto (Implementação de timer dinâmico) - 
-[GitHub](https://github.com/MateusZanchoNeto)
+## 👥 Contribuidores
 
-## API
+- **Keven Di Camargo** — Desenvolvimento da aplicação.
+- **Mateus Zancho Neto** — Colaboração na implementação do timer dinâmico ([GitHub](https://github.com/MateusZanchoNeto)).
 
-O projeto também conta com uma API própria desenvolvida em Java Spring Boot, criada para substituir gradualmente o uso do json-server.
-Essa API é responsável por:
+## 🔌 Back-end
 
-- Armazenar e gerenciar produtos e usuários
-- Possibilitar operações de CRUD reais
-- Facilitar escalabilidade para o back-end
+Este projeto consome uma API REST desenvolvida separadamente em Java Spring Boot.
 
-Que está disponível em outro repositório:
-[APIelectrum](https://github.com/Kevenshtk/APIelectrum)
+Inicialmente a aplicação utilizava json-server para simular o back-end. Posteriormente foi iniciado o desenvolvimento de uma API REST em Java Spring Boot.
+
+Entre suas responsabilidades estão:
+
+- autenticação de usuários;
+- gerenciamento de produtos;
+- operações CRUD;
+- persistência de dados.
+
+Repositório da API:
+
+👉 [APIelectrum](https://github.com/Kevenshtk/APIelectrum)
