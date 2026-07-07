@@ -8,6 +8,7 @@ import { ShoppingCartContext } from '../../../context/shoppingCart';
 
 import alert from '../../../utils/alert';
 
+import { InputRounded } from '../../../components/Input';
 import Button from '../../../components/Button';
 
 import './styles.sass';
@@ -29,7 +30,7 @@ const HeaderMain = ({ currentUser }) => {
       </Link>
 
       <div id="search-form">
-        <input type="text" id="search" placeholder="Busque aqui" />
+        <InputRounded type="text" className="search" placeholder="Busque aqui" />
         <Button
           className="btn btn-half"
           text="Pesquisar"

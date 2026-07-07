@@ -1,11 +1,12 @@
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
-import Button from '../Button';
-import CardVertical from '../CardProduct/CardVertical';
+import Button from '../../../components/Button';
+import { CardVertical } from '../../../components/CardProduct';
+import { Loader } from '../../../components/Loader';
 
 import './styles.sass';
 
-const SectionProducts = ({
+const ProductsSection = ({
   title,
   page,
   btnNext,
@@ -50,15 +51,11 @@ const SectionProducts = ({
             />
           </>
         ) : (
-          <div className="loader">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-          </div>
+          <Loader />
         )}
       </div>
     </section>
   );
 };
 
-export default SectionProducts;
+export default ProductsSection;

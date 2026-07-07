@@ -24,33 +24,27 @@ const Timer = ({ endDate }) => {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
+    
     return () => clearInterval(timer);
   }, [calculateTimeLeft]);
 
   const pad = (num) => String(num).padStart(2, '0');
-  const days = pad(timeLeft.days);
-  const hours = pad(timeLeft.hours);
-  const minutes = pad(timeLeft.minutes);
-  const seconds = pad(timeLeft.seconds);
+
+  const time = [
+    { label: 'Dias', value: pad(timeLeft.days) },
+    { label: 'Horas', value: pad(timeLeft.hours) },
+    { label: 'Minutos', value: pad(timeLeft.minutes) },
+    { label: 'Segundos', value: pad(timeLeft.seconds) },
+  ];
 
   return (
     <div className="deal-container-content-timer">
-      <div className="deal-container-timer">
-        <span className="deal-container-timer-time">{days}</span>
-        <span className="deal-container-timer-word">Dias</span>
-      </div>
-      <div className="deal-container-timer">
-        <span className="deal-container-timer-time">{hours}</span>
-        <span className="deal-container-timer-word">Horas</span>
-      </div>
-      <div className="deal-container-timer">
-        <span className="deal-container-timer-time">{minutes}</span>
-        <span className="deal-container-timer-word">Minutos</span>
-      </div>
-      <div className="deal-container-timer">
-        <span className="deal-container-timer-time">{seconds}</span>
-        <span className="deal-container-timer-word">Segundos</span>
-      </div>
+      {time.map((t) => (
+        <div className="deal-container-timer">
+          <span className="deal-container-timer-time">{t.value}</span>
+          <span className="deal-container-timer-word">{t.label}</span>
+        </div>
+      ))}
     </div>
   );
 };

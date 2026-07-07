@@ -13,7 +13,7 @@ import {
 import { formatCategory } from '../../utils/textFormatter.js';
 
 import AsideFilterProducts from '../../components/Aside/AsideFilterProducts';
-import CardVertical from '../../components/CardProduct/CardVertical';
+import { CardVertical } from '../../components/CardProduct';
 
 import './styles.sass';
 

@@ -7,6 +7,21 @@ textarea
     border-radius: 5px
     outline: none
 
+.inputRounded
+    height: 40px
+    border-top-left-radius: 20px
+    border-bottom-left-radius: 20px
+    padding-left: 25px
+
+    &.search
+        width: 60%
+
+    &.email
+        border: 1px solid $section-bg-color
+
+        @include mobile
+            width: 100%
+
 .inputName
     width: 68%
     display: flex

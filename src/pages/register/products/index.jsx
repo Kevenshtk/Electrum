@@ -8,7 +8,7 @@ import productsService from '../../../services/product/productService.js';
 
 import alert from '../../../utils/alert.js';
 
-import Input from '../../../components/Input';
+import { Input, Select, TextArea } from '../../../components/Input';
 import Button from '../../../components/Button';
 
 import './styles.sass';
@@ -51,13 +51,13 @@ const ProductsRegister = () => {
     async (data) => {
       const result = await productsService.add(data);
 
-      if (result.success) {
-        alert.success('Produto cadastrado com sucesso!');
-
-        reset();
-      } else {
+      if (!result.success) {
         alert.error('info', result.message, 'Tente novamente mais tarde.');
+        return;
       }
+
+      alert.success('Produto cadastrado com sucesso!');
+      reset();
     },
     [reset]
   );
@@ -76,116 +76,69 @@ const ProductsRegister = () => {
             label="Nome"
             className="inputName"
             control={control}
-            render={({ field }) => (
-              <div className="containerInputError">
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Nome do Produto"
-                  {...field}
-                />
-                <span className="error">
-                  {errors.name && errors.name.message}
-                </span>
-              </div>
-            )}
+            errors={errors}
           />
 
-          <Input
+          <Select
             name="category"
             label="Cateroria"
             className="inputCategory"
             control={control}
-            render={({ field }) => (
-              <div className="containerInputError">
-                <select id="category" {...field}>
-                  <option value=""></option>
-                  <option value="Notebooks">Notebooks</option>
-                  <option value="Smartphones">Celulares</option>
-                  <option value="Câmeras">Câmeras</option>
-                  <option value="PC-Gamer">PC Gamer</option>
-                  <option value="Acessórios">Acessórios</option>
-                </select>
-                <span className="error">
-                  {errors.category && errors.category.message}
-                </span>
-              </div>
-            )}
+            options={
+              <>
+                <option value=""></option>
+                <option value="Notebooks">Notebooks</option>
+                <option value="Smartphones">Celulares</option>
+                <option value="Câmeras">Câmeras</option>
+                <option value="PC-Gamer">PC Gamer</option>
+                <option value="Acessórios">Acessórios</option>
+              </>
+            }
+            errors={errors}
           />
         </div>
 
-        <Input
+        <TextArea
           name="description"
           label="Descrição"
           className="inputDescription"
           control={control}
-          render={({ field }) => (
-            <div className="containerInputError">
-              <textarea id="description" rows="5" {...field}></textarea>
-              <span className="error">
-                {errors.description && errors.description.message}
-              </span>
-            </div>
-          )}
+          errors={errors}
         />
 
         <div className="containerInputsRow">
           <Input
             name="price"
             label="Preço"
+            type="number"
+            step="0.01"
             className="inputPrice"
             control={control}
-            render={({ field }) => (
-              <div className="containerInputError">
-                <input
-                  id="price"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="Preço do Produto"
-                  {...field}
-                />
-                <span className="error">
-                  {errors.price && errors.price.message}
-                </span>
-              </div>
-            )}
+            errors={errors}
           />
 
           <Input
             name="qtde"
             label="Quantidade"
+            type="number"
+            step="1"
             className="inputQtde"
             control={control}
-            render={({ field }) => (
-              <div className="containerInputError">
-                <input
-                  id="qtde"
-                  type="number"
-                  min="0"
-                  step="1"
-                  placeholder="Qtde"
-                  {...field}
-                />
-                <span className="error">
-                  {errors.qtde && errors.qtde.message}
-                </span>
-              </div>
-            )}
+            errors={errors}
           />
 
-          <Input
+          <Select
             name="tag"
             label="Tag"
             className="inputTag"
             control={control}
-            render={({ field }) => (
-              <select id="tag" {...field}>
+            options={
+              <>
                 <option value="new">New</option>
                 <option value="hot">Hot</option>
                 <option value="promo">Promo</option>
-              </select>
-            )}
+              </>
+            }
           />
         </div>
 
@@ -194,19 +147,7 @@ const ProductsRegister = () => {
           label="Imagem"
           className="inputImage"
           control={control}
-          render={({ field }) => (
-            <div className="containerInputError">
-              <input
-                id="image"
-                type="text"
-                placeholder="Inserir o link da imagem"
-                {...field}
-              />
-              <span className="error">
-                {errors.image && errors.image.message}
-              </span>
-            </div>
-          )}
+          errors={errors}
         />
 
         <Button
