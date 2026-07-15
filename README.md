@@ -21,7 +21,7 @@ Durante o desenvolvimento foram explorados conceitos como:
 
 - [Demonstração](#-demonstração)
 - [Funcionalidades](#-funcionalidades)
-- [Tecnologias](#-tecnologias)
+- [Tecnologias](#%EF%B8%8F-tecnologias)
 - [Conceitos aplicados](#-conceitos-aplicados)
 - [Estrutura do projeto](#-estrutura-do-projeto)
 - [Instalação](#-instalação)
