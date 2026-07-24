@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
-import * as yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 
 import productsService from '../../../services/product/productService.js';
+import { productSchema } from '../../../schemas/productSchema.js';
 
 import alert from '../../../utils/alert.js';
 
@@ -12,21 +12,6 @@ import { Input, Select, TextArea } from '../../../components/Input';
 import Button from '../../../components/Button';
 
 import './styles.sass';
-
-const schema = yup.object({
-  name: yup.string().required('Este campo é obrigatório'),
-  category: yup.string().required('Selecione uma categoria'),
-  description: yup.string().required('Este campo é obrigatório'),
-  price: yup
-    .number()
-    .required('Este campo é obrigatório')
-    .moreThan(0, 'O preço deve ser maior que zero'),
-  qtde: yup.number().required('Este campo é obrigatório'),
-  image: yup
-    .string()
-    .required('Este campo é obrigatório')
-    .url('Insira um link válido para a imagem'),
-});
 
 const ProductsRegister = () => {
   const {
@@ -44,7 +29,7 @@ const ProductsRegister = () => {
       image: '',
       tag: 'new',
     },
-    resolver: yupResolver(schema),
+    resolver: yupResolver(productSchema),
   });
 
   const onSubmit = useCallback(
