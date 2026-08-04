@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 import { fetchLogin } from '../services/user/loginService.js';
 
@@ -18,7 +18,23 @@ const loginStatus = {
 };
 
 export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(initialUserState);
+  const [currentUser, setCurrentUser] = useState(() => {
+    const savedUser = localStorage.getItem('currentUser');
+
+    if (!savedUser) {
+      return initialUserState;
+    }
+
+    return JSON.parse(savedUser);
+  });
+
+  useEffect(() => {
+    if (currentUser.status) {
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    } else {
+      localStorage.removeItem('currentUser');
+    }
+  }, [currentUser]);
 
   const handleLogin = async (email, password) => {
     const result = await fetchLogin(email, password);
@@ -28,12 +44,14 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     if (result.user) {
-      setCurrentUser({
+      const user = {
         status: true,
-        email: email,
+        email,
         name: result.user.username,
         id: result.user.id,
-      });
+      };
+
+      setCurrentUser(user);
 
       return loginStatus.OK;
     } else {
