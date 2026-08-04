@@ -5,8 +5,8 @@ import { emailField, passwordField } from './commonSchema.js';
 export const registerSchema = yup.object({
   firstUserName: yup
     .string()
-    .min(3, 'O campo deve ter pelo menos 3 caracteres')
-    .required('O primeiro nome é obrigatório'),
+    .required('O primeiro nome é obrigatório')
+    .min(2, 'O campo deve ter pelo menos 2 caracteres'),
   email: emailField(),
   password: passwordField(),
 });
