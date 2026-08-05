@@ -9,5 +9,5 @@ export const emailField = () =>
 export const passwordField = () =>
   yup
     .string()
-    .min(6, 'A senha deve possuir no mínimo 6 caracteres')
-    .required('Senha obrigatória');
+    .required('Senha obrigatória')
+    .min(6, 'A senha deve possuir no mínimo 6 caracteres');
