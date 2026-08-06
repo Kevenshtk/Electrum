@@ -29,7 +29,7 @@ const getProducts = async () => {
   } catch (error) {
     return {
       success: false,
-      message: error.response?.data?.message || 'Erro ao buscar produtos',
+      message: error.response?.data?.message || 'Erro ao buscar produtos, tente mais tarde!',
     };
   }
 };
