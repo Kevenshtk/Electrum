@@ -36,7 +36,7 @@ const featUnavailable = () => {
 
   Toast.fire({
     icon: 'warning',
-    title: 'Funcionalidade ainda não disponível!',
+    title: 'Funcionalidade indisponível!',
   });
 };
 

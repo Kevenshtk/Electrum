@@ -24,11 +24,18 @@ jest.mock('../../../utils/alert', () => ({
   error: jest.fn(),
 }));
 
+const handleLogin = jest.fn();
+const setShowModal = jest.fn();
+
 beforeEach(() => {
   jest.clearAllMocks();
 });
 
-const renderForm = (handleLogin, setShowModal, isFormRegister = true) => {
+const renderForm = (
+  handleLogin = jest.fn(),
+  setShowModal = jest.fn(),
+  isFormRegister = true
+) => {
   render(
     <AuthContext.Provider value={{ handleLogin }}>
       <UserForm isFormRegister={isFormRegister} setShowModal={setShowModal} />
@@ -36,36 +43,70 @@ const renderForm = (handleLogin, setShowModal, isFormRegister = true) => {
   );
 };
 
+const userData = {
+  firstUserName: 'Teste',
+  email: 'teste@gmail.com',
+  password: '123456',
+};
+
+const fillFormAndSubmit = async (isFormRegister = true) => {
+  const user = userEvent.setup();
+  const buttonLabel = isFormRegister ? /Cadastrar/i : /Entrar/i;
+
+  if (isFormRegister) {
+    await user.type(
+      screen.getByLabelText(/primeiro nome/i),
+      userData.firstUserName
+    );
+  }
+
+  await user.type(screen.getByLabelText(/email/i), userData.email);
+  await user.type(screen.getByLabelText(/senha/i), userData.password);
+
+  await user.click(screen.getByRole('button', { name: buttonLabel }));
+};
+
 describe('UserForm - Cadastro', () => {
-  const fillFormRegisterAndSubmit = async () => {
-    const user = userEvent.setup();
+  it('deve renderizar o formulário de cadastro', () => {
+    renderForm();
 
-    await user.type(screen.getByLabelText(/primeiro nome/i), 'Teste');
+    expect(
+      screen.getByRole('heading', {
+        name: /Cadastre-se/i,
+      })
+    ).toBeInTheDocument();
 
-    await user.type(screen.getByLabelText(/email/i), 'teste@gmail.com');
+    expect(
+      screen.getByRole('button', {
+        name: /Cadastrar/i,
+      })
+    ).toBeInTheDocument();
+  });
 
-    await user.type(screen.getByLabelText(/senha/i), '123456');
+  it('deve chamar registerUser com os dados do formulário', async () => {
+    registerUser.mockResolvedValueOnce({
+      success: true,
+    });
 
-    await user.click(screen.getByRole('button', { name: /cadastrar/i }));
-  };
+    renderForm();
 
-  const handleLogin = jest.fn();
-  const setShowModal = jest.fn();
+    await fillFormAndSubmit();
 
-  it('deve realizar cadastro com sucesso', async () => {
+    expect(registerUser).toHaveBeenCalledWith({
+      firstUserName: userData.firstUserName,
+      email: userData.email,
+      password: userData.password,
+    });
+  });
+
+  it('deve exibir uma mensagem de sucesso ao cadastrar o usuário', async () => {
     registerUser.mockResolvedValueOnce({
       success: true,
     });
 
     renderForm(handleLogin, setShowModal);
 
-    await fillFormRegisterAndSubmit();
-
-    expect(registerUser).toHaveBeenCalledWith({
-      firstUserName: 'Teste',
-      email: 'teste@gmail.com',
-      password: '123456',
-    });
+    await fillFormAndSubmit();
 
     expect(alert.success).toHaveBeenCalledWith(
       'Cadastrado realizado com sucesso!'
@@ -74,20 +115,33 @@ describe('UserForm - Cadastro', () => {
     expect(setShowModal).toHaveBeenCalledWith(false);
   });
 
+  it('deve exibir mensagem de validação quando o formulário for enviado sem preencher os campos', async () => {
+    renderForm();
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Cadastrar/i }));
+
+    expect(
+      screen.getByText(/O primeiro nome é obrigatório/i)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Email obrigatório/i)).toBeInTheDocument();
+    expect(screen.getByText(/Senha obrigatória/i)).toBeInTheDocument();
+  });
+
   it('deve exibir uma mensagem de erro ao enviar o formulário com um e-mail já cadastrado', async () => {
     registerUser.mockResolvedValueOnce({
       success: true,
       emailExists: true,
     });
 
-    renderForm(handleLogin, setShowModal);
+    renderForm();
 
-    await fillFormRegisterAndSubmit();
+    await fillFormAndSubmit();
 
     expect(registerUser).toHaveBeenCalledWith({
-      firstUserName: 'Teste',
-      email: 'teste@gmail.com',
-      password: '123456',
+      firstUserName: userData.firstUserName,
+      email: userData.email,
+      password: userData.password,
     });
 
     expect(alert.error).toHaveBeenCalledWith(
@@ -95,6 +149,8 @@ describe('UserForm - Cadastro', () => {
       'Oops...',
       'Este e-mail já está cadastrado.'
     );
+
+    expect(setShowModal).not.toHaveBeenCalled();
   });
 
   it('deve exibir erro genérico quando ocorrer falha no servidor', async () => {
@@ -103,14 +159,14 @@ describe('UserForm - Cadastro', () => {
       message: 'Erro ao registrar usuário',
     });
 
-    renderForm(handleLogin, setShowModal);
+    renderForm();
 
-    await fillFormRegisterAndSubmit();
+    await fillFormAndSubmit();
 
     expect(registerUser).toHaveBeenCalledWith({
-      firstUserName: 'Teste',
-      email: 'teste@gmail.com',
-      password: '123456',
+      firstUserName: userData.firstUserName,
+      email: userData.email,
+      password: userData.password,
     });
 
     expect(alert.error).toHaveBeenCalledWith(
@@ -118,67 +174,94 @@ describe('UserForm - Cadastro', () => {
       'Erro ao realizar o cadastro.',
       'Por favor tente novamente mais tarde.'
     );
+
+    expect(setShowModal).not.toHaveBeenCalled();
   });
 });
 
 describe('UserForm - Login', () => {
-  const fillFormLoginAndSubmit = async ({
-    email = 'teste@gmail.com',
-    password = '123456',
-  } = {}) => {
-    const user = userEvent.setup();
+  it('deve renderizar o formulário de Login', () => {
+    renderForm(handleLogin, setShowModal, false);
 
-    await user.type(screen.getByLabelText(/email/i), email);
+    expect(
+      screen.getByRole('heading', {
+        name: /Faça seu login/i,
+      })
+    ).toBeInTheDocument();
 
-    await user.type(screen.getByLabelText(/senha/i), password);
+    expect(
+      screen.getByRole('button', {
+        name: /Entrar/i,
+      })
+    ).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /entrar/i }));
-  };
+    expect(screen.queryByLabelText(/primeiro nome/i)).not.toBeInTheDocument();
+  });
 
-  it('deve realizar login com sucesso', async () => {
+  it('deve chamar handleLogin com os dados do formulário', async () => {
+    renderForm(handleLogin, setShowModal, false);
+
+    await fillFormAndSubmit(false);
+
+    expect(handleLogin).toHaveBeenCalledWith(userData.email, userData.password);
+    expect(handleLogin).toHaveBeenCalledTimes(1);
+  });
+
+  it('deve fechar o modal ao realizar login com sucesso', async () => {
     const handleLogin = jest.fn().mockResolvedValueOnce('ok');
-    const setShowModal = jest.fn();
 
     renderForm(handleLogin, setShowModal, false);
 
-    await fillFormLoginAndSubmit();
+    await fillFormAndSubmit(false);
 
-    expect(handleLogin).toHaveBeenCalledWith('teste@gmail.com', '123456');
+    expect(alert.error).not.toHaveBeenCalled();
 
     expect(setShowModal).toHaveBeenCalledWith(false);
   });
 
-  it('deve exibir erro para credenciais inválidas', async () => {
+  it('deve exibir mensagem de validação quando o formulário for enviado sem preencher os campos', async () => {
+    renderForm(handleLogin, setShowModal, false);
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: /Entrar/i }));
+
+    expect(screen.getByText(/Email obrigatório/i)).toBeInTheDocument();
+    expect(screen.getByText(/Senha obrigatória/i)).toBeInTheDocument();
+  });
+
+  it('deve exibir um alerta de erro para credenciais inválidas', async () => {
     const handleLogin = jest.fn().mockResolvedValueOnce('failed');
-    const setShowModal = jest.fn();
 
     renderForm(handleLogin, setShowModal, false);
 
-    await fillFormLoginAndSubmit({ email: 'teste@gmail.co' });
+    await fillFormAndSubmit(false);
 
-    expect(handleLogin).toHaveBeenCalledWith('teste@gmail.co', '123456');
+    expect(handleLogin).toHaveBeenCalledWith(userData.email, userData.password);
 
     expect(alert.error).toHaveBeenCalledWith(
       'error',
       'Oops...',
       'Verifique seu e-mail ou senha.'
     );
+
+    expect(setShowModal).not.toHaveBeenCalled();
   });
 
-  it('deve exibir erro genérico quando ocorrer falha no servidor', async () => {
+  it('deve exibir um alerta de erro quando ocorrer falha no servidor', async () => {
     const handleLogin = jest.fn().mockResolvedValueOnce('server_error');
-    const setShowModal = jest.fn();
 
     renderForm(handleLogin, setShowModal, false);
 
-    await fillFormLoginAndSubmit();
+    await fillFormAndSubmit(false);
 
-    expect(handleLogin).toHaveBeenCalledWith('teste@gmail.com', '123456');
+    expect(handleLogin).toHaveBeenCalledWith(userData.email, userData.password);
 
     expect(alert.error).toHaveBeenCalledWith(
       'info',
       'Erro ao realizar login',
       'Tente novamente mais tarde.'
     );
+
+    expect(setShowModal).not.toHaveBeenCalled();
   });
 });

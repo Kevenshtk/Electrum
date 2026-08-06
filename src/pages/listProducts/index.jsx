@@ -14,25 +14,33 @@ import { formatCategory } from '../../utils/textFormatter.js';
 
 import AsideFilterProducts from '../../components/Aside/AsideFilterProducts';
 import { CardVertical } from '../../components/CardProduct';
+import { Loader } from '../../components/Loader';
 
 import './styles.sass';
 
 const ListProducts = () => {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [selectedTag, setSelectedTag] = useState('');
-  const [viewProducts, setVeiwProducts] = useState([]);
+  const [viewProducts, setViewProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
       const result = await productsService.get();
 
       if (!result.success) {
+        setError(true);
+        setProducts([]);
+        setLoading(false);
         alert.errorToast('error', result.message);
         return;
       }
 
       setProducts(result.data);
+      setLoading(false);
     };
 
     fetchProducts();
@@ -44,7 +52,7 @@ const ListProducts = () => {
     selectedTag &&
       (productsFiltered = filterProductsByTag(productsFiltered, selectedTag));
 
-    setVeiwProducts(productsFiltered);
+    setViewProducts(productsFiltered);
   }, [products, category, selectedTag]);
 
   const orderProductsByPrice = useCallback(
@@ -59,7 +67,7 @@ const ListProducts = () => {
         productsOrdered = filterProductsByCategory(products, category);
       }
 
-      setVeiwProducts(productsOrdered);
+      setViewProducts(productsOrdered);
     },
     [viewProducts, products, category]
   );
@@ -76,23 +84,25 @@ const ListProducts = () => {
           />
 
           <main className="products-grid">
-            {viewProducts.length !== 0 ? (
-              viewProducts.map(({ id, tag, image, category, name, price }) => {
-                return (
-                  <CardVertical
-                    key={id}
-                    idProduct={id}
-                    className="list"
-                    tag={tag}
-                    image={image}
-                    category={category}
-                    name={name}
-                    price={price}
-                  />
-                );
-              })
+            {loading ? (
+              <Loader />
+            ) : viewProducts.length > 0 ? (
+              viewProducts.map(({ id, tag, image, category, name, price }) => (
+                <CardVertical
+                  key={id}
+                  idProduct={id}
+                  className="list"
+                  tag={tag}
+                  image={image}
+                  category={category}
+                  name={name}
+                  price={price}
+                />
+              ))
+            ) : error ? (
+              <p>Não foi possível carregar os produtos.</p>
             ) : (
-              <p>Nenhum produto encontrado para {category}.</p>
+              <p>Nenhum produto encontrado para {formatCategory(category)}.</p>
             )}
           </main>
         </div>

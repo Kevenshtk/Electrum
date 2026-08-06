@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import * as yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -7,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../context/auth';
 
 import { registerUser } from '../../../services/user/userService.js';
+import { registerSchema, loginSchema } from '../../../schemas/userSchema.js';
 
 import alert from '../../../utils/alert.js';
 
@@ -18,25 +18,6 @@ import './styles.sass';
 const UserForm = ({ setShowModal, isFormRegister }) => {
   const { handleLogin } = useContext(AuthContext);
 
-  const schema = yup.object({
-    firstUserName: isFormRegister
-      ? yup
-          .string()
-          .min(3, 'O campo deve ter pelo menos 3 caracteres')
-          .required('O primeiro nome é obrigatório')
-      : yup.string(),
-
-    email: yup
-      .string()
-      .email('E-mail inválido')
-      .required('O e-mail é obrigatório'),
-
-    password: yup
-      .string()
-      .min(6, 'A senha deve ter pelo menos 6 caracteres')
-      .required('A senha é obrigatório'),
-  });
-
   const {
     control,
     handleSubmit,
@@ -47,7 +28,7 @@ const UserForm = ({ setShowModal, isFormRegister }) => {
       email: '',
       password: '',
     },
-    resolver: yupResolver(schema),
+    resolver: yupResolver(isFormRegister ? registerSchema : loginSchema),
   });
 
   const onSubmit = async (data) => {
