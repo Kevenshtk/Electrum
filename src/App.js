@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth.jsx';
 import { FavoriteContextProvider } from './context/favorites.jsx';
 import { ShoppingCartContextProvider } from './context/shoppingCart.jsx';
+import { ProductsContextProvider } from './context/products.jsx';
 
 import alert from './utils/alert.js';
 
@@ -32,25 +33,27 @@ function App() {
     <>
       <Router>
         <AuthContextProvider>
-          <FavoriteContextProvider>
-            <ShoppingCartContextProvider>
-              <Header
-                setShowModal={setShowModal}
-                setIsFormRegister={setIsFormRegister}
-              />
+          <ProductsContextProvider>
+            <FavoriteContextProvider>
+              <ShoppingCartContextProvider>
+                <Header
+                  setShowModal={setShowModal}
+                  setIsFormRegister={setIsFormRegister}
+                />
 
-              <MainRoutes />
+                <MainRoutes />
 
-              {showModal && (
-                <Modal setShowModal={setShowModal}>
-                  <UserForm
-                    setShowModal={setShowModal}
-                    isFormRegister={isFormRegister}
-                  />
-                </Modal>
-              )}
-            </ShoppingCartContextProvider>
-          </FavoriteContextProvider>
+                {showModal && (
+                  <Modal setShowModal={setShowModal}>
+                    <UserForm
+                      setShowModal={setShowModal}
+                      isFormRegister={isFormRegister}
+                    />
+                  </Modal>
+                )}
+              </ShoppingCartContextProvider>
+            </FavoriteContextProvider>
+          </ProductsContextProvider>
         </AuthContextProvider>
       </Router>
     </>
