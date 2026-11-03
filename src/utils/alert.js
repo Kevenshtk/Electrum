@@ -87,6 +87,20 @@ const showSuccessToast = (title) => {
   });
 };
 
+const confirmDelete = async () => {
+  const result = await Swal.fire({
+    title: 'Deseja excluir o registro?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sim, excluir!',
+    cancelButtonText: 'Não, cancelar!',
+  });
+
+  return result.isConfirmed;
+};
+
 const alert = {
   login: toLogin,
   initial: initialWarning,
@@ -95,6 +109,7 @@ const alert = {
   errorToast: showErrorToast,
   success: showSuccess,
   successToast: showSuccessToast,
+  delete: confirmDelete,
 };
 
 export default alert;

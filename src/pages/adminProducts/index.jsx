@@ -5,15 +5,23 @@ import { FaPlus } from 'react-icons/fa';
 import { LuPencil, LuTrash2 } from 'react-icons/lu';
 
 import { ProductsContext } from '../../context/products.jsx';
+import { formatCategory, formatPrice } from '../../utils/textFormatter.js';
+import alert from '../../utils/alert.js';
 
 import './styles.sass';
 
 const AdminProducts = () => {
-  const { products, loadProducts } = useContext(ProductsContext);
+  const { products, loadProducts, delProduct } = useContext(ProductsContext);
+
+  const handleDeleteProduct = async (id) => {
+    const result = await alert.delete();
+
+    result && delProduct(id)
+  }
 
   useEffect(() => {
     loadProducts();
-  }, []);
+  }, [loadProducts]);
 
   return (
     <div className="admin-products">
@@ -58,8 +66,8 @@ const AdminProducts = () => {
                     </span>
                     <span className="admin-products-code">#{product.id}</span>
                   </th>
-                  <td>{product.category}</td>
-                  <td className="admin-products-price">R$ {product.price}</td>
+                  <td>{formatCategory(product.category)}</td>
+                  <td className="admin-products-price">R$ {formatPrice(product.price)}</td>
                   <td>1</td>
                   <td>
                     <select
@@ -78,7 +86,7 @@ const AdminProducts = () => {
                       <button
                         type="button"
                         className="admin-products-edit"
-                        aria-label="Editar Monitor Gamer LG"
+                        aria-label={`Editar ${product.name}`}
                         title="Editar produto"
                       >
                         <LuPencil size={17} aria-hidden="true" />
@@ -86,8 +94,9 @@ const AdminProducts = () => {
                       <button
                         type="button"
                         className="admin-products-delete"
-                        aria-label="Excluir Monitor Gamer LG"
+                        aria-label={`Excluir ${product.name}`}
                         title="Excluir produto"
+                        onClick={() => handleDeleteProduct(product.id)}
                       >
                         <LuTrash2 size={17} aria-hidden="true" />
                       </button>

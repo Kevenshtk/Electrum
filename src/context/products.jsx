@@ -22,16 +22,30 @@ export const ProductsContextProvider = ({ children }) => {
   const addProduct = async (data) => {
     const result = await productsService.add(data);
 
-    if(result.success){
-      alert.successToast("Produto cadastrado com sucesso!");
+    if (result.success) {
+      alert.successToast('Produto cadastrado com sucesso!');
       return true;
     } else {
       alert.error('info', result.message, 'Tente novamente mais tarde.');
       return false;
     }
-  }
+  };
+
+  const delProduct = async (id) => {
+    const result = await productsService.del(id);
+
+    if (result.success) {
+      alert.successToast('Produto deletado com sucesso!');
+    } else {
+      alert.error('info', result.message, 'Tente novamente mais tarde.');
+    }
+  };
 
   return (
-    <ProductsContext.Provider value={{products, loadProducts, addProduct}}>{children}</ProductsContext.Provider>
+    <ProductsContext.Provider
+      value={{ products, loadProducts, addProduct, delProduct }}
+    >
+      {children}
+    </ProductsContext.Provider>
   );
 };
