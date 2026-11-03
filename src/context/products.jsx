@@ -19,7 +19,19 @@ export const ProductsContextProvider = ({ children }) => {
     }
   };
 
+  const addProduct = async (data) => {
+    const result = await productsService.add(data);
+
+    if(result.success){
+      alert.successToast("Produto cadastrado com sucesso!");
+      return true;
+    } else {
+      alert.error('info', result.message, 'Tente novamente mais tarde.');
+      return false;
+    }
+  }
+
   return (
-    <ProductsContext.Provider value={{products, loadProducts}}>{children}</ProductsContext.Provider>
+    <ProductsContext.Provider value={{products, loadProducts, addProduct}}>{children}</ProductsContext.Provider>
   );
 };
