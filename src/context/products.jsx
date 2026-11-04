@@ -8,15 +8,23 @@ export const ProductsContext = createContext();
 
 export const ProductsContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [errorLoad, setErrorLoad] = useState(false);
 
   const loadProducts = async () => {
+    setLoading(true);
+    setErrorLoad(false);
+
     const result = await productsService.get();
 
     if (result.success) {
       setProducts(result.data);
     } else {
       alert.errorToast('warning', result.message);
+      setErrorLoad(true);
     }
+
+    setLoading(false);
   };
 
   const addProduct = async (data) => {
@@ -43,7 +51,7 @@ export const ProductsContextProvider = ({ children }) => {
 
   return (
     <ProductsContext.Provider
-      value={{ products, loadProducts, addProduct, delProduct }}
+      value={{ products, loading, errorLoad, loadProducts, addProduct, delProduct }}
     >
       {children}
     </ProductsContext.Provider>
