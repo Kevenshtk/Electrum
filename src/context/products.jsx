@@ -39,6 +39,18 @@ export const ProductsContextProvider = ({ children }) => {
     }
   };
 
+  const uptProduct = async (id, data) => {
+    const result = await productsService.uptProd(id, data);
+
+    if (result.success) {
+      alert.successToast('Produto Atualizado com sucesso!');
+      return true;
+    } else {
+      alert.error('info', result.message, 'Tente novamente mais tarde.');
+      return false;
+    }
+  };
+
   const delProduct = async (id) => {
     const result = await productsService.del(id);
 
@@ -51,7 +63,15 @@ export const ProductsContextProvider = ({ children }) => {
 
   return (
     <ProductsContext.Provider
-      value={{ products, loading, errorLoad, loadProducts, addProduct, delProduct }}
+      value={{
+        products,
+        loading,
+        errorLoad,
+        loadProducts,
+        addProduct,
+        uptProduct,
+        delProduct,
+      }}
     >
       {children}
     </ProductsContext.Provider>

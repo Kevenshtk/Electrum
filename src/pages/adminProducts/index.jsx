@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 
 import { FaPlus } from 'react-icons/fa';
 import { LuPencil, LuTrash2 } from 'react-icons/lu';
+import { useNavigate } from "react-router-dom";
 
 import { ProductsContext } from '../../context/products.jsx';
 import { formatCategory, formatPrice } from '../../utils/textFormatter.js';
@@ -11,12 +12,17 @@ import alert from '../../utils/alert.js';
 import './styles.sass';
 
 const AdminProducts = () => {
-  const { products, loadProducts, delProduct } = useContext(ProductsContext);
+  const navigate = useNavigate();
+  const { products, loadProducts, loading, delProduct } = useContext(ProductsContext);
 
   const handleDeleteProduct = async (id) => {
     const result = await alert.delete();
 
     result && delProduct(id)
+  }
+
+  const handleUpdateProduct = (id) => {
+    navigate(`upt/${id}`);
   }
 
   useEffect(() => {
@@ -88,6 +94,7 @@ const AdminProducts = () => {
                         className="admin-products-edit"
                         aria-label={`Editar ${product.name}`}
                         title="Editar produto"
+                        onClick={() => handleUpdateProduct(product.id)}
                       >
                         <LuPencil size={17} aria-hidden="true" />
                       </button>
@@ -104,7 +111,6 @@ const AdminProducts = () => {
                   </td>
                 </tr>
                 ))}
-                
               </tbody>
             </table>
           </div>

@@ -1,7 +1,8 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { useParams, Link } from 'react-router-dom';
 
 import { ProductsContext } from '../../../context/products.jsx';
 import { productSchema } from '../../../schemas/productSchema.js';
@@ -12,7 +13,8 @@ import Button from '../../../components/Button';
 import './styles.sass';
 
 const ProductsRegister = () => {
-  const { addProduct } = useContext(ProductsContext);
+  const { idProduct } = useParams();
+  const { addProduct, uptProduct, products } = useContext(ProductsContext);
   const {
     control,
     handleSubmit,
@@ -31,9 +33,26 @@ const ProductsRegister = () => {
     resolver: yupResolver(productSchema),
   });
 
+  // ver como executar apenas quando for atualizar
+  useEffect(() => {
+    if (idProduct) {
+      const productData = products.find((p) => p.id === Number(idProduct));
+
+      reset({
+        name: productData.name,
+        category: productData.category,
+        description: productData.description,
+        qtde: 1,
+        price: productData.price,
+        image: productData.image,
+        tag: productData.tag,
+      });
+    }
+  }, [idProduct, products, reset]);
+
   const onSubmit = useCallback(
     async (data) => {
-      const result = await addProduct(data);
+      const result = idProduct ? await uptProduct(idProduct, data) : await addProduct(data);
 
       if (!result.success) {
         return;
@@ -41,12 +60,14 @@ const ProductsRegister = () => {
 
       reset();
     },
-    [addProduct, reset]
+    [idProduct, addProduct, uptProduct, reset]
   );
 
   return (
     <main className="mainRegisterProducts">
-      <h1>Cadastro de produtos</h1>
+      <Link to="/admin/products">Voltar</Link>
+
+      <h1>{idProduct ? 'Atualizar produto' : 'Cadastro de produtos'}</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         id="productsRegisterForm"
@@ -136,7 +157,13 @@ const ProductsRegister = () => {
           type="submit"
           className="btn"
           disabled={isSubmitting}
-          text={isSubmitting ? 'Enviando...' : 'Cadastrar produto'}
+          text={
+            isSubmitting
+              ? 'Enviando...'
+              : idProduct
+                ? 'Atualizar produto'
+                : 'Cadastrar produto'
+          }
         />
       </form>
     </main>

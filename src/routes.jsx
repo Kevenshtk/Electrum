@@ -43,6 +43,16 @@ const MainRoutes = () => {
             )
           }
         />
+        <Route
+          path="admin/products/upt/:idProduct"
+          element={
+            currentUser.status ? (
+              <ProductsRegister />
+            ) : (
+              <Home statusAPI={statusAPI} />
+            )
+          }
+        />
         <Route path="/list/:category" element={<ListProducts />} />
         <Route
           path="/favorites/:idUser"
