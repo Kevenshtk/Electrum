@@ -32,6 +32,29 @@ const getProducts = async () => {
   }
 };
 
+const getProductsById = async (id) => {
+  try {
+    const response = await api.get('/products');
+    
+    if (!response.data) {
+      throw new Error('Erro ao buscar produtos, tente mais tarde!');
+    }
+
+    const productData = response.data.find((p) => p.id === Number(id));
+
+    if (!productData) {
+      throw new Error();
+    }
+
+    return { success: true, data: productData };
+  } catch (error) {
+    return handleError(
+      error,
+      'Produto não encontrado!'
+    );
+  }
+};
+
 const updateProduct = async (id, data) => {
   try {
     await api.put(`/products/${id}`, {
@@ -52,7 +75,7 @@ const updateProduct = async (id, data) => {
 //const updateTagProduct = async () => {};
 
 const deleteProduct = async (id) => {
-    try {
+  try {
     await api.delete(`/products/${id}`);
 
     return { success: true };
@@ -63,10 +86,11 @@ const deleteProduct = async (id) => {
 
 const productsService = {
   get: getProducts,
+  getById: getProductsById,
   add: createProduct,
   uptProd: updateProduct,
   //uptTag: updateTagProduct,
-  del: deleteProduct
+  del: deleteProduct,
 };
 
 export default productsService;

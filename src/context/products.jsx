@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useCallback } from 'react';
 
 import productsService from '../services/product/productService.js';
 
@@ -26,6 +26,20 @@ export const ProductsContextProvider = ({ children }) => {
 
     setLoading(false);
   };
+
+  const loadProduct = useCallback(async (id) => {
+    const result = await productsService.getById(id);
+
+    if (!result.success) {
+      alert.errorToast('warning', result.message);
+      return { success: false };
+    }
+
+    return {
+      success: true,
+      data: result.data,
+    };
+  }, []);
 
   const addProduct = async (data) => {
     const result = await productsService.add(data);
@@ -68,6 +82,7 @@ export const ProductsContextProvider = ({ children }) => {
         loading,
         errorLoad,
         loadProducts,
+        loadProduct,
         addProduct,
         uptProduct,
         delProduct,

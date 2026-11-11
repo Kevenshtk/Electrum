@@ -13,7 +13,7 @@ import './styles.sass';
 
 const AdminProducts = () => {
   const navigate = useNavigate();
-  const { products, loadProducts, loading, delProduct } = useContext(ProductsContext);
+  const { products, loadProducts, delProduct } = useContext(ProductsContext);
 
   const handleDeleteProduct = async (id) => {
     const result = await alert.delete();

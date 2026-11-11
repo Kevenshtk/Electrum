@@ -14,7 +14,7 @@ import './styles.sass';
 
 const ProductsRegister = () => {
   const { idProduct } = useParams();
-  const { addProduct, uptProduct, products } = useContext(ProductsContext);
+  const { addProduct, loadProduct, uptProduct } = useContext(ProductsContext);
   const {
     control,
     handleSubmit,
@@ -33,26 +33,33 @@ const ProductsRegister = () => {
     resolver: yupResolver(productSchema),
   });
 
-  // ver como executar apenas quando for atualizar
   useEffect(() => {
-    if (idProduct) {
-      const productData = products.find((p) => p.id === Number(idProduct));
+    const fatchProduct = async () => {
+      const productData = await loadProduct(idProduct);
 
-      reset({
-        name: productData.name,
-        category: productData.category,
-        description: productData.description,
-        qtde: 1,
-        price: productData.price,
-        image: productData.image,
-        tag: productData.tag,
-      });
+      if (productData.success) {
+        reset({
+          name: productData.data.name,
+          category: productData.data.category,
+          description: productData.data.description,
+          qtde: 1,
+          price: productData.data.price,
+          image: productData.data.image,
+          tag: productData.data.tag,
+        });
+      }
+    };
+
+    if (idProduct) {
+      fatchProduct();
     }
-  }, [idProduct, products, reset]);
+  }, [idProduct, loadProduct, reset]);
 
   const onSubmit = useCallback(
     async (data) => {
-      const result = idProduct ? await uptProduct(idProduct, data) : await addProduct(data);
+      const result = idProduct
+        ? await uptProduct(idProduct, data)
+        : await addProduct(data);
 
       if (!result.success) {
         return;
@@ -65,7 +72,7 @@ const ProductsRegister = () => {
 
   return (
     <main className="mainRegisterProducts">
-      <Link to="/admin/products">Voltar</Link>
+      <Link to="/admin/products" className='btn-filter'>Voltar</Link>
 
       <h1>{idProduct ? 'Atualizar produto' : 'Cadastro de produtos'}</h1>
       <form
