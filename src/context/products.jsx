@@ -8,10 +8,10 @@ export const ProductsContext = createContext();
 
 export const ProductsContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [errorLoad, setErrorLoad] = useState(false);
 
-  const loadProducts = async () => {
+  const loadProducts = useCallback(async () => {
     setLoading(true);
     setErrorLoad(false);
 
@@ -25,7 +25,7 @@ export const ProductsContextProvider = ({ children }) => {
     }
 
     setLoading(false);
-  };
+  }, []);
 
   const loadProduct = useCallback(async (id) => {
     const result = await productsService.getById(id);
