@@ -13,6 +13,7 @@ const ProductsRegister = lazy(() => import('./pages/register/products'));
 const ListProducts = lazy(() => import('./pages/listProducts'));
 const Favorites = lazy(() => import('./pages/favorites'));
 const ShoppingCar = lazy(() => import('./pages/shoppingCar'));
+const AdminProducts = lazy(() => import('./pages/adminProducts'));
 
 const MainRoutes = () => {
   const { currentUser } = useContext(AuthContext);
@@ -23,7 +24,27 @@ const MainRoutes = () => {
       <Routes>
         <Route path="/" element={<Home statusAPI={statusAPI} />} />
         <Route
-          path="/register/products"
+          path="/admin/products"
+          element={
+            currentUser.status && currentUser.name === 'Teste' ? (
+              <AdminProducts />
+            ) : (
+              <Home statusAPI={statusAPI} />
+            )
+          }
+        />
+        <Route
+          path="products/register"
+          element={
+            currentUser.status ? (
+              <ProductsRegister />
+            ) : (
+              <Home statusAPI={statusAPI} />
+            )
+          }
+        />
+        <Route
+          path="admin/products/upt/:idProduct"
           element={
             currentUser.status ? (
               <ProductsRegister />

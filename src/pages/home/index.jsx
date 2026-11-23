@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
 
-import productsService from '../../services/product/productService.js';
+import { ProductsContext } from '../../context/products.jsx'
 
 import useWindowWidth from '../../hooks/useWindowWidth.js';
 import usePagination from '../../hooks/usePagination.js';
-import alert from '../../utils/alert.js';
 
 import BannerSection from './BannerSection';
 import ProductsSection from './ProductsSection';
@@ -15,24 +14,17 @@ import Footer from '../../layout/Footer';
 
 
 const Home = ({ statusAPI }) => {
-  const [products, setProducts] = useState([]);
+  const { loadProducts, products } = useContext(ProductsContext);
 
   const width = useWindowWidth();
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const result = await productsService.get();
-
-      if (!result.success) {
-        alert.errorToast('error', result.message);
-        return;
-      }
-
-      setProducts(result.data);
+      await loadProducts();
     };
 
     fetchProducts();
-  }, []);
+  }, [loadProducts]);
 
   const {
     page: viewProductsPromo,

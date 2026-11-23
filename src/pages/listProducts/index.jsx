@@ -1,10 +1,8 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import productsService from '../../services/product/productService.js';
-
-import alert from '../../utils/alert';
+import { ProductsContext } from '../../context/products.jsx'
 
 import {
   filterProductsByCategory,
@@ -20,31 +18,17 @@ import './styles.sass';
 
 const ListProducts = () => {
   const { category } = useParams();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const { loadProducts, products, loading, errorLoad } = useContext(ProductsContext);
   const [selectedTag, setSelectedTag] = useState('');
   const [viewProducts, setViewProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true);
-      const result = await productsService.get();
-
-      if (!result.success) {
-        setError(true);
-        setProducts([]);
-        setLoading(false);
-        alert.errorToast('error', result.message);
-        return;
-      }
-
-      setProducts(result.data);
-      setLoading(false);
+      await loadProducts();
     };
 
     fetchProducts();
-  }, [category]);
+  }, [category, loadProducts]);
 
   useEffect(() => {
     let productsFiltered = filterProductsByCategory(products, category);
@@ -99,7 +83,7 @@ const ListProducts = () => {
                   price={price}
                 />
               ))
-            ) : error ? (
+            ) : errorLoad ? (
               <p>Não foi possível carregar os produtos.</p>
             ) : (
               <p>Nenhum produto encontrado para {formatCategory(category)}.</p>

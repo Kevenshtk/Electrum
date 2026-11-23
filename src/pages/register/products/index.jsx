@@ -1,12 +1,11 @@
-import { useCallback } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { useParams, Link } from 'react-router-dom';
 
-import productsService from '../../../services/product/productService.js';
+import { ProductsContext } from '../../../context/products.jsx';
 import { productSchema } from '../../../schemas/productSchema.js';
-
-import alert from '../../../utils/alert.js';
 
 import { Input, Select, TextArea } from '../../../components/Input';
 import Button from '../../../components/Button';
@@ -14,6 +13,8 @@ import Button from '../../../components/Button';
 import './styles.sass';
 
 const ProductsRegister = () => {
+  const { idProduct } = useParams();
+  const { addProduct, loadProduct, uptProduct } = useContext(ProductsContext);
   const {
     control,
     handleSubmit,
@@ -32,24 +33,48 @@ const ProductsRegister = () => {
     resolver: yupResolver(productSchema),
   });
 
+  useEffect(() => {
+    const fatchProduct = async () => {
+      const productData = await loadProduct(idProduct);
+
+      if (productData.success) {
+        reset({
+          name: productData.data.name,
+          category: productData.data.category,
+          description: productData.data.description,
+          qtde: 1,
+          price: productData.data.price,
+          image: productData.data.image,
+          tag: productData.data.tag,
+        });
+      }
+    };
+
+    if (idProduct) {
+      fatchProduct();
+    }
+  }, [idProduct, loadProduct, reset]);
+
   const onSubmit = useCallback(
     async (data) => {
-      const result = await productsService.add(data);
+      const result = idProduct
+        ? await uptProduct(idProduct, data)
+        : await addProduct(data);
 
       if (!result.success) {
-        alert.error('info', result.message, 'Tente novamente mais tarde.');
         return;
       }
 
-      alert.success('Produto cadastrado com sucesso!');
       reset();
     },
-    [reset]
+    [idProduct, addProduct, uptProduct, reset]
   );
 
   return (
     <main className="mainRegisterProducts">
-      <h1>Cadastro de produtos</h1>
+      <Link to="/admin/products" className='btn-filter'>Voltar</Link>
+
+      <h1>{idProduct ? 'Atualizar produto' : 'Cadastro de produtos'}</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         id="productsRegisterForm"
@@ -72,11 +97,11 @@ const ProductsRegister = () => {
             options={
               <>
                 <option value=""></option>
-                <option value="Notebooks">Notebooks</option>
-                <option value="Smartphones">Celulares</option>
-                <option value="Câmeras">Câmeras</option>
-                <option value="PC-Gamer">PC Gamer</option>
-                <option value="Acessórios">Acessórios</option>
+                <option value="notebook">Notebooks</option>
+                <option value="celular">Celulares</option>
+                <option value="camera">Câmeras</option>
+                <option value="pc-gamer">PC Gamer</option>
+                <option value="acessorio">Acessórios</option>
               </>
             }
             errors={errors}
@@ -139,7 +164,13 @@ const ProductsRegister = () => {
           type="submit"
           className="btn"
           disabled={isSubmitting}
-          text={isSubmitting ? 'Enviando...' : 'Cadastrar produto'}
+          text={
+            isSubmitting
+              ? 'Enviando...'
+              : idProduct
+                ? 'Atualizar produto'
+                : 'Cadastrar produto'
+          }
         />
       </form>
     </main>

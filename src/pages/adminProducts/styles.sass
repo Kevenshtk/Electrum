@@ -1,0 +1,148 @@
+@use '../../styles/mixins' as *
+@use '../../styles/variables' as *
+
+.admin-products
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+  background-color: $light-color
+  color: $dark-color
+
+.admin-products-main
+  flex: 1
+  padding: 0 1.5rem
+
+.admin-products-panel
+  @include floating-container(700px, '0 18px 35px rgba(0, 0, 0, 0.2)')
+  max-width: $container-width
+  background-color: $light-color
+  padding: 2.5rem
+  min-width: 0
+
+  @include mobile
+    padding: 1.5rem 1rem
+    margin: 2rem auto
+    border-radius: 24px
+
+.admin-products-title
+  margin: 0 0 2rem
+  color: $primary-color
+  text-align: center
+  font-size: 1.75rem
+  font-weight: 700
+
+  @include mobile
+    font-size: 1.4rem
+
+.admin-products-toolbar
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 1rem
+  margin-bottom: 1.5rem
+  flex-wrap: wrap
+
+.admin-products-count
+  margin: 0
+  font-size: 0.9rem
+
+.admin-products-add
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  gap: 0.5rem
+  padding: 0.8rem 1.5rem
+  border: 0
+  border-radius: 30px
+  background-color: $primary-color
+  color: $light-color
+  font: inherit
+  font-size: 0.85rem
+  font-weight: 700
+  text-transform: uppercase
+  cursor: pointer
+
+  &:hover
+    background-color: $dark-color
+
+.admin-products-table-container
+  width: 100%
+  overflow-x: auto
+
+.admin-products-table
+  width: 100%
+  min-width: 780px
+  border-collapse: collapse
+  text-align: left
+  font-size: 0.9rem
+
+  th, td
+    padding: 1.25rem 0.85rem
+    border-bottom: 1px solid $section-bg-color
+    vertical-align: middle
+
+  thead th
+    background-color: $section-bg-color
+    color: $link-color
+    font-size: 0.8rem
+    font-weight: 600
+
+  tbody th
+    width: 32%
+    font-weight: 600
+
+  tbody tr:last-child
+    th, td
+      border-bottom: 0
+
+.admin-products-name
+  display: block
+  line-height: 1.5
+
+.admin-products-code
+  display: block
+  margin-top: 0.3rem
+  color: $gray-text-color
+  font-size: 0.75rem
+  font-weight: 400
+
+.admin-products-price
+  white-space: nowrap
+  font-weight: 600
+
+.admin-products-tag
+  width: 100px
+  padding: 0.5rem
+  border: 1px solid $section-bg-color
+  border-radius: 4px
+  background-color: $light-color
+  color: $dark-color
+  font: inherit
+  cursor: pointer
+
+.admin-products-actions
+  display: flex
+  gap: 0.5rem
+
+.admin-products-edit, .admin-products-delete
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  width: 36px
+  height: 36px
+  border: 1px solid $section-bg-color
+  border-radius: 4px
+  background-color: $light-color
+  color: $link-color
+  cursor: pointer
+
+  &:hover
+    background-color: $section-bg-color
+
+.admin-products-delete
+  color: $primary-color
+
+.admin-products-add, .admin-products-edit, .admin-products-delete, .admin-products-tag, .admin-products-table-container
+  &:focus-visible
+    outline: 2px solid $primary-color
+    outline-offset: 3px
