@@ -5,6 +5,7 @@ import {
   FaLocationDot,
   FaDollarSign,
   FaUser,
+  FaClipboardList,
 } from 'react-icons/fa6';
 
 import useWindowWidth from '../../../hooks/useWindowWidth';
@@ -43,20 +44,34 @@ const HeaderTop = ({ currentUser, handleShowModal, handleLogout }) => {
               BRL
             </Link>
           </span>
-          <FaUser className="icon" />
-          <Button
-            className="btn-simples"
-            text={currentUser.status ? currentUser.name : 'Login '}
-            onClick={() =>
-              currentUser.status ? handleLogout() : handleShowModal('login')
-            }
-          />
-          {!currentUser.status && (
+          <span>
+            <FaUser className="icon" />
             <Button
-              className="btn-simples register"
-              text="Registrar"
-              onClick={() => handleShowModal('register')}
+              className="btn-simples"
+              text={currentUser.status ? currentUser.name : 'Login'}
+              onClick={() =>
+                currentUser.status ? handleLogout() : handleShowModal('login')
+              }
             />
+          </span>
+
+          {!currentUser.status && (
+            <span>
+              <Button
+                className="btn-simples register"
+                text="Registrar"
+                onClick={() => handleShowModal('register')}
+              />
+            </span>
+          )}
+
+          {currentUser.name === 'Teste' && (
+            <span className="btn-simples">
+              <Link to="/admin/products">
+                <FaClipboardList className="icon" />
+                Painel
+              </Link>
+            </span>
           )}
         </div>
       </div>

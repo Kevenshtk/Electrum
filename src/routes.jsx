@@ -26,7 +26,7 @@ const MainRoutes = () => {
         <Route
           path="/admin/products"
           element={
-            currentUser.status ? (
+            currentUser.status && currentUser.name === 'Teste' ? (
               <AdminProducts />
             ) : (
               <Home statusAPI={statusAPI} />
